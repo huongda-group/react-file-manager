@@ -1,0 +1,41 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+import { FaRegFileAudio, FaRegFileImage, FaRegFileLines, FaRegFilePdf, FaRegFileVideo, FaRegFileWord, FaRegFilePowerpoint, FaRegFileExcel, FaRegFileCode, FaLaptopFile, FaRegFileZipper, } from "react-icons/fa6";
+export const useFileIcons = (size) => {
+    const fileIcons = {
+        pdf: _jsx(FaRegFilePdf, { size: size }),
+        jpg: _jsx(FaRegFileImage, { size: size }),
+        jpeg: _jsx(FaRegFileImage, { size: size }),
+        png: _jsx(FaRegFileImage, { size: size }),
+        txt: _jsx(FaRegFileLines, { size: size }),
+        doc: _jsx(FaRegFileWord, { size: size }),
+        docx: _jsx(FaRegFileWord, { size: size }),
+        mp4: _jsx(FaRegFileVideo, { size: size }),
+        webm: _jsx(FaRegFileVideo, { size: size }),
+        mp3: _jsx(FaRegFileAudio, { size: size }),
+        m4a: _jsx(FaRegFileAudio, { size: size }),
+        zip: _jsx(FaRegFileZipper, { size: size }),
+        ppt: _jsx(FaRegFilePowerpoint, { size: size }),
+        pptx: _jsx(FaRegFilePowerpoint, { size: size }),
+        xls: _jsx(FaRegFileExcel, { size: size }),
+        xlsx: _jsx(FaRegFileExcel, { size: size }),
+        exe: _jsx(FaLaptopFile, { size: size }),
+        html: _jsx(FaRegFileCode, { size: size }),
+        css: _jsx(FaRegFileCode, { size: size }),
+        js: _jsx(FaRegFileCode, { size: size }),
+        php: _jsx(FaRegFileCode, { size: size }),
+        py: _jsx(FaRegFileCode, { size: size }),
+        java: _jsx(FaRegFileCode, { size: size }),
+        cpp: _jsx(FaRegFileCode, { size: size }),
+        c: _jsx(FaRegFileCode, { size: size }),
+        ts: _jsx(FaRegFileCode, { size: size }),
+        jsx: _jsx(FaRegFileCode, { size: size }),
+        tsx: _jsx(FaRegFileCode, { size: size }),
+        json: _jsx(FaRegFileCode, { size: size }),
+        xml: _jsx(FaRegFileCode, { size: size }),
+        sql: _jsx(FaRegFileCode, { size: size }),
+        csv: _jsx(FaRegFileCode, { size: size }),
+        md: _jsx(FaRegFileCode, { size: size }),
+        svg: _jsx(FaRegFileCode, { size: size }),
+    };
+    return fileIcons;
+};

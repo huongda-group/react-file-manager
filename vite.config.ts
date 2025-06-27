@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: "./src/index.js",
+      entry: "./src/index.ts",
       name: "ReactFileManager",
       fileName: (format) => `react-file-manager.${format}.js`,
       formats: ["es"],

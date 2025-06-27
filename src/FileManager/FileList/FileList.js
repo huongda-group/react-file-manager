@@ -1,0 +1,22 @@
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import { useRef } from "react";
+import FileItem from "./FileItem";
+import { useFileNavigation } from "../../contexts/FileNavigationContext";
+import { useLayout } from "../../contexts/LayoutContext";
+import ContextMenu from "../../components/ContextMenu/ContextMenu";
+import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
+import useFileList from "./useFileList";
+import FilesHeader from "./FilesHeader";
+import { useTranslation } from "../../contexts/TranslationProvider";
+import "./FileList.scss";
+const FileList = ({ onCreateFolder, onRename, onFileOpen, onRefresh, enableFilePreview, triggerAction, permissions, }) => {
+    const { currentPathFiles } = useFileNavigation();
+    const filesViewRef = useRef(null);
+    const { activeLayout } = useLayout();
+    const t = useTranslation();
+    const { emptySelecCtxItems, selecCtxItems, handleContextMenu, unselectFiles, visible, setVisible, setLastSelectedFile, selectedFileIndexes, clickPosition, isSelectionCtx, } = useFileList(onRefresh, enableFilePreview, triggerAction, permissions);
+    const contextMenuRef = useDetectOutsideClick(() => setVisible(false));
+    return (_jsxs("div", { ref: filesViewRef, className: `files ${activeLayout}`, onContextMenu: handleContextMenu, onClick: unselectFiles, children: [activeLayout === "list" && _jsx(FilesHeader, { unselectFiles: unselectFiles }), currentPathFiles?.length > 0 ? (_jsx(_Fragment, { children: currentPathFiles.map((file, index) => (_jsx(FileItem, { index: index, file: file, onCreateFolder: onCreateFolder, onRename: onRename, onFileOpen: onFileOpen, enableFilePreview: enableFilePreview, triggerAction: triggerAction, filesViewRef: filesViewRef, selectedFileIndexes: selectedFileIndexes, handleContextMenu: handleContextMenu, setVisible: setVisible, setLastSelectedFile: setLastSelectedFile, draggable: permissions.move }, index))) })) : (_jsx("div", { className: "empty-folder", children: t("folderEmpty") })), _jsx(ContextMenu, { filesViewRef: filesViewRef, contextMenuRef: contextMenuRef.ref, menuItems: isSelectionCtx ? selecCtxItems : emptySelecCtxItems, visible: visible, setVisible: setVisible, clickPosition: clickPosition })] }));
+};
+FileList.displayName = "FileList";
+export default FileList;
