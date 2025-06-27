@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: '21.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm i
       - run: npm ci
       - run: npm run build
       - run: npm audit signatures
@@ -33,6 +34,7 @@ jobs:
         with:
           node-version: '21.x'
           registry-url: 'https://npm.pkg.github.com'
+      - run: npm i
       - run: npm ci
       - run: npm run build
       - run: npm audit signatures
