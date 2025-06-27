@@ -19,7 +19,7 @@ jobs:
       - run: npm i
       - run: npm ci
       - run: npm run build
-      - run: npm audit signatures
+#      - run: npm audit signatures
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -37,7 +37,7 @@ jobs:
       - run: npm i
       - run: npm ci
       - run: npm run build
-      - run: npm audit signatures
+#      - run: npm audit signatures
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

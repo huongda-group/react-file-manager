@@ -56,7 +56,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Saifullah-dev/react-file-manager.git"
+    "url": "git+https://github.com/huongda-group/react-file-manager.git"
   },
   "keywords": [
     "react",
@@ -64,10 +64,10 @@
     "component",
     "react-file explorer"
   ],
-  "author": "Saifullah Zubair",
+  "author": "HuongDa Group",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Saifullah-dev/react-file-manager/issues"
+    "url": "https://github.com/huongda-group/react-file-manager/issues"
   },
-  "homepage": "https://github.com/Saifullah-dev/react-file-manager#readme"
+  "homepage": "https://github.com/huongda-group/react-file-manager#readme"
 }
