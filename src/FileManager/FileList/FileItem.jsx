@@ -4,7 +4,6 @@ import { useFileIcons } from "../../hooks/useFileIcons";
 import CreateFolderAction from "../Actions/CreateFolder/CreateFolder.action";
 import RenameAction from "../Actions/Rename/Rename.action";
 import { getDataSize } from "../../utils/getDataSize";
-import { formatDate } from "../../utils/formatDate";
 import { useFileNavigation } from "../../contexts/FileNavigationContext";
 import { useSelection } from "../../contexts/SelectionContext";
 import { useClipBoard } from "../../contexts/ClipboardContext";
@@ -26,6 +25,7 @@ const FileItem = ({
   handleContextMenu,
   setLastSelectedFile,
   draggable,
+  formatDate,
 }) => {
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
@@ -36,7 +36,7 @@ const FileItem = ({
   const { activeLayout } = useLayout();
   const iconSize = activeLayout === "grid" ? 48 : 20;
   const fileIcons = useFileIcons(iconSize);
-  const { setCurrentPath, currentPathFiles } = useFileNavigation();
+  const { setCurrentPath, currentPathFiles, onFolderChange } = useFileNavigation();
   const { setSelectedFiles } = useSelection();
   const { clipBoard, handleCutCopy, setClipBoard, handlePasting } = useClipBoard();
   const dragIconRef = useRef(null);
@@ -50,6 +50,7 @@ const FileItem = ({
     onFileOpen(file);
     if (file.isDirectory) {
       setCurrentPath(file.path);
+      onFolderChange?.(file.path);
       setSelectedFiles([]);
     } else {
       enableFilePreview && triggerAction.show("previewFile");

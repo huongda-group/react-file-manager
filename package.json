@@ -1,7 +1,7 @@
 {
-  "name": "@huongda-group/react-file-manager",
+  "name": "@cubone/react-file-manager",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.10.5",
   "type": "module",
   "module": "dist/react-file-manager.es.js",
   "files": [
@@ -14,34 +14,31 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "upgrade": "npm install -g npm-check-updates && ncu -u && npm install",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "i18next": "^25.2.1",
+    "@fontsource/nunito-sans": "^5.2.7",
+    "i18next": "^25.8.0",
     "react-collapsed": "^4.2.0",
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@typescript-eslint/eslint-plugin": "^8.35.0",
-    "@typescript-eslint/parser": "^8.35.0",
-    "@vitejs/plugin-react-swc": "^3.10.2",
-    "axios": "^1.10.0",
-    "eslint": "^9.29.0",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "axios": "^1.13.3",
+    "eslint": "^9.39.2",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "sass": "^1.89.2",
-    "semantic-release": "^24.2.5",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.0"
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "sass": "^1.97.3",
+    "semantic-release": "^25.0.2",
+    "vite": "^7.3.1"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -56,10 +53,10 @@
     }
   },
   "description": "React File Manager is an open-source, user-friendly component designed to easily manage files and folders within applications. With smooth drag-and-drop functionality, responsive design, and efficient navigation, it simplifies file handling in any React project.",
-  "main": "dist/react-file-manager.es.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/huongda-group/react-file-manager.git"
+    "url": "git+https://github.com/Saifullah-dev/react-file-manager.git"
   },
   "keywords": [
     "react",
@@ -67,10 +64,10 @@
     "component",
     "react-file explorer"
   ],
-  "author": "HuongDa Group",
+  "author": "Saifullah Zubair",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/huongda-group/react-file-manager/issues"
+    "url": "https://github.com/Saifullah-dev/react-file-manager/issues"
   },
-  "homepage": "https://github.com/huongda-group/react-file-manager#readme"
+  "homepage": "https://github.com/Saifullah-dev/react-file-manager#readme"
 }

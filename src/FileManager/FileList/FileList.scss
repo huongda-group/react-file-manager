@@ -11,6 +11,7 @@
   @include overflow-y-scroll;
   padding: 8px;
   padding-right: 4px;
+  font-size: $fm-font-size;
 
   .drag-move-tooltip {
     background-color: white;
@@ -156,16 +157,54 @@
     .file-name {
       width: calc(65% - 35px);
       padding-left: 35px;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      &.active {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #007bff;
+      }
     }
 
     .file-date {
       text-align: center;
       width: 20%;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      &.active {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #007bff;
+      }
     }
 
     .file-size {
       text-align: center;
       width: 10%;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      &.active {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #007bff;
+      }
+    }
+
+    .sort-indicator {
+      font-size: 0.8em;
+      margin-left: 4px;
     }
   }
 

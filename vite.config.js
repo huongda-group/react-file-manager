@@ -7,13 +7,13 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: "./src/index.ts",
+      entry: "./src/index.js",
       name: "ReactFileManager",
       fileName: (format) => `react-file-manager.${format}.js`,
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react", "react-dom", "react/jsx-runtime"],
       output: {
         globals: {
           react: "React",

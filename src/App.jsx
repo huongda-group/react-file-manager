@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import FileManager from "./FileManager/FileManager";
 import { createFolderAPI } from "./api/createFolderAPI";
-import { renameAPI } from "./api/renameAPI";
 import { deleteAPI } from "./api/deleteAPI";
+import { downloadFile } from "./api/downloadFileAPI";
 import { copyItemAPI, moveItemAPI } from "./api/fileTransferAPI";
 import { getAllFilesAPI } from "./api/getAllFilesAPI";
-import { downloadFile } from "./api/downloadFileAPI";
+import { renameAPI } from "./api/renameAPI";
 import "./App.scss";
+import FileManager from "./FileManager/FileManager";
 
 function App() {
   const fileUploadConfig = {
@@ -14,13 +14,19 @@ function App() {
   };
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState([]);
+  const [currentPath, setCurrentPath] = useState("");
   const isMountRef = useRef(false);
 
   // Get Files
   const getFiles = async () => {
     setIsLoading(true);
     const response = await getAllFilesAPI();
-    setFiles(response.data);
+    if (response.status === 200 && response.data) {
+      setFiles(response.data);
+    } else {
+      console.error(response);
+      setFiles([]);
+    }
     setIsLoading(false);
   };
 
@@ -125,7 +131,7 @@ function App() {
     console.log("Copied Files", files);
   };
 
-  const handleSelect = (files) => {
+  const handleSelectionChange = (files) => {
     console.log("Selected Files", files);
   };
 
@@ -148,7 +154,7 @@ function App() {
           onLayoutChange={handleLayoutChange}
           onRefresh={handleRefresh}
           onFileOpen={handleFileOpen}
-          onSelect={handleSelect}
+          onSelectionChange={handleSelectionChange}
           onError={handleError}
           layout="grid"
           enableFilePreview
@@ -157,7 +163,8 @@ function App() {
           acceptedFileTypes=".txt, .png, .jpg, .jpeg, .pdf, .doc, .docx, .exe"
           height="100%"
           width="100%"
-          initialPath=""
+          initialPath={currentPath}
+          onFolderChange={setCurrentPath}
         />
       </div>
     </div>

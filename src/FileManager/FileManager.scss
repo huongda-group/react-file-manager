@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@import "@fontsource/nunito-sans";
 @import "../styles/variables";
 
 .text-white {
@@ -34,12 +34,13 @@ svg {
   height: 100%;
   width: 100%;
   font-family: var(--file-manager-font-family);
+  border: 1px solid $border-color;
+  border-radius: 8px;
 
   button {
     font-family: var(--file-manager-font-family);
   }
 
-  border-radius: 8px;
   position: relative;
   background-color: white;
   cursor: default;
@@ -109,6 +110,7 @@ svg {
 
 .fm-rename-folder-container {
   padding: 8px 0;
+  text-align: left;
 
   .fm-rename-folder-input {
     border-bottom: 1px solid #c6c6c6;

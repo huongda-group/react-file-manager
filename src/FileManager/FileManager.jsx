@@ -16,6 +16,7 @@ import { dateStringValidator, urlValidator } from "../validators/propValidators"
 import { TranslationProvider } from "../contexts/TranslationProvider";
 import { useMemo, useState } from "react";
 import { defaultPermissions } from "../constants";
+import { formatDate as defaultFormatDate } from "../utils/formatDate";
 import "./FileManager.scss";
 
 const FileManager = ({
@@ -34,7 +35,9 @@ const FileManager = ({
   onLayoutChange = () => {},
   onRefresh,
   onFileOpen = () => {},
+  onFolderChange = () => {},
   onSelect,
+  onSelectionChange,
   onError = () => {},
   layout = "grid",
   enableFilePreview = true,
@@ -47,10 +50,13 @@ const FileManager = ({
   filePreviewComponent,
   primaryColor = "#6155b4",
   fontFamily = "Nunito Sans, sans-serif",
-  language = "en",
+  language = "en-US",
   permissions: userPermissions = {},
   collapsibleNav = false,
   defaultNavExpanded = true,
+  className = "",
+  style = {},
+  formatDate = defaultFormatDate,
 }) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] = useState(defaultNavExpanded);
   const triggerAction = useTriggerAction();
@@ -69,12 +75,20 @@ const FileManager = ({
   );
 
   return (
-    <main className="file-explorer" onContextMenu={(e) => e.preventDefault()} style={customStyles}>
+    <main
+      className={`file-explorer ${className}`}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ ...customStyles, ...style }}
+    >
       <Loader loading={isLoading} />
       <TranslationProvider language={language}>
         <FilesProvider filesData={files} onError={onError}>
-          <FileNavigationProvider initialPath={initialPath}>
-            <SelectionProvider onDownload={onDownload} onSelect={onSelect}>
+          <FileNavigationProvider initialPath={initialPath} onFolderChange={onFolderChange}>
+            <SelectionProvider
+              onDownload={onDownload}
+              onSelect={onSelect}
+              onSelectionChange={onSelectionChange}
+            >
               <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
                 <LayoutProvider layout={layout}>
                   <Toolbar
@@ -119,6 +133,7 @@ const FileManager = ({
                         enableFilePreview={enableFilePreview}
                         triggerAction={triggerAction}
                         permissions={permissions}
+                        formatDate={formatDate}
                       />
                     </div>
                   </section>
@@ -176,7 +191,9 @@ FileManager.propTypes = {
   onLayoutChange: PropTypes.func,
   onRefresh: PropTypes.func,
   onFileOpen: PropTypes.func,
+  onFolderChange: PropTypes.func,
   onSelect: PropTypes.func,
+  onSelectionChange: PropTypes.func,
   onError: PropTypes.func,
   layout: PropTypes.oneOf(["grid", "list"]),
   maxFileSize: PropTypes.number,
@@ -201,6 +218,9 @@ FileManager.propTypes = {
   }),
   collapsibleNav: PropTypes.bool,
   defaultNavExpanded: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  formatDate: PropTypes.func,
 };
 
 export default FileManager;
