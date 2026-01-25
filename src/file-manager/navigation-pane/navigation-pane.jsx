@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import FolderTree from "../../file-manager/navigation-pane/folder-tree";
 import { getParentPath } from "../../utils/get-parent-path";
-import { useFiles } from "../../contexts/files-context";
-import { useTranslation } from "../../contexts/translation-provider";
+import { useFiles } from "../../contexts/files";
+import { useTranslation } from "../../contexts/translation";
 import "../../file-manager/navigation-pane/navigation-pane.css";
 
 const NavigationPane = ({ onFileOpen }) => {

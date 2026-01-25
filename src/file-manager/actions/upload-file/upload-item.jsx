@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { getDataSize } from "../../../utils/get-data-size";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
-import { useFiles } from "../../../contexts/files-context";
-import { useTranslation } from "../../../contexts/translation-provider";
+import { useFiles } from "../../../contexts/files";
+import { useTranslation } from "../../../contexts/translation";
 
 const UploadItem = ({
   index,

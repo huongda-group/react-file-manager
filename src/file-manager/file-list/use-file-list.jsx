@@ -4,14 +4,14 @@ import { FaListUl, FaRegFile, FaRegPaste } from "react-icons/fa6";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdOutlineDelete, MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
 import { PiFolderOpen } from "react-icons/pi";
-import { useClipBoard } from "../../contexts/clipboard-context";
+import { useClipBoard } from "../../contexts/clipboard";
 import { useEffect, useState } from "react";
-import { useSelection } from "../../contexts/selection-context";
-import { useLayout } from "../../contexts/layout-context";
-import { useFileNavigation } from "../../contexts/file-navigation-context";
+import { useSelection } from "../../contexts/selection";
+import { useLayout } from "../../contexts/layout";
+import { useFileNavigation } from "../../contexts/file-navigation";
 import { duplicateNameHandler } from "../../utils/duplicate-name-handler";
 import { validateApiCallback } from "../../utils/validate-api-callback";
-import { useTranslation } from "../../contexts/translation-provider";
+import { useTranslation } from "../../contexts/translation";
 
 const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, onFileOpen) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
@@ -91,7 +91,7 @@ const useFileList = (onRefresh, enableFilePreview, triggerAction, permissions, o
     {
       title: t("view"),
       icon: activeLayout === "grid" ? <BsGrid size={18} /> : <FaListUl size={18} />,
-      onClick: () => {},
+      onClick: () => { },
       children: [
         {
           title: t("grid"),

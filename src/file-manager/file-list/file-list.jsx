@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import FileItem from "../../file-manager/file-list/file-item";
-import { useFileNavigation } from "../../contexts/file-navigation-context";
-import { useLayout } from "../../contexts/layout-context";
+import { useFileNavigation } from "../../contexts/file-navigation";
+import { useLayout } from "../../contexts/layout";
 import ContextMenu from "../../components/context-menu/context-menu";
 import { useDetectOutsideClick } from "../../hooks/use-detect-outside-click";
 import useFileList from "../../file-manager/file-list/use-file-list";
 import FilesHeader from "../../file-manager/file-list/files-header";
-import { useTranslation } from "../../contexts/translation-provider";
+import { useTranslation } from "../../contexts/translation";
 import "../../file-manager/file-list/file-list.css";
 
 const FileList = ({

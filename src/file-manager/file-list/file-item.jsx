@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { FaRegFile, FaRegFolderOpen } from "react-icons/fa6";
 import { useFileIcons } from "../../hooks/use-file-icons";
-import CreateFolderAction from "../../file-manager/actions/create-folder/create-folder.action";
-import RenameAction from "../../file-manager/actions/rename/rename.action";
+import CreateFolderAction from "../../file-manager/actions/create-folder/create-folder";
+import RenameAction from "../../file-manager/actions/rename/rename";
 import { getDataSize } from "../../utils/get-data-size";
-import { useFileNavigation } from "../../contexts/file-navigation-context";
-import { useSelection } from "../../contexts/selection-context";
-import { useClipBoard } from "../../contexts/clipboard-context";
-import { useLayout } from "../../contexts/layout-context";
+import { useFileNavigation } from "../../contexts/file-navigation";
+import { useSelection } from "../../contexts/selection";
+import { useClipBoard } from "../../contexts/clipboard";
+import { useLayout } from "../../contexts/layout";
 import Checkbox from "../../components/checkbox/checkbox";
 
 const dragIconSize = 50;
@@ -186,9 +186,8 @@ const FileItem = ({
 
   return (
     <div
-      className={`file-item-container ${dropZoneClass} ${
-        fileSelected || !!file.isEditing ? "file-selected" : ""
-      } ${isFileMoving ? "file-moving" : ""}`}
+      className={`file-item-container ${dropZoneClass} ${fileSelected || !!file.isEditing ? "file-selected" : ""
+        } ${isFileMoving ? "file-moving" : ""}`}
       tabIndex={0}
       title={file.name}
       onClick={handleFileSelection}

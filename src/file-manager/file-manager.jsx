@@ -4,20 +4,29 @@ import NavigationPane from "../file-manager/navigation-pane/navigation-pane";
 import BreadCrumb from "../file-manager/bread-crumb/bread-crumb";
 import FileList from "../file-manager/file-list/file-list";
 import Actions from "../file-manager/actions/actions";
-import { FilesProvider } from "../contexts/files-context";
-import { FileNavigationProvider } from "../contexts/file-navigation-context";
-import { SelectionProvider } from "../contexts/selection-context";
-import { ClipBoardProvider } from "../contexts/clipboard-context";
-import { LayoutProvider } from "../contexts/layout-context";
+import { FilesProvider } from "../contexts/files";
+import { FileNavigationProvider } from "../contexts/file-navigation";
+import { SelectionProvider } from "../contexts/selection";
+import { ClipBoardProvider } from "../contexts/clipboard";
+import { LayoutProvider } from "../contexts/layout";
 import { useTriggerAction } from "../hooks/use-trigger-action";
 import { useColumnResize } from "../hooks/use-column-resize";
 import PropTypes from "prop-types";
-import { dateStringValidator, urlValidator } from "../validators/prop-validators";
-import { TranslationProvider } from "../contexts/translation-provider";
+import { dateStringValidator, urlValidator } from "../validators/prop";
+import { TranslationProvider } from "../contexts/translation";
 import { useMemo, useState } from "react";
-import { defaultPermissions } from "../constants";
 import { formatDate as defaultFormatDate } from "../utils/format-date";
 import "../file-manager/file-manager.css";
+
+const defaultPermissions = {
+  create: true,
+  upload: true,
+  move: true,
+  copy: true,
+  rename: true,
+  download: true,
+  delete: true,
+};
 
 const FileManager = ({
   files,

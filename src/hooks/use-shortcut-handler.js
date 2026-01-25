@@ -1,9 +1,9 @@
 import { useKeyPress } from "./use-key-press";
 import { shortcuts } from "../utils/shortcuts";
-import { useClipBoard } from "../contexts/clipboard-context";
-import { useFileNavigation } from "../contexts/file-navigation-context";
-import { useSelection } from "../contexts/selection-context";
-import { useLayout } from "../contexts/layout-context";
+import { useClipBoard } from "../contexts/clipboard";
+import { useFileNavigation } from "../contexts/file-navigation";
+import { useSelection } from "../contexts/selection";
+import { useLayout } from "../contexts/layout";
 import { validateApiCallback } from "../utils/validate-api-callback";
 
 export const useShortcutHandler = (triggerAction, onRefresh, permissions) => {

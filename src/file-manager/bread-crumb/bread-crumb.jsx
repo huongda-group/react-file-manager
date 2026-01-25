@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { MdHome, MdMoreHoriz, MdOutlineNavigateNext } from "react-icons/md";
 import { TbLayoutSidebarLeftExpand, TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
-import { useFileNavigation } from "../../contexts/file-navigation-context";
+import { useFileNavigation } from "../../contexts/file-navigation";
 import { useDetectOutsideClick } from "../../hooks/use-detect-outside-click";
-import { useTranslation } from "../../contexts/translation-provider";
+import { useTranslation } from "../../contexts/translation";
 import "../../file-manager/bread-crumb/bread-crumb.css";
 
 const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpen }) => {

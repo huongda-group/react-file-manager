@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import Checkbox from "../../components/checkbox/checkbox";
-import { useFileNavigation } from "../../contexts/file-navigation-context";
-import { useSelection } from "../../contexts/selection-context";
-import { useTranslation } from "../../contexts/translation-provider";
+import { useFileNavigation } from "../../contexts/file-navigation";
+import { useSelection } from "../../contexts/selection";
+import { useTranslation } from "../../contexts/translation";
 
 const FilesHeader = ({ unselectFiles, onSort, sortConfig }) => {
   const t = useTranslation();

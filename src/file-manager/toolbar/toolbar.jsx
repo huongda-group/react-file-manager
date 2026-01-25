@@ -10,12 +10,12 @@ import {
 import { BiRename } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
 import LayoutToggler from "../../file-manager/toolbar/layout-toggler";
-import { useFileNavigation } from "../../contexts/file-navigation-context";
-import { useSelection } from "../../contexts/selection-context";
-import { useClipBoard } from "../../contexts/clipboard-context";
-import { useLayout } from "../../contexts/layout-context";
+import { useFileNavigation } from "../../contexts/file-navigation";
+import { useSelection } from "../../contexts/selection";
+import { useClipBoard } from "../../contexts/clipboard";
+import { useLayout } from "../../contexts/layout";
 import { validateApiCallback } from "../../utils/validate-api-callback";
-import { useTranslation } from "../../contexts/translation-provider";
+import { useTranslation } from "../../contexts/translation";
 import "../../file-manager/toolbar/toolbar.css";
 
 const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {

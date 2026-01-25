@@ -6,10 +6,10 @@ import Modal from "../../../components/modal/modal";
 import { getFileExtension } from "../../../utils/get-file-extension";
 import NameInput from "../../../components/name-input/name-input";
 import ErrorTooltip from "../../../components/error-tooltip/error-tooltip";
-import { useFileNavigation } from "../../../contexts/file-navigation-context";
-import { useLayout } from "../../../contexts/layout-context";
+import { useFileNavigation } from "../../../contexts/file-navigation";
+import { useLayout } from "../../../contexts/layout";
 import { validateApiCallback } from "../../../utils/validate-api-callback";
-import { useTranslation } from "../../../contexts/translation-provider";
+import { useTranslation } from "../../../contexts/translation";
 
 const maxNameLength = 220;
 

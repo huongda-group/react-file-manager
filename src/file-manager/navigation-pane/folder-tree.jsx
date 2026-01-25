@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Collapse from "../../components/collapse/collapse";
 import { FaRegFolder, FaRegFolderOpen } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useFileNavigation } from "../../contexts/file-navigation-context";
+import { useFileNavigation } from "../../contexts/file-navigation";
 
 const FolderTree = ({ folder, onFileOpen }) => {
   const [isOpen, setIsOpen] = useState(false);

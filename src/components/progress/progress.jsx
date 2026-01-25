@@ -1,4 +1,4 @@
-import { useTranslation } from "../../contexts/translation-provider";
+import { useTranslation } from "../../contexts/translation";
 import "./progress.css";
 
 const Progress = ({ percent = 0, isCanceled = false, isCompleted = false, error }) => {

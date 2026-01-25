@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Modal from "../../components/modal/modal";
-import DeleteAction from "../../file-manager/actions/delete/delete.action";
-import UploadFileAction from "../../file-manager/actions/upload-file/upload-file.action";
-import PreviewFileAction from "../../file-manager/actions/preview-file/preview-file.action";
-import { useSelection } from "../../contexts/selection-context";
+import DeleteAction from "../../file-manager/actions/delete/delete";
+import UploadFileAction from "../../file-manager/actions/upload-file/upload-file";
+import PreviewFileAction from "../../file-manager/actions/preview-file/preview-file";
+import { useSelection } from "../../contexts/selection";
 import { useShortcutHandler } from "../../hooks/use-shortcut-handler";
-import { useTranslation } from "../../contexts/translation-provider";
+import { useTranslation } from "../../contexts/translation";
 
 const Actions = ({
   fileUploadConfig,

@@ -1,6 +1,6 @@
 import { MdClose } from "react-icons/md";
 import { useEffect, useRef } from "react";
-import { useTranslation } from "../../contexts/translation-provider";
+import { useTranslation } from "../../contexts/translation";
 import "./modal.css";
 
 const Modal = ({

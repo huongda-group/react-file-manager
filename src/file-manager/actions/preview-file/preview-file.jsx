@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from "react";
 import { getFileExtension } from "../../../utils/get-file-extension";
 import Loader from "../../../components/loader/loader";
-import { useSelection } from "../../../contexts/selection-context";
+import { useSelection } from "../../../contexts/selection";
 import Button from "../../../components/button/button";
 import { getDataSize } from "../../../utils/get-data-size";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { useFileIcons } from "../../../hooks/use-file-icons";
 import { FaRegFileAlt } from "react-icons/fa";
-import { useTranslation } from "../../../contexts/translation-provider";
-import "../../../file-manager/actions/preview-file/preview-file.action.css";
+import { useTranslation } from "../../../contexts/translation";
+import "./preview-file.css";
 
 const imageExtensions = ["jpg", "jpeg", "png"];
 const videoExtensions = ["mp4", "mov", "avi"];

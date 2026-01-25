@@ -3,12 +3,12 @@ import Button from "../../../components/button/button";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import UploadItem from "../../../file-manager/actions/upload-file/upload-item";
 import Loader from "../../../components/loader/loader";
-import { useFileNavigation } from "../../../contexts/file-navigation-context";
+import { useFileNavigation } from "../../../contexts/file-navigation";
 import { getFileExtension } from "../../../utils/get-file-extension";
 import { getDataSize } from "../../../utils/get-data-size";
-import { useFiles } from "../../../contexts/files-context";
-import { useTranslation } from "../../../contexts/translation-provider";
-import "../../../file-manager/actions/upload-file/upload-file.action.css";
+import { useFiles } from "../../../contexts/files";
+import { useTranslation } from "../../../contexts/translation";
+import "./upload-file.css";
 
 const UploadFileAction = ({
   fileUploadConfig,

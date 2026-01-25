@@ -15,7 +15,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "semantic-release": "semantic-release"
   },
@@ -30,10 +29,6 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.2.2",
     "axios": "^1.13.3",
-    "eslint": "^9.39.2",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.26",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "semantic-release": "^25.0.2",

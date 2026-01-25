@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../../components/button/button";
-import { useSelection } from "../../../contexts/selection-context";
-import { useTranslation } from "../../../contexts/translation-provider";
-import "../../../file-manager/actions/delete/delete.action.css";
+import { useSelection } from "../../../contexts/selection";
+import { useTranslation } from "../../../contexts/translation";
+import "./delete.css";
 
 const DeleteAction = ({ triggerAction, onDelete }) => {
   const [deleteMsg, setDeleteMsg] = useState("");

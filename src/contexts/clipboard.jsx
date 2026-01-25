@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { useSelection } from "./selection-context";
+import { useSelection } from "./selection";
 import { validateApiCallback } from "../utils/validate-api-callback";
 
 const ClipBoardContext = createContext();
