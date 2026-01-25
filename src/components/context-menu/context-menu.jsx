@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaChevronRight } from "react-icons/fa6";
 import SubMenu from "../context-menu/sub-menu";
-import "../context-menu/context-menu.scss";
+import "../context-menu/context-menu.css";
 
 const ContextMenu = ({ filesViewRef, contextMenuRef, menuItems, visible, clickPosition }) => {
   const [left, setLeft] = useState(0);

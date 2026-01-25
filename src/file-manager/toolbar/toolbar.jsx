@@ -16,7 +16,7 @@ import { useClipBoard } from "../../contexts/clipboard-context";
 import { useLayout } from "../../contexts/layout-context";
 import { validateApiCallback } from "../../utils/validate-api-callback";
 import { useTranslation } from "../../contexts/translation-provider";
-import "../../file-manager/toolbar/toolbar.scss";
+import "../../file-manager/toolbar/toolbar.css";
 
 const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
@@ -95,7 +95,7 @@ const Toolbar = ({ onLayoutChange, onRefresh, triggerAction, permissions }) => {
               <button
                 className="item-action file-action"
                 onClick={handleFilePasting}
-                // disabled={!clipBoard}
+              // disabled={!clipBoard}
               >
                 <FaRegPaste size={18} />
                 <span>{t("paste")}</span>

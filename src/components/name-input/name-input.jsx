@@ -1,4 +1,4 @@
-import "../name-input/name-input.scss";
+import "../name-input/name-input.css";
 
 const NameInput = ({ nameInputRef, id, maxLength, value, onChange, onKeyDown, onClick, rows }) => {
   return (

@@ -7,7 +7,7 @@ import { useDetectOutsideClick } from "../../hooks/use-detect-outside-click";
 import useFileList from "../../file-manager/file-list/use-file-list";
 import FilesHeader from "../../file-manager/file-list/files-header";
 import { useTranslation } from "../../contexts/translation-provider";
-import "../../file-manager/file-list/file-list.scss";
+import "../../file-manager/file-list/file-list.css";
 
 const FileList = ({
   onCreateFolder,

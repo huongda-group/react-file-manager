@@ -1,5 +1,5 @@
 import { ImSpinner2 } from "react-icons/im";
-import "./loader.scss";
+import "./loader.css";
 
 const Loader = ({ loading = false, className }) => {
   if (!loading) return null;

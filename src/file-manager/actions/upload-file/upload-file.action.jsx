@@ -8,7 +8,7 @@ import { getFileExtension } from "../../../utils/get-file-extension";
 import { getDataSize } from "../../../utils/get-data-size";
 import { useFiles } from "../../../contexts/files-context";
 import { useTranslation } from "../../../contexts/translation-provider";
-import "../../../file-manager/actions/upload-file/upload-file.action.scss";
+import "../../../file-manager/actions/upload-file/upload-file.action.css";
 
 const UploadFileAction = ({
   fileUploadConfig,

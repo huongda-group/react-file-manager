@@ -5,7 +5,8 @@ import { downloadFile } from "./api/download-file-api";
 import { copyItemAPI, moveItemAPI } from "./api/file-transfer-api";
 import { getAllFilesAPI } from "./api/get-all-files-api";
 import { renameAPI } from "./api/rename-api";
-import "./app.scss";
+import "./styles/variables.css";
+import "./app.css";
 import FileManager from "./file-manager/file-manager";
 
 function App() {

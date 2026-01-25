@@ -17,28 +17,28 @@ import { TranslationProvider } from "../contexts/translation-provider";
 import { useMemo, useState } from "react";
 import { defaultPermissions } from "../constants";
 import { formatDate as defaultFormatDate } from "../utils/format-date";
-import "../file-manager/file-manager.scss";
+import "../file-manager/file-manager.css";
 
 const FileManager = ({
   files,
   fileUploadConfig,
   isLoading,
   onCreateFolder,
-  onFileUploading = () => {},
-  onFileUploaded = () => {},
+  onFileUploading = () => { },
+  onFileUploaded = () => { },
   onCut,
   onCopy,
   onPaste,
   onRename,
   onDownload,
   onDelete = () => null,
-  onLayoutChange = () => {},
+  onLayoutChange = () => { },
   onRefresh,
-  onFileOpen = () => {},
-  onFolderChange = () => {},
+  onFileOpen = () => { },
+  onFolderChange = () => { },
   onSelect,
   onSelectionChange,
-  onError = () => {},
+  onError = () => { },
   layout = "grid",
   enableFilePreview = true,
   maxFileSize,

@@ -8,7 +8,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import { useFileIcons } from "../../../hooks/use-file-icons";
 import { FaRegFileAlt } from "react-icons/fa";
 import { useTranslation } from "../../../contexts/translation-provider";
-import "../../../file-manager/actions/preview-file/preview-file.action.scss";
+import "../../../file-manager/actions/preview-file/preview-file.action.css";
 
 const imageExtensions = ["jpg", "jpeg", "png"];
 const videoExtensions = ["mp4", "mov", "avi"];
@@ -58,22 +58,22 @@ const PreviewFileAction = ({ filePreviewPath, filePreviewComponent }) => {
           ...audioExtensions,
           ...iFrameExtensions,
         ].includes(extension) && (
-          <div className="preview-error">
-            <span className="error-icon">{fileIcons[extension] ?? <FaRegFileAlt size={73} />}</span>
-            <span className="error-msg">{t("previewUnavailable")}</span>
-            <div className="file-info">
-              <span className="file-name">{selectedFiles[0].name}</span>
-              {selectedFiles[0].size && <span>-</span>}
-              <span className="file-size">{getDataSize(selectedFiles[0].size)}</span>
-            </div>
-            <Button onClick={handleDownload} padding="0.45rem .9rem">
-              <div className="download-btn">
-                <MdOutlineFileDownload size={18} />
-                <span>{t("download")}</span>
+            <div className="preview-error">
+              <span className="error-icon">{fileIcons[extension] ?? <FaRegFileAlt size={73} />}</span>
+              <span className="error-msg">{t("previewUnavailable")}</span>
+              <div className="file-info">
+                <span className="file-name">{selectedFiles[0].name}</span>
+                {selectedFiles[0].size && <span>-</span>}
+                <span className="file-size">{getDataSize(selectedFiles[0].size)}</span>
               </div>
-            </Button>
-          </div>
-        ))}
+              <Button onClick={handleDownload} padding="0.45rem .9rem">
+                <div className="download-btn">
+                  <MdOutlineFileDownload size={18} />
+                  <span>{t("download")}</span>
+                </div>
+              </Button>
+            </div>
+          ))}
       {imageExtensions.includes(extension) && (
         <>
           <Loader isLoading={isLoading} />

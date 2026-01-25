@@ -1,4 +1,4 @@
-import "./checkbox.scss";
+import "./checkbox.css";
 
 const Checkbox = ({ name, id, checked, onClick, onChange, className = "", title, disabled = false }) => {
   return (

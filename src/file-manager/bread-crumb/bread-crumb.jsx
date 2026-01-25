@@ -5,7 +5,7 @@ import { TbLayoutSidebarLeftExpand, TbLayoutSidebarLeftCollapseFilled } from "re
 import { useFileNavigation } from "../../contexts/file-navigation-context";
 import { useDetectOutsideClick } from "../../hooks/use-detect-outside-click";
 import { useTranslation } from "../../contexts/translation-provider";
-import "../../file-manager/bread-crumb/bread-crumb.scss";
+import "../../file-manager/bread-crumb/bread-crumb.css";
 
 const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpen }) => {
   const [folders, setFolders] = useState([]);
@@ -93,9 +93,8 @@ const BreadCrumb = ({ collapsibleNav, isNavigationPaneOpen, setNavigationPaneOpe
             <div
               ref={navTogglerRef}
               className="nav-toggler"
-              title={`${
-                isNavigationPaneOpen ? t("collapseNavigationPane") : t("expandNavigationPane")
-              }`}
+              title={`${isNavigationPaneOpen ? t("collapseNavigationPane") : t("expandNavigationPane")
+                }`}
             >
               <span
                 className="folder-name folder-name-btn"

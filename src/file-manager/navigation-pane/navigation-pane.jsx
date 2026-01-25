@@ -3,7 +3,7 @@ import FolderTree from "../../file-manager/navigation-pane/folder-tree";
 import { getParentPath } from "../../utils/get-parent-path";
 import { useFiles } from "../../contexts/files-context";
 import { useTranslation } from "../../contexts/translation-provider";
-import "../../file-manager/navigation-pane/navigation-pane.scss";
+import "../../file-manager/navigation-pane/navigation-pane.css";
 
 const NavigationPane = ({ onFileOpen }) => {
   const [foldersTree, setFoldersTree] = useState([]);
