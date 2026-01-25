@@ -1,5 +1,5 @@
 {
-  "name": "@cubone/react-file-manager",
+  "name": "@huongda-group/react-file-manager",
   "private": false,
   "version": "1.10.5",
   "type": "module",
@@ -56,7 +56,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Saifullah-dev/react-file-manager.git"
+    "url": "git+https://github.com/huongda-group/react-file-manager.git"
   },
   "keywords": [
     "react",
@@ -67,7 +67,7 @@
   "author": "Saifullah Zubair",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Saifullah-dev/react-file-manager/issues"
+    "url": "https://github.com/huongda-group/react-file-manager/issues"
   },
-  "homepage": "https://github.com/Saifullah-dev/react-file-manager#readme"
+  "homepage": "https://github.com/huongda-group/react-file-manager#readme"
 }

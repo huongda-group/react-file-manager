@@ -1,4 +1,4 @@
-import "./Button.scss";
+import "./button.scss";
 
 const Button = ({ onClick, onKeyDown, type = "primary", padding = "0.4rem 0.8rem", children }) => {
   return (

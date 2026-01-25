@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { createFolderAPI } from "./api/createFolderAPI";
-import { deleteAPI } from "./api/deleteAPI";
-import { downloadFile } from "./api/downloadFileAPI";
-import { copyItemAPI, moveItemAPI } from "./api/fileTransferAPI";
-import { getAllFilesAPI } from "./api/getAllFilesAPI";
-import { renameAPI } from "./api/renameAPI";
-import "./App.scss";
-import FileManager from "./FileManager/FileManager";
+import { createFolderAPI } from "./api/create-folder-api";
+import { deleteAPI } from "./api/delete-api";
+import { downloadFile } from "./api/download-file-api";
+import { copyItemAPI, moveItemAPI } from "./api/file-transfer-api";
+import { getAllFilesAPI } from "./api/get-all-files-api";
+import { renameAPI } from "./api/rename-api";
+import "./app.scss";
+import FileManager from "./file-manager/file-manager";
 
 function App() {
   const fileUploadConfig = {
