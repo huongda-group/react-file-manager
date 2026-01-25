@@ -1,0 +1,21 @@
+:root {
+  --fm-border-color: #cfcfcf;
+  --fm-item-hover-color: rgba(0, 0, 0, 0.05);
+  --fm-font-size: 16px;
+}
+
+/* Common Styles (replacing mixins) */
+.fm-overflow-y-scroll {
+  overflow-y: auto !important;
+}
+
+.fm-overflow-y-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  padding-top: 2px;
+}
+
+.fm-overflow-y-scroll::-webkit-scrollbar-thumb {
+  background: var(--file-manager-primary-color) !important;
+  border-radius: 8px;
+}

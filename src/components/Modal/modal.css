@@ -1,12 +1,10 @@
-@use "../../styles/variables" as *;
-
 .fm-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid var(--fm-border-color);
   padding: 0.3rem 1rem;
-  font-size: $fm-font-size;
+  font-size: var(--fm-font-size);
 
   .fm-modal-heading {
     margin: 0;
