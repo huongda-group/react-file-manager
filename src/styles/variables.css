@@ -1,6 +1,7 @@
 :root {
   --fm-border-color: #cfcfcf;
-  --fm-item-hover-color: rgba(0, 0, 0, 0.05);
+  --fm-item-hover-bg-color: rgba(0, 0, 0, 0.05);
+  --fm-item-hover-color: #000;
   --fm-font-size: 16px;
 }
 
@@ -16,6 +17,6 @@
 }
 
 .fm-overflow-y-scroll::-webkit-scrollbar-thumb {
-  background: var(--file-manager-primary-color) !important;
+  background: var(--fm-primary-color) !important;
   border-radius: 8px;
 }

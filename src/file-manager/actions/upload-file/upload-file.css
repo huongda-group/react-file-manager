@@ -27,12 +27,12 @@
       }
 
       &:hover {
-        border-color: var(--file-manager-primary-color);
+        border-color: var(--fm-primary-color);
       }
     }
 
     .draggable-file-input.dragging {
-      border-color: var(--file-manager-primary-color);
+      border-color: var(--fm-primary-color);
     }
 
     .btn-choose-file {
@@ -83,7 +83,7 @@
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--file-manager-primary-color) !important;
+        background: var(--fm-primary-color) !important;
         border-radius: 8px;
       }
 
@@ -131,7 +131,7 @@
               &:hover {
                 cursor: pointer;
                 background-color: rgba(0, 0, 0, 0.07);
-                color: var(--file-manager-primary-color);
+                color: var(--fm-primary-color);
               }
             }
 
@@ -143,7 +143,7 @@
             }
 
             .upload-success {
-              color: var(--file-manager-primary-color);
+              color: var(--fm-primary-color);
             }
           }
         }

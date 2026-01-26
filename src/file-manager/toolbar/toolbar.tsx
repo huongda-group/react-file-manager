@@ -6,6 +6,8 @@ import {
   MdOutlineDelete,
   MdOutlineFileDownload,
   MdOutlineFileUpload,
+  MdFullscreen,
+  MdFullscreenExit,
 } from "react-icons/md";
 import { BiRename } from "react-icons/bi";
 import { FaListUl, FaRegPaste } from "react-icons/fa6";
@@ -34,6 +36,8 @@ interface ToolbarProps {
   onRefresh: () => void;
   triggerAction: IUseTriggerActionReturn;
   permissions: IPermissions;
+  isFullScreen: boolean;
+  onFullScreenToggle: () => void;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
@@ -41,6 +45,8 @@ const Toolbar: React.FC<ToolbarProps> = ({
   onRefresh,
   triggerAction,
   permissions,
+  isFullScreen,
+  onFullScreenToggle,
 }) => {
   const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
@@ -93,7 +99,17 @@ const Toolbar: React.FC<ToolbarProps> = ({
       onClick: () => {
         validateApiCallback(onRefresh, "onRefresh");
         setClipBoard(null);
+
       },
+    },
+    {
+      icon: isFullScreen ? (
+        <MdFullscreenExit size={18} />
+      ) : (
+        <MdFullscreen size={18} />
+      ),
+      title: isFullScreen ? t("exitFullScreen") : t("enterFullScreen"),
+      onClick: onFullScreenToggle,
     },
   ];
 

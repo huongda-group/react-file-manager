@@ -31,12 +31,12 @@ svg {
   min-height: 400px;
   height: 100%;
   width: 100%;
-  font-family: var(--file-manager-font-family);
+  font-family: var(--fm-font-family);
   border: 1px solid var(--fm-border-color);
   border-radius: 8px;
 
   button {
-    font-family: var(--file-manager-font-family);
+    font-family: var(--fm-font-family);
   }
 
   position: relative;

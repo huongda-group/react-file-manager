@@ -1,13 +1,5 @@
 ![React File Manager](https://github.com/user-attachments/assets/cad4d71d-a2fd-4064-9fce-c0c3a7cb4613)
 
-<div align="center">
-
-![NPM Downloads](https://img.shields.io/npm/d18m/%40cubone%2Freact-file-manager?style=for-the-badge)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/%40cubone%2Freact-file-manager?style=for-the-badge)
-![NPM Version](https://img.shields.io/npm/v/%40cubone%2Freact-file-manager?style=for-the-badge&color=%23c87d32)
-
-</div>
-
 <p>
 An open-source React.js package for easy integration of a file manager into applications. It provides a user-friendly interface for managing files and folders, including viewing, uploading, and deleting, with full UI and backend integration.
 </p>
@@ -137,6 +129,30 @@ type File = {
 | `primaryColor`           | string                                                                                                                          | The primary color for the component's theme. Accepts any valid CSS color format (e.g., `'blue'`, `'#E97451'`, `'rgb(52, 152, 219)'`). This color will be applied to buttons, highlights, and other key elements. `default: #6155b4`.                                                                                                                                                                                                                                                                                            |
 | `style`                  | object                                                                                                                          | Inline styles applied to the FileManager root element.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `width`                  | string \| number                                                                                                                | The width of the component `default: 100%`. Can be a string (e.g., `'100%'`, `'10rem'`) or a number (in pixels).                                                                                                                                                                                                                                                                                                                                                                                                                |
+
+## 🎨 Styling
+
+You can customize the appearance of the file manager by using props or overriding CSS variables.
+
+### Common Variables
+
+The following CSS variables can be overridden in your global CSS to customize the look and feel. Use `!important` if necessary to override default or inline styles.
+
+```css
+:root {
+  --fm-primary-color: #16a249 !important; /* Primary color */
+  --fm-border-color: #16a249 !important; /* Border color */
+}
+```
+
+| Variable                       | Description                                                                       | Default                 |
+| ------------------------------ | --------------------------------------------------------------------------------- | ----------------------- |
+| `--fm-primary-color`     | The primary color used for buttons and highlights. Maps to the `primaryColor` prop. | `#6155b4`               |
+| `--fm-border-color`            | Color of the borders.                                                             | `#cfcfcf`               |
+| `--fm-item-hover-bg-color`     | Background color when hovering over items.                                        | `rgba(0, 0, 0, 0.05)`   |
+| `--fm-item-hover-color`        | Text color when hovering over items.                                              | `#000`                  |
+| `--fm-font-size`               | Base font size.                                                                   | `16px`                  |
+| `--fm-font-family`       | Font family used in the component. Maps to the `fontFamily` prop.                 | `Nunito Sans, sans-serif` |
 
 ## ⌨️ Keyboard Shortcuts
 

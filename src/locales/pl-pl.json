@@ -49,5 +49,7 @@
   "invalidFileName": "Nazwa pliku nie może zawierać żadnego z następujących znaków: \\ / : * ? \" < > |",
   "folderExists": "To miejsce docelowe zawiera już folder o nazwie \"{{renameFile}}\".",
   "collapseNavigationPane": "Zwiń panel nawigacyjny",
-  "expandNavigationPane": "Rozwiń panel nawigacyjny"
+  "expandNavigationPane": "Rozwiń panel nawigacyjny",
+  "enterFullScreen": "Pełny ekran",
+  "exitFullScreen": "Wyjdź z pełnego ekranu"
 }

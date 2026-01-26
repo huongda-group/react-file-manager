@@ -16,17 +16,7 @@
     }
 
     .file-action {
-      background-color: transparent;
-      gap: 5px;
-      padding: 6px 12px;
-      border: 1px solid var(--fm-border-color);
-
-      &:hover:not(:disabled) {
-        cursor: pointer;
-        background-color: rgba(0, 0, 0, 0.55) !important;
-        color: white;
-        text-shadow: 0px 0px 1px white;
-      }
+      /* Inherits basic styling from .item-action */
 
       &:hover:disabled {
         cursor: default;
@@ -122,11 +112,7 @@
     }
 
     &:hover {
-      color: var(--file-manager-primary-color);
+      color: var(--fm-primary-color);
     }
   }
-}
-
-.file-selected {
-  background-color: var(--fm-item-hover-color);
 }

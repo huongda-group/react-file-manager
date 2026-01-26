@@ -18,7 +18,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--file-manager-primary-color) !important;
+    background: var(--fm-primary-color) !important;
     border-radius: 8px;
   }
 
@@ -31,7 +31,7 @@
     padding: 1px 5px 2px 24px;
     border-radius: 3px;
     font-weight: bold;
-    color: var(--file-manager-primary-color);
+    color: var(--fm-primary-color);
     z-index: 2;
 
     .drop-zone-file-name {
@@ -51,7 +51,7 @@
       border-radius: 4px;
       position: relative;
       color: white;
-      background-color: var(--file-manager-primary-color);
+      background-color: var(--fm-primary-color);
       padding: 3px 8px;
     }
   }
@@ -74,7 +74,8 @@
     border-radius: 5px;
 
     &:hover {
-      background-color: var(--fm-item-hover-color);
+      background-color: var(--fm-item-hover-bg-color);
+      color: var(--fm-item-hover-color);
     }
 
     .selection-checkbox {
@@ -126,11 +127,11 @@
   }
 
   .file-selected {
-    background-color: var(--file-manager-primary-color);
+    background-color: var(--fm-primary-color);
     color: white;
 
     &:hover {
-      background-color: var(--file-manager-primary-color);
+      background-color: var(--fm-primary-color);
     }
   }
 
@@ -230,7 +231,7 @@
 
   .file-item-container.file-selected {
     &:hover {
-      background-color: var(--file-manager-primary-color) !important;
+      background-color: var(--fm-primary-color) !important;
     }
   }
 

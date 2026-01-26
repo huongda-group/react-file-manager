@@ -9,7 +9,7 @@
 }
 
 .fm-button-primary {
-  background-color: var(--file-manager-primary-color);
+  background-color: var(--fm-primary-color);
   color: white;
 
   &:hover {

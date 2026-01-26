@@ -49,5 +49,7 @@
   "invalidFileName": "Un nom de fichier ne peut pas contenir les caractères suivants : \\ / : * ? \" < > |",
   "folderExists": "Cette destination contient déjà un dossier nommé \"{{renameFile}}\".",
   "collapseNavigationPane": "Réduire le panneau de navigation",
-  "expandNavigationPane": "Développer le panneau de navigation"
+  "expandNavigationPane": "Développer le panneau de navigation",
+  "enterFullScreen": "Plein écran",
+  "exitFullScreen": "Quitter le mode plein écran"
 }

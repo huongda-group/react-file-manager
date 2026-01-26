@@ -49,5 +49,7 @@
   "invalidFileName": "فائل کا نام درج ذیل میں سے کوئی بھی حرف نہیں رکھ سکتا: \\ / : * ? \" < > |",
   "folderExists": "اس منزل پر پہلے ہی \"{{renameFile}}\" کے نام کا فولڈر موجود ہے۔",
   "collapseNavigationPane": "نیویگیشن پین کو بند کریں",
-  "expandNavigationPane": "نیویگیشن پین کو کھولیں"
+  "expandNavigationPane": "نیویگیشن پین کو کھولیں",
+  "enterFullScreen": "پوری سکرین",
+  "exitFullScreen": "پوری سکرین سے باہر نکلیں"
 }

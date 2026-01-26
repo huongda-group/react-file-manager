@@ -49,5 +49,7 @@
   "invalidFileName": "Tiedostonimessä ei voi olla seuraavia merkkejä: \\ / : * ? \" < > |",
   "folderExists": "Kohteessa on jo kansio nimeltä \"{{renameFile}}\".",
   "collapseNavigationPane": "Pienennä navigointipaneeli",
-  "expandNavigationPane": "Laajenna navigointipaneeli"
+  "expandNavigationPane": "Laajenna navigointipaneeli",
+  "enterFullScreen": "Koko näyttö",
+  "exitFullScreen": "Poistu koko näytöstä"
 }

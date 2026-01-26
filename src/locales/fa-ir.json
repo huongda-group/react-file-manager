@@ -49,5 +49,7 @@
   "invalidFileName": "نام فایل نمی‌تواند شامل هیچ یک از کاراکترهای زیر باشد: \\ / : * ? \" < > |",
   "folderExists": "این مقصد از قبل شامل پوشه‌ای به نام \"{{renameFile}}\" است.",
   "collapseNavigationPane": "بستن پنل ناوبری",
-  "expandNavigationPane": "باز کردن پنل ناوبری"
+  "expandNavigationPane": "باز کردن پنل ناوبری",
+  "enterFullScreen": "تمام‌صفحه",
+  "exitFullScreen": "خروج از تمام‌صفحه"
 }

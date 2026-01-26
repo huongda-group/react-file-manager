@@ -49,5 +49,7 @@
   "invalidFileName": "O nome do ficheiro não pode conter nenhum dos seguintes caracteres: \\ / : * ? \" < > |",
   "folderExists": "O destino já contém uma pasta chamada \"{{renameFile}}\".",
   "collapseNavigationPane": "Recolher painel de navegação",
-  "expandNavigationPane": "Expandir painel de navegação"
+  "expandNavigationPane": "Expandir painel de navegação",
+  "enterFullScreen": "Ecrã inteiro",
+  "exitFullScreen": "Sair do ecrã inteiro"
 }

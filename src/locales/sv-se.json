@@ -49,5 +49,7 @@
   "invalidFileName": "Ett filnamn får inte innehålla något av följande tecken: \\ / : * ? \" < > |",
   "folderExists": "Den här platsen innehåller redan en mapp med namnet \"{{renameFile}}\".",
   "collapseNavigationPane": "Dölj navigationsfönster",
-  "expandNavigationPane": "Visa navigationsfönster"
+  "expandNavigationPane": "Visa navigationsfönster",
+  "enterFullScreen": "Helskärm",
+  "exitFullScreen": "Avsluta helskärm"
 }

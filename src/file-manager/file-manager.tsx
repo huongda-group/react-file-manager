@@ -1,4 +1,4 @@
-import { useMemo, useState, CSSProperties, ReactElement, RefObject } from "react";
+import { useMemo, useState, CSSProperties, ReactElement, RefObject, useEffect, useRef } from "react";
 import Loader from "../components/loader/loader";
 import Toolbar from "../file-manager/toolbar/toolbar";
 import NavigationPane from "../file-manager/navigation-pane/navigation-pane";
@@ -133,10 +133,41 @@ const FileManager: React.FC<FileManagerProps> = ({
     handleMouseDown,
   } = useColumnResize(20, 80);
 
+  const mainRef = useRef<HTMLElement>(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    };
+  }, []);
+
+  const toggleFullScreen = async () => {
+    const root = mainRef.current as any;
+    if (!document.fullscreenElement) {
+      if (root?.requestFullscreen) {
+        await root.requestFullscreen();
+      } else if (root?.webkitRequestFullscreen) {
+        await root.webkitRequestFullscreen();
+      } else if (root?.msRequestFullscreen) {
+        await root.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        await document.exitFullscreen();
+      }
+    }
+  };
+
   const customStyles: CSSProperties = {
     // @ts-ignore
-    "--file-manager-font-family": fontFamily,
-    "--file-manager-primary-color": primaryColor,
+    "--fm-font-family": fontFamily,
+    "--fm-primary-color": primaryColor,
     height,
     width,
   };
@@ -148,6 +179,7 @@ const FileManager: React.FC<FileManagerProps> = ({
 
   return (
     <main
+      ref={mainRef}
       className={`file-explorer ${className}`}
       onContextMenu={(e) => e.preventDefault()}
       style={{ ...customStyles, ...style }}
@@ -171,6 +203,8 @@ const FileManager: React.FC<FileManagerProps> = ({
                     onRefresh={onRefresh}
                     triggerAction={triggerAction}
                     permissions={permissionsObj}
+                    isFullScreen={isFullScreen}
+                    onFullScreenToggle={toggleFullScreen}
                   />
                   <section
                     ref={containerRef as RefObject<HTMLDivElement>}
