@@ -1,5 +1,3 @@
-@import "@fontsource/nunito-sans";
-
 .text-white {
   color: white;
 }
@@ -50,8 +48,8 @@ svg {
 
   .files-container {
     display: flex;
-    height: calc(100% - 46px);
-    /* Toolbar total height = baseHeight: 35px, padding top + bottom: 10px, border: 1px. */
+    height: calc(100% - 61px);
+    /* Toolbar total height = baseHeight: 60px + 1px border. */
 
     .navigation-pane {
       z-index: 1;

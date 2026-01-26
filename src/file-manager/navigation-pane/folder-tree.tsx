@@ -29,7 +29,11 @@ const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
 
   const handleCollapseChange = (e: MouseEvent) => {
     e.stopPropagation();
-    setIsOpen((prev) => !prev);
+    const nextOpen = !isOpen;
+    setIsOpen(nextOpen);
+    if (nextOpen) {
+      handleFolderSwitch();
+    }
   };
 
   useEffect(() => {
@@ -44,50 +48,30 @@ const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
     }
   }, [currentPath, folder.path]);
 
-  if (folder.subDirectories.length > 0) {
-    return (
-      <>
-        <div
-          className={`sb-folders-list-item ${isActive ? "active-list-item" : ""
-            }`}
-          onClick={handleFolderSwitch}
-        >
-          <span onClick={handleCollapseChange}>
+  const hasSubDirs = folder.subDirectories.length > 0;
+  const isExpandable = folder.isDirectory;
+
+  return (
+    <>
+      <div
+        className={`sb-folders-list-item ${isActive ? "active-list-item" : ""
+          }`}
+        onClick={handleFolderSwitch}
+      >
+        <span onClick={handleCollapseChange}>
+          {isExpandable ? (
             <MdKeyboardArrowRight
               size={20}
               className={`folder-icon-default ${isOpen ? "folder-rotate-down" : ""
                 }`}
+              style={{ opacity: hasSubDirs ? 1 : 0.5 }}
             />
-          </span>
-          <div className="sb-folder-details">
-            {isOpen || isActive ? (
-              <FaRegFolderOpen size={20} className="folder-open-icon" />
-            ) : (
-              <FaRegFolder size={17} className="folder-close-icon" />
-            )}
-            <span className="sb-folder-name" title={folder.name}>
-              {folder.name}
-            </span>
-          </div>
-        </div>
-        <Collapse open={isOpen}>
-          <div className="folder-collapsible">
-            {folder.subDirectories.map((item, index) => (
-              <FolderTree key={index} folder={item} onFileOpen={onFileOpen} />
-            ))}
-          </div>
-        </Collapse>
-      </>
-    );
-  } else {
-    return (
-      <div
-        className={`sb-folders-list-item ${isActive ? "active-list-item" : ""}`}
-        onClick={handleFolderSwitch}
-      >
-        <span className="non-expanable"></span>
+          ) : (
+            <span className="non-expanable"></span>
+          )}
+        </span>
         <div className="sb-folder-details">
-          {isActive ? (
+          {isOpen || isActive ? (
             <FaRegFolderOpen size={20} className="folder-open-icon" />
           ) : (
             <FaRegFolder size={17} className="folder-close-icon" />
@@ -97,8 +81,17 @@ const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
           </span>
         </div>
       </div>
-    );
-  }
+      {hasSubDirs && (
+        <Collapse open={isOpen}>
+          <div className="folder-collapsible">
+            {folder.subDirectories.map((item, index) => (
+              <FolderTree key={index} folder={item} onFileOpen={onFileOpen} />
+            ))}
+          </div>
+        </Collapse>
+      )}
+    </>
+  );
 };
 
 export default FolderTree;

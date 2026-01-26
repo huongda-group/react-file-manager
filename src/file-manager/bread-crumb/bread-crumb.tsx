@@ -41,9 +41,6 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
   const foldersRef = useRef<(HTMLSpanElement | null)[]>([]);
   const moreBtnRef = useRef<HTMLButtonElement>(null);
   const navTogglerRef = useRef<HTMLDivElement>(null);
-
-  // useDetectOutsideClick hook usage might need adjustment based on its return type
-  // It returns { ref, isClicked, setIsClicked }
   const popover = useDetectOutsideClick((_e) => {
     // If click is outside, hide
     setShowHiddenFolders(false);
@@ -54,10 +51,8 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
   useEffect(() => {
     setFolders(() => {
       let path = "";
-      // currentPath is string e.g. "folder/subfolder"
       return (currentPath || "").split("/").map((item) => {
         const itemPath = item === "" ? item : (path += `/${item}`);
-        // Fix for root path being empty string splitting
         if (item === "" && path === "") {
           // This logic mirrors the JS split behavior but needs care
           // "folder".split("/") -> ["folder"].
@@ -66,7 +61,7 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
           path = ""; // ensure path accumulation is correct
         }
         return {
-          name: item || t("home"),
+          name: item || '',
           path: itemPath,
         };
       });

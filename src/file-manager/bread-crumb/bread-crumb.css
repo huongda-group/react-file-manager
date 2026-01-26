@@ -3,10 +3,9 @@
   font-size: var(--fm-font-size);
 
   .breadcrumb {
-    height: 22px;
-    min-height: 22px;
-    max-height: 22px;
+    height: 40px;
     display: flex;
+    align-items: center;
     gap: 0.5rem;
     border-bottom: 1px solid var(--fm-border-color);
     padding: 6px 0 6px 15px;
@@ -51,6 +50,7 @@
       background-color: transparent;
       border: none;
       padding: 0;
+      margin-top: 2px;
 
       &:hover,
       &:focus {

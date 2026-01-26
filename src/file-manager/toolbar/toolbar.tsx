@@ -57,7 +57,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   // Toolbar Items
   const toolbarLeftItems = [
     {
-      icon: <BsFolderPlus size={17} strokeWidth={0.3} />,
+      icon: <BsFolderPlus size={18} strokeWidth={0.3} />,
       text: t("newFolder"),
       permission: permissions.create,
       onClick: () => triggerAction.show("createFolder"),
@@ -80,15 +80,15 @@ const Toolbar: React.FC<ToolbarProps> = ({
     {
       icon:
         activeLayout === "grid" ? (
-          <BsGridFill size={16} />
+          <BsGridFill size={18} />
         ) : (
-          <FaListUl size={16} />
+          <FaListUl size={18} />
         ),
       title: t("changeView"),
       onClick: () => setShowToggleViewMenu((prev) => !prev),
     },
     {
-      icon: <FiRefreshCw size={16} />,
+      icon: <FiRefreshCw size={18} />,
       title: t("refresh"),
       onClick: () => {
         validateApiCallback(onRefresh, "onRefresh");
@@ -122,7 +122,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={() => handleCutCopy(false)}
               >
-                <BsCopy strokeWidth={0.1} size={17} />
+                <BsCopy strokeWidth={0.1} size={18} />
                 <span>{t("copy")}</span>
               </button>
             )}
@@ -141,7 +141,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={() => triggerAction.show("rename")}
               >
-                <BiRename size={19} />
+                <BiRename size={18} />
                 <span>{t("rename")}</span>
               </button>
             )}
@@ -150,7 +150,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={handleDownloadItems}
               >
-                <MdOutlineFileDownload size={19} />
+                <MdOutlineFileDownload size={18} />
                 <span>{t("download")}</span>
               </button>
             )}
@@ -159,7 +159,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={() => triggerAction.show("delete")}
               >
-                <MdOutlineDelete size={19} />
+                <MdOutlineDelete size={18} />
                 <span>{t("delete")}</span>
               </button>
             )}
@@ -200,18 +200,14 @@ const Toolbar: React.FC<ToolbarProps> = ({
         </div>
         <div>
           {toolbarRightItems.map((item, index) => (
-            <div key={index} className="toolbar-left-items">
-              <button
-                className="item-action icon-only"
-                title={item.title}
-                onClick={item.onClick}
-              >
-                {item.icon}
-              </button>
-              {index !== toolbarRightItems.length - 1 && (
-                <div className="item-separator"></div>
-              )}
-            </div>
+            <button
+              key={index}
+              className="item-action icon-only"
+              title={item.title}
+              onClick={item.onClick}
+            >
+              {item.icon}
+            </button>
           ))}
 
           {showToggleViewMenu && (

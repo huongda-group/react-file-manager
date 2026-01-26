@@ -112,7 +112,7 @@ const FileManager: React.FC<FileManagerProps> = ({
   initialPath = "",
   filePreviewComponent,
   primaryColor = "#6155b4",
-  fontFamily = "Nunito Sans, sans-serif",
+  fontFamily = "inherit",
   language = "en-US",
   permissions: userPermissions = {},
   collapsibleNav = false,
