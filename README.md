@@ -35,7 +35,7 @@ An open-source React.js package for easy integration of a file manager into appl
 To install `React File Manager`, use the following command:
 
 ```bash
-npm i @cubone/react-file-manager
+npm i @huongda-group/react-file-manager
 ```
 
 ## 💻 Usage
@@ -44,8 +44,8 @@ Here’s a basic example of how to use the File Manager Component in your React 
 
 ```jsx
 import { useState } from "react";
-import { FileManager } from "@cubone/react-file-manager";
-import "@cubone/react-file-manager/dist/style.css";
+import { FileManager } from "@huongda-group/react-file-manager";
+import "@huongda-group/react-file-manager/dist/style.css";
 
 function App() {
   const [files, setFiles] = useState([

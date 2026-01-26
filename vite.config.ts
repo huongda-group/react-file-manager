@@ -25,6 +25,7 @@ export default defineConfig({
           if (assetInfo.names.length && assetInfo.names[0].endsWith(".css")) {
             return "style.css";
           }
+
           return assetInfo.names[0];
         },
       },
