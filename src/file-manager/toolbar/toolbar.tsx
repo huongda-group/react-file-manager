@@ -24,6 +24,7 @@ import { useLayout, LayoutType } from "../../contexts/layout";
 import { validateApiCallback } from "../../utils/validate-api-callback";
 import { useTranslation } from "../../contexts/translation";
 import "../../file-manager/toolbar/toolbar.css";
+import Tooltip from "../../components/tooltip/tooltip";
 import { IUseTriggerActionReturn } from "../../hooks/use-trigger-action";
 
 interface IPermissions {
@@ -221,14 +222,14 @@ const Toolbar: React.FC<ToolbarProps> = ({
         </div>
         <div>
           {toolbarRightItems.map((item, index) => (
-            <button
-              key={index}
-              className="item-action icon-only"
-              title={item.title}
-              onClick={item.onClick}
-            >
-              {item.icon}
-            </button>
+            <Tooltip text={item.title} key={index}>
+              <button
+                className="item-action icon-only"
+                onClick={item.onClick}
+              >
+                {item.icon}
+              </button>
+            </Tooltip>
           ))}
 
           {showToggleViewMenu && (
