@@ -101,7 +101,7 @@ const RenameAction: React.FC<RenameActionProps> = ({
   }, [fileRenameError]);
   //
 
-  function handleFileRenaming(isConfirmed: boolean) {
+  async function handleFileRenaming(isConfirmed: boolean) {
     if (renameFile === "" || renameFile === file.name) {
       setCurrentPathFiles((prev) =>
         prev.map((f) => {
@@ -127,9 +127,16 @@ const RenameAction: React.FC<RenameActionProps> = ({
       }
     }
     setFileRenameError(false);
-    validateApiCallback(onRename, "onRename", file, renameFile);
-    setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key)); // Todo: Should only filter on success API call
-    triggerAction.close();
+
+    try {
+      await validateApiCallback(onRename, "onRename", file, renameFile);
+      setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key)); // Todo: Should only filter on success API call
+      triggerAction.close();
+    } catch (error) {
+      console.error("Error renaming file:", error);
+      outsideClick.setIsClicked(false);
+      outsideClick.ref.current?.focus();
+    }
   }
 
   const focusName = () => {

@@ -86,7 +86,7 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
   }, [folderNameError]);
   //
 
-  function handleFolderCreating() {
+  async function handleFolderCreating() {
     let newFolderName = folderName.trim();
     const syncedCurrPathFiles = currentPathFiles.filter(
       (f) => !(!!f.key && f.key === file.key)
@@ -114,17 +114,20 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
       );
     }
 
-    validateApiCallback(
-      onCreateFolder,
-      "onCreateFolder",
-      newFolderName,
-      currentFolder
-    );
-    // Optimistic removal until API triggers refresh?
-    // Or this component is just the entry field.
-    // The key is likely temporary, so removing it makes sense if API refresh is handled externally.
-    setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
-    triggerAction.close();
+    try {
+      await validateApiCallback(
+        onCreateFolder,
+        "onCreateFolder",
+        newFolderName,
+        currentFolder
+      );
+      setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
+      triggerAction.close();
+    } catch (error) {
+      console.error("Error creating folder:", error);
+      outsideClick.setIsClicked(false);
+      outsideClick.ref.current?.focus();
+    }
   }
   //
 

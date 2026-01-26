@@ -1,10 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { createFolderAPI } from "./api/create-folder-api";
-import { deleteAPI } from "./api/delete-api";
-import { downloadFile } from "./api/download-file-api";
-import { copyItemAPI, moveItemAPI } from "./api/file-transfer-api";
-import { getAllFilesAPI } from "./api/get-all-files-api";
-import { renameAPI } from "./api/rename-api";
+import { useState } from "react";
 import "./styles/variables.css";
 import "./app.css";
 import FileManager from "./file-manager/file-manager";
@@ -16,46 +10,53 @@ function App() {
     url: (import.meta.env.VITE_API_BASE_URL as string) + "/upload",
   };
   const [isLoading, setIsLoading] = useState(false);
-  const [files, setFiles] = useState<IFile[]>([]);
-  const [currentPath, setCurrentPath] = useState("");
-  const isMountRef = useRef(false);
-
-  // Get Files
-  const getFiles = async () => {
-    setIsLoading(true);
-    const response = await getAllFilesAPI();
-    if (response.status === 200 && response.data) {
-      setFiles(response.data);
-    } else {
-      console.error(response);
-      setFiles([]);
+  const [files, setFiles] = useState<IFile[]>([
+    {
+      _id: "root-1",
+      name: "Documents",
+      isDirectory: true,
+      path: "/Documents",
+      updatedAt: new Date().toISOString(),
+      size: 0,
+    },
+    {
+      _id: "root-2",
+      name: "Images",
+      isDirectory: true,
+      path: "/Images",
+      updatedAt: new Date().toISOString(),
+      size: 0,
+    },
+    {
+      _id: "img-1",
+      name: "profile.jpg",
+      isDirectory: false,
+      path: "/Images/profile.jpg",
+      updatedAt: new Date().toISOString(),
+      size: 1024 * 50,
     }
-    setIsLoading(false);
-  };
+  ]);
+  const [currentPath, setCurrentPath] = useState("");
 
-  useEffect(() => {
-    if (isMountRef.current) return;
-    isMountRef.current = true;
-    getFiles();
-  }, []);
-  //
 
   // Create Folder
   const handleCreateFolder = async (name: string, parentFolder: IFile | null) => {
     setIsLoading(true);
-    // Assuming parentFolder has _id if it's not null. IFile usually has it if from API.
-    const response = await createFolderAPI(name, parentFolder?._id);
-    if (response.status === 200 || response.status === 201) {
-      const newFile = response.data;
-      if (newFile) {
-        setFiles((prev) => [...prev, newFile]);
-      }
-    } else {
-      console.error(response);
-    }
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const newFolder: IFile = {
+      _id: "dir-" + Date.now(),
+      name,
+      isDirectory: true,
+      path: parentFolder ? `${parentFolder.path}/${name}` : `/${name}`,
+      updatedAt: new Date().toISOString(),
+      size: 0,
+    };
+
+    setFiles((prev) => [...prev, newFolder]);
     setIsLoading(false);
   };
-  //
 
   // File Upload Handlers
   const handleFileUploading = (_file: File, parentFolder: IFile | null) => {
@@ -63,45 +64,59 @@ function App() {
   };
 
   const handleFileUploaded = (response: any) => {
-    // response might be JSON string or object depending on XHR response type?
-    // UploadItem uses xhr.response which is usually string unless responseType set.
-    // In UploadItem we saw `onFileUploaded(xhr.response)`.
     const uploadedFile = typeof response === 'string' ? JSON.parse(response) : response;
     setFiles((prev) => [...prev, uploadedFile]);
   };
-  //
 
   // Rename File/Folder
   const handleRename = async (file: IFile, newName: string) => {
     setIsLoading(true);
-    if (!file._id) {
-      console.error("File ID missing");
-      setIsLoading(false);
-      return;
-    }
-    const response = await renameAPI(file._id, newName);
-    if (response.status === 200) {
-      getFiles();
-    } else {
-      console.error(response);
-    }
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    setFiles((prev) =>
+      prev.map((f) => {
+        if (f._id === file._id) {
+          const oldPath = f.path;
+          const folderPath = oldPath.substring(0, oldPath.lastIndexOf('/'));
+          const newPath = folderPath ? folderPath + '/' + newName : '/' + newName;
+          return { ...f, name: newName, path: newPath, updatedAt: new Date().toISOString() };
+        }
+        // Also update paths of children if it's a directory
+        if (file.isDirectory && f.path.startsWith(file.path + '/')) {
+          const newPath = f.path.replace(file.path, file.path.substring(0, file.path.lastIndexOf('/')) + '/' + newName);
+          return { ...f, path: newPath };
+        }
+        return f;
+      })
+    );
+
     setIsLoading(false);
   };
-  //
 
   // Delete File/Folder
   const handleDelete = async (filesToDelete: IFile[]) => {
     setIsLoading(true);
-    const idsToDelete = filesToDelete.map((file) => file._id).filter((id): id is string => !!id);
-    const response = await deleteAPI(idsToDelete);
-    if (response.status === 200) {
-      getFiles();
-    } else {
-      console.error(response);
-      setIsLoading(false);
-    }
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    const idsToDelete = new Set(filesToDelete.map((file) => file._id));
+
+    setFiles((prev) => {
+      const toRemove = new Set<string>();
+      prev.forEach(f => {
+        if (idsToDelete.has(f._id)) {
+          toRemove.add(f._id);
+        }
+        filesToDelete.forEach(deletedFile => {
+          if (deletedFile.isDirectory && f.path.startsWith(deletedFile.path + '/')) {
+            toRemove.add(f._id);
+          }
+        });
+      });
+      return prev.filter(f => !toRemove.has(f._id));
+    });
+
+    setIsLoading(false);
   };
-  //
 
   // Paste File/Folder
   const handlePaste = async (
@@ -110,15 +125,57 @@ function App() {
     operationType: "move" | "copy"
   ) => {
     setIsLoading(true);
-    const copiedItemIds = copiedItems.map((item) => item._id).filter((id): id is string => !!id);
-    if (operationType === "copy") {
-      await copyItemAPI(copiedItemIds, destinationFolder?._id);
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const destPath = destinationFolder ? destinationFolder.path : "";
+
+    if (operationType === "move") {
+      setFiles((prev) => {
+        const idsToMove = new Set(copiedItems.map(i => i._id));
+        return prev.map(f => {
+          if (idsToMove.has(f._id)) {
+            const newPath = destPath ? destPath + "/" + f.name : "/" + f.name;
+            return { ...f, path: newPath, updatedAt: new Date().toISOString() };
+          }
+          // Handle children
+          for (const item of copiedItems) {
+            if (item.isDirectory && f.path.startsWith(item.path + '/')) {
+              const newPath = f.path.replace(item.path, (destPath ? destPath + "/" : "/") + item.name);
+              return { ...f, path: newPath };
+            }
+          }
+          return f;
+        });
+      });
     } else {
-      await moveItemAPI(copiedItemIds, destinationFolder?._id);
+      // Copy
+      setFiles((prev) => {
+        const newItems: IFile[] = [];
+        const createCopies = (items: IFile[], targetPath: string) => {
+          items.forEach(item => {
+            const newId = "copy-" + Date.now() + "-" + Math.random();
+            const newPath = targetPath ? targetPath + "/" + item.name : "/" + item.name;
+            const newItem = {
+              ...item,
+              _id: newId,
+              path: newPath,
+              updatedAt: new Date().toISOString()
+            };
+            newItems.push(newItem);
+
+            if (item.isDirectory) {
+              const children = prev.filter(f => f.path.startsWith(item.path + '/') && f.path.split('/').length === item.path.split('/').length + 1);
+              createCopies(children, newPath);
+            }
+          });
+        };
+        createCopies(copiedItems, destPath);
+        return [...prev, ...newItems];
+      });
     }
-    await getFiles();
+
+    setIsLoading(false);
   };
-  //
 
   const handleLayoutChange = (layout: LayoutType) => {
     console.log(layout);
@@ -126,9 +183,9 @@ function App() {
 
   // Refresh Files
   const handleRefresh = () => {
-    getFiles();
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 500);
   };
-  //
 
   const handleFileOpen = (file: IFile) => {
     console.log(`Opening file: ${file.name}`);
@@ -139,7 +196,8 @@ function App() {
   };
 
   const handleDownload = async (filesToDownload: IFile[]) => {
-    await downloadFile(filesToDownload);
+    console.log("Mock Downloading:", filesToDownload);
+    alert(`Downloading ${filesToDownload.length} items (Mock)`);
   };
 
   const handleCut = (filesToCut: IFile[]) => {
