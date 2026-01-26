@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, DragEvent, MouseEvent, KeyboardEvent, RefObject } from "react";
-import { FaRegFile, FaRegFolderOpen } from "react-icons/fa6";
+import { File, FolderOpen } from "lucide-react";
+import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useFileIcons } from "../../hooks/use-file-icons";
 import CreateFolderAction from "../../file-manager/actions/create-folder/create-folder";
 import RenameAction from "../../file-manager/actions/rename/rename";
@@ -254,11 +255,11 @@ const FileItem: React.FC<FileItemProps> = ({
           />
         )}
         {file.isDirectory ? (
-          <FaRegFolderOpen size={iconSize} />
+          <AnimatedIcon icon={FolderOpen} size={iconSize} />
         ) : (
           <>
             {fileIcons[file.name?.split(".").pop()?.toLowerCase() || ""] ?? (
-              <FaRegFile size={iconSize} />
+              <AnimatedIcon icon={File} size={iconSize} />
             )}
           </>
         )}
@@ -310,11 +311,11 @@ const FileItem: React.FC<FileItemProps> = ({
 
       <div ref={dragIconRef} className="drag-icon">
         {file.isDirectory ? (
-          <FaRegFolderOpen size={dragIconSize} />
+          <AnimatedIcon icon={FolderOpen} size={dragIconSize} />
         ) : (
           <>
             {dragIcons[file.name?.split(".").pop()?.toLowerCase() || ""] ?? (
-              <FaRegFile size={dragIconSize} />
+              <AnimatedIcon icon={File} size={dragIconSize} />
             )}
           </>
         )}

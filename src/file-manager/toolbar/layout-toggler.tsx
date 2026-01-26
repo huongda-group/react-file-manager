@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { BsGridFill } from "react-icons/bs";
-import { FaCheck, FaListUl } from "react-icons/fa6";
+import { Grid, List, Check } from "lucide-react";
+import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useDetectOutsideClick } from "../../hooks/use-detect-outside-click";
 import { useLayout, LayoutType } from "../../contexts/layout";
 import { useTranslation } from "../../contexts/translation";
@@ -28,12 +28,12 @@ const LayoutToggler: React.FC<LayoutTogglerProps> = ({
       {
         key: "grid",
         name: t("grid"),
-        icon: <BsGridFill size={18} />,
+        icon: <AnimatedIcon icon={Grid} size={18} />,
       },
       {
         key: "list",
         name: t("list"),
-        icon: <FaListUl size={18} />,
+        icon: <AnimatedIcon icon={List} size={18} />,
       },
     ];
 
@@ -53,7 +53,7 @@ const LayoutToggler: React.FC<LayoutTogglerProps> = ({
             onClick={() => handleSelection(option.key)}
             onKeyDown={() => handleSelection(option.key)}
           >
-            <span>{option.key === activeLayout && <FaCheck size={13} />}</span>
+            <span>{option.key === activeLayout && <AnimatedIcon icon={Check} size={13} />}</span>
             <span>{option.icon}</span>
             <span>{option.name}</span>
           </li>

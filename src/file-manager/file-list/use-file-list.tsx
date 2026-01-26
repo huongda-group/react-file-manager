@@ -1,13 +1,20 @@
-import { BiRename, BiSelectMultiple } from "react-icons/bi";
-import { BsCopy, BsFolderPlus, BsGrid, BsScissors } from "react-icons/bs";
-import { FaListUl, FaRegFile, FaRegPaste } from "react-icons/fa6";
-import { FiRefreshCw } from "react-icons/fi";
 import {
-  MdOutlineDelete,
-  MdOutlineFileDownload,
-  MdOutlineFileUpload,
-} from "react-icons/md";
-import { PiFolderOpen } from "react-icons/pi";
+  FilePenLine,
+  CheckSquare,
+  Copy,
+  FolderPlus,
+  Grid,
+  Scissors,
+  List,
+  File,
+  ClipboardPaste,
+  RefreshCw,
+  Trash2,
+  Download,
+  Upload,
+  FolderOpen
+} from "lucide-react";
+import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useClipBoard } from "../../contexts/clipboard";
 import { useEffect, useState, MouseEvent } from "react";
 import { useSelection } from "../../contexts/selection";
@@ -123,14 +130,14 @@ const useFileList = (
       title: t("view"),
       icon:
         activeLayout === "grid" ? (
-          <BsGrid size={18} />
+          <AnimatedIcon icon={Grid} size={18} />
         ) : (
-          <FaListUl size={18} />
+          <AnimatedIcon icon={List} size={18} />
         ),
       children: [
         {
           title: t("grid"),
-          icon: <BsGrid size={18} />,
+          icon: <AnimatedIcon icon={Grid} size={18} />,
           selected: activeLayout === "grid",
           onClick: () => {
             setActiveLayout("grid");
@@ -139,7 +146,7 @@ const useFileList = (
         },
         {
           title: t("list"),
-          icon: <FaListUl size={18} />,
+          icon: <AnimatedIcon icon={List} size={18} />,
           selected: activeLayout === "list",
           onClick: () => {
             setActiveLayout("list");
@@ -150,27 +157,27 @@ const useFileList = (
     },
     {
       title: t("refresh"),
-      icon: <FiRefreshCw size={18} />,
+      icon: <AnimatedIcon icon={RefreshCw} size={18} animation="spin" />,
       onClick: handleRefresh,
       divider: true,
     },
     {
       title: t("newFolder"),
-      icon: <BsFolderPlus size={18} />,
+      icon: <AnimatedIcon icon={FolderPlus} size={18} animation="bounce" />,
       onClick: handleCreateNewFolder,
       hidden: !permissions.create,
       divider: !permissions.upload,
     },
     {
       title: t("upload"),
-      icon: <MdOutlineFileUpload size={18} />,
+      icon: <AnimatedIcon icon={Upload} size={18} animation="bounce" />,
       onClick: handleUpload,
       divider: true,
       hidden: !permissions.upload,
     },
     {
       title: t("selectAll"),
-      icon: <BiSelectMultiple size={18} />,
+      icon: <AnimatedIcon icon={CheckSquare} size={18} animation="scale" />,
       onClick: handleselectAllFiles,
     },
   ];
@@ -179,30 +186,30 @@ const useFileList = (
     {
       title: t("open"),
       icon: lastSelectedFile?.isDirectory ? (
-        <PiFolderOpen size={20} />
+        <AnimatedIcon icon={FolderOpen} size={20} />
       ) : (
-        <FaRegFile size={16} />
+        <AnimatedIcon icon={File} size={16} />
       ),
       onClick: handleFileOpen,
       divider: true,
     },
     {
       title: t("cut"),
-      icon: <BsScissors size={19} />,
+      icon: <AnimatedIcon icon={Scissors} size={19} />,
       onClick: () => handleMoveOrCopyItems(true),
       divider: !lastSelectedFile?.isDirectory && !permissions.copy,
       hidden: !permissions.move,
     },
     {
       title: t("copy"),
-      icon: <BsCopy strokeWidth={0.1} size={17} />,
+      icon: <AnimatedIcon icon={Copy} strokeWidth={0.1} size={17} />,
       onClick: () => handleMoveOrCopyItems(false),
       divider: !lastSelectedFile?.isDirectory,
       hidden: !permissions.copy,
     },
     {
       title: t("paste"),
-      icon: <FaRegPaste size={18} />,
+      icon: <AnimatedIcon icon={ClipboardPaste} size={18} />,
       onClick: handleFilePasting,
       className: `${clipBoard ? "" : "disable-paste"}`,
       hidden:
@@ -212,19 +219,19 @@ const useFileList = (
     },
     {
       title: t("rename"),
-      icon: <BiRename size={19} />,
+      icon: <AnimatedIcon icon={FilePenLine} size={19} animation="wiggle" />,
       onClick: handleRenaming,
       hidden: selectedFiles.length > 1 || !permissions.rename,
     },
     {
       title: t("download"),
-      icon: <MdOutlineFileDownload size={18} />,
+      icon: <AnimatedIcon icon={Download} size={18} animation="bounce" />,
       onClick: handleDownloadItems,
       hidden: !permissions.download,
     },
     {
       title: t("delete"),
-      icon: <MdOutlineDelete size={19} />,
+      icon: <AnimatedIcon icon={Trash2} size={19} animation="shake" />,
       onClick: handleDelete,
       hidden: !permissions.delete,
     },

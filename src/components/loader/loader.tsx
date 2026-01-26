@@ -1,4 +1,4 @@
-import { ImSpinner2 } from "react-icons/im";
+import { Loader2 } from "lucide-react";
 import "./loader.css";
 
 interface LoaderProps {
@@ -11,7 +11,7 @@ const Loader: React.FC<LoaderProps> = ({ loading = false, className = "" }) => {
 
   return (
     <div className={`loader-container ${className}`}>
-      <ImSpinner2 className="spinner" />
+      <Loader2 className="spinner" />
     </div>
   );
 };

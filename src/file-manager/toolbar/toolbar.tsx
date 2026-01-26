@@ -1,16 +1,21 @@
 import { useState } from "react";
-import { BsCopy, BsFolderPlus, BsGridFill, BsScissors } from "react-icons/bs";
-import { FiRefreshCw } from "react-icons/fi";
 import {
-  MdClear,
-  MdOutlineDelete,
-  MdOutlineFileDownload,
-  MdOutlineFileUpload,
-  MdFullscreen,
-  MdFullscreenExit,
-} from "react-icons/md";
-import { BiRename } from "react-icons/bi";
-import { FaListUl, FaRegPaste } from "react-icons/fa6";
+  FolderPlus,
+  Upload,
+  ClipboardPaste,
+  Grid,
+  List,
+  RefreshCw,
+  Maximize,
+  Minimize,
+  Scissors,
+  Copy,
+  FilePenLine,
+  Download,
+  Trash2,
+  X,
+} from "lucide-react";
+import { AnimatedIcon } from "../../components/ui/animated-icon";
 import LayoutToggler from "../../file-manager/toolbar/layout-toggler";
 import { useFileNavigation } from "../../contexts/file-navigation";
 import { useSelection } from "../../contexts/selection";
@@ -63,19 +68,19 @@ const Toolbar: React.FC<ToolbarProps> = ({
   // Toolbar Items
   const toolbarLeftItems = [
     {
-      icon: <BsFolderPlus size={18} strokeWidth={0.3} />,
+      icon: <AnimatedIcon icon={FolderPlus} size={18} strokeWidth={0.3} animation="bounce" />,
       text: t("newFolder"),
       permission: permissions.create,
       onClick: () => triggerAction.show("createFolder"),
     },
     {
-      icon: <MdOutlineFileUpload size={18} />,
+      icon: <AnimatedIcon icon={Upload} size={18} animation="bounce" />,
       text: t("upload"),
       permission: permissions.upload,
       onClick: () => triggerAction.show("uploadFile"),
     },
     {
-      icon: <FaRegPaste size={18} />,
+      icon: <AnimatedIcon icon={ClipboardPaste} size={18} animation="scale" />,
       text: t("paste"),
       permission: !!clipBoard,
       onClick: handleFilePasting,
@@ -86,15 +91,15 @@ const Toolbar: React.FC<ToolbarProps> = ({
     {
       icon:
         activeLayout === "grid" ? (
-          <BsGridFill size={18} />
+          <AnimatedIcon icon={Grid} size={18} />
         ) : (
-          <FaListUl size={18} />
+          <AnimatedIcon icon={List} size={18} />
         ),
       title: t("changeView"),
       onClick: () => setShowToggleViewMenu((prev) => !prev),
     },
     {
-      icon: <FiRefreshCw size={18} />,
+      icon: <AnimatedIcon icon={RefreshCw} size={18} animation="spin" />,
       title: t("refresh"),
       onClick: () => {
         validateApiCallback(onRefresh, "onRefresh");
@@ -104,9 +109,9 @@ const Toolbar: React.FC<ToolbarProps> = ({
     },
     {
       icon: isFullScreen ? (
-        <MdFullscreenExit size={18} />
+        <AnimatedIcon icon={Minimize} size={18} animation="scale" />
       ) : (
-        <MdFullscreen size={18} />
+        <AnimatedIcon icon={Maximize} size={18} animation="scale" />
       ),
       title: isFullScreen ? t("exitFullScreen") : t("enterFullScreen"),
       onClick: onFullScreenToggle,
@@ -129,7 +134,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={() => handleCutCopy(true)}
               >
-                <BsScissors size={18} />
+                <AnimatedIcon icon={Scissors} size={18} animation="scale" />
                 <span>{t("cut")}</span>
               </button>
             )}
@@ -138,7 +143,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={() => handleCutCopy(false)}
               >
-                <BsCopy strokeWidth={0.1} size={18} />
+                <AnimatedIcon icon={Copy} strokeWidth={0.1} size={18} animation="scale" />
                 <span>{t("copy")}</span>
               </button>
             )}
@@ -148,7 +153,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 onClick={handleFilePasting}
               // disabled={!clipBoard}
               >
-                <FaRegPaste size={18} />
+                <AnimatedIcon icon={ClipboardPaste} size={18} animation="scale" />
                 <span>{t("paste")}</span>
               </button>
             )}
@@ -157,7 +162,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={() => triggerAction.show("rename")}
               >
-                <BiRename size={18} />
+                <AnimatedIcon icon={FilePenLine} size={18} animation="wiggle" />
                 <span>{t("rename")}</span>
               </button>
             )}
@@ -166,7 +171,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={handleDownloadItems}
               >
-                <MdOutlineFileDownload size={18} />
+                <AnimatedIcon icon={Download} size={18} animation="bounce" />
                 <span>{t("download")}</span>
               </button>
             )}
@@ -175,7 +180,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 className="item-action file-action"
                 onClick={() => triggerAction.show("delete")}
               >
-                <MdOutlineDelete size={18} />
+                <AnimatedIcon icon={Trash2} size={18} animation="shake" />
                 <span>{t("delete")}</span>
               </button>
             )}
@@ -189,7 +194,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               {selectedFiles.length}{" "}
               {t(selectedFiles.length > 1 ? "itemsSelected" : "itemSelected")}
             </span>
-            <MdClear size={18} />
+            <AnimatedIcon icon={X} size={18} animation="rotate" />
           </button>
         </div>
       </div>

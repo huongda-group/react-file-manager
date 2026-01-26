@@ -1,5 +1,6 @@
 import { ReactElement, RefObject } from "react";
-import { FaCheck } from "react-icons/fa6";
+import { Check } from "lucide-react";
+import { AnimatedIcon } from "../ui/animated-icon";
 
 export interface IMenuItem {
   title: string;
@@ -28,7 +29,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
       {list?.map((item) => (
         <li key={item.title} onClick={item.onClick}>
           <span className="item-selected">
-            {item.selected && <FaCheck size={13} />}
+            {item.selected && <AnimatedIcon icon={Check} size={13} />}
           </span>
           {item.icon}
           <span>{item.title}</span>

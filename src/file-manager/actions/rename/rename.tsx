@@ -6,7 +6,8 @@ import React, {
   RefObject,
 } from "react";
 import Button from "../../../components/button/button";
-import { IoWarningOutline } from "react-icons/io5";
+import { AlertTriangle } from "lucide-react";
+import { AnimatedIcon } from "../../../components/ui/animated-icon";
 import { useDetectOutsideClick } from "../../../hooks/use-detect-outside-click";
 import Modal from "../../../components/modal/modal";
 import { getFileExtension } from "../../../utils/get-file-extension";
@@ -218,7 +219,7 @@ const RenameAction: React.FC<RenameActionProps> = ({
         <div className="fm-rename-folder-container" ref={warningModalRef}>
           <div className="fm-rename-folder-input">
             <div className="fm-rename-warning">
-              <IoWarningOutline size={70} color="orange" />
+              <AnimatedIcon icon={AlertTriangle} size={70} color="orange" />
               <div>{t("fileNameChangeWarning")}</div>
             </div>
           </div>

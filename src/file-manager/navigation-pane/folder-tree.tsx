@@ -1,7 +1,7 @@
 import React, { useEffect, useState, MouseEvent } from "react";
 import Collapse from "../../components/collapse/collapse";
-import { FaRegFolder, FaRegFolderOpen } from "react-icons/fa";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { Folder, FolderOpen, ChevronRight } from "lucide-react";
+import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useFileNavigation } from "../../contexts/file-navigation";
 import { IFile } from "../../types";
 
@@ -60,11 +60,11 @@ const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
       >
         <span onClick={handleCollapseChange}>
           {isExpandable ? (
-            <MdKeyboardArrowRight
+            <AnimatedIcon
+              icon={ChevronRight}
               size={20}
               className={`folder-icon-default ${isOpen ? "folder-rotate-down" : ""
                 }`}
-              style={{ opacity: hasSubDirs ? 1 : 0.5 }}
             />
           ) : (
             <span className="non-expanable"></span>
@@ -72,9 +72,9 @@ const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
         </span>
         <div className="sb-folder-details">
           {isOpen || isActive ? (
-            <FaRegFolderOpen size={20} className="folder-open-icon" />
+            <AnimatedIcon icon={FolderOpen} size={20} className="folder-open-icon" />
           ) : (
-            <FaRegFolder size={17} className="folder-close-icon" />
+            <AnimatedIcon icon={Folder} size={17} className="folder-close-icon" />
           )}
           <span className="sb-folder-name" title={folder.name}>
             {folder.name}

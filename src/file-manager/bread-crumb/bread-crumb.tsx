@@ -5,11 +5,14 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { MdHome, MdMoreHoriz, MdOutlineNavigateNext } from "react-icons/md";
 import {
-  TbLayoutSidebarLeftExpand,
-  TbLayoutSidebarLeftCollapseFilled,
-} from "react-icons/tb";
+  Home,
+  MoreHorizontal,
+  ChevronRight,
+  PanelLeftOpen,
+  PanelLeftClose,
+} from "lucide-react";
+import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useFileNavigation } from "../../contexts/file-navigation";
 import { useDetectOutsideClick } from "../../hooks/use-detect-outside-click";
 import { useTranslation } from "../../contexts/translation";
@@ -167,9 +170,9 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
                 onClick={() => setNavigationPaneOpen((prev) => !prev)}
               >
                 {isNavigationPaneOpen ? (
-                  <TbLayoutSidebarLeftCollapseFilled />
+                  <AnimatedIcon icon={PanelLeftClose} />
                 ) : (
-                  <TbLayoutSidebarLeftExpand />
+                  <AnimatedIcon icon={PanelLeftOpen} />
                 )}
               </span>
             </div>
@@ -185,7 +188,7 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
                 foldersRef.current[index] = el;
               }}
             >
-              {index === 0 ? <MdHome /> : <MdOutlineNavigateNext />}
+              {index === 0 ? <AnimatedIcon icon={Home} /> : <AnimatedIcon icon={ChevronRight} />}
               {folder.name}
             </span>
             {hiddenFolders?.length > 0 && index === 0 && (
@@ -195,7 +198,7 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
                 ref={moreBtnRef}
                 title={t("showMoreFolder")}
               >
-                <MdMoreHoriz size={22} className="hidden-folders" />
+                <AnimatedIcon icon={MoreHorizontal} size={22} className="hidden-folders" />
               </button>
             )}
           </div>

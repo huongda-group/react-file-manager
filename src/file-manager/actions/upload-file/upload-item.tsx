@@ -1,12 +1,10 @@
-import { AiOutlineClose } from "react-icons/ai";
+import { X, File, CheckCircle, RotateCw } from "lucide-react";
 import Progress from "../../../components/progress/progress";
 import { getFileExtension } from "../../../utils/get-file-extension";
 import { useFileIcons } from "../../../hooks/use-file-icons";
-import { FaRegFile } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { getDataSize } from "../../../utils/get-data-size";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { IoMdRefresh } from "react-icons/io";
+import { AnimatedIcon } from "../../../components/ui/animated-icon";
 import { useFiles } from "../../../contexts/files";
 import { useTranslation } from "../../../contexts/translation";
 import { IUploadFileData } from "./upload-file";
@@ -158,7 +156,7 @@ const UploadItem: React.FC<UploadItemProps> = ({
     <li>
       <div className="file-icon">
         {fileIcons[getFileExtension(fileData.file?.name)] ?? (
-          <FaRegFile size={33} />
+          <AnimatedIcon icon={File} size={33} />
         )}
       </div>
       <div className="file">
@@ -173,13 +171,17 @@ const UploadItem: React.FC<UploadItemProps> = ({
             <span className="file-size">{getDataSize(fileData.file?.size)}</span>
           </div>
           {isUploaded ? (
-            <FaRegCheckCircle title={t("uploaded")} className="upload-success" />
+            <div title={t("uploaded")} className="upload-success">
+              <AnimatedIcon icon={CheckCircle} />
+            </div>
           ) : isCanceled || uploadFailed ? (
-            <IoMdRefresh
+            <div
               className="retry-upload"
               title="Retry"
               onClick={handleRetry}
-            />
+            >
+              <AnimatedIcon icon={RotateCw} />
+            </div>
           ) : (
             <div
               className="rm-file"
@@ -190,7 +192,7 @@ const UploadItem: React.FC<UploadItemProps> = ({
                   : handleAbortUpload
               }
             >
-              <AiOutlineClose />
+              <AnimatedIcon icon={X} />
             </div>
           )}
         </div>

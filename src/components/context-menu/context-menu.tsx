@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, RefObject, MouseEvent } from "react";
-import { FaChevronRight } from "react-icons/fa6";
+import { ChevronRight } from "lucide-react";
+import { AnimatedIcon } from "../ui/animated-icon";
 import SubMenu, { IMenuItem } from "../context-menu/sub-menu";
 import "../context-menu/context-menu.css";
 
@@ -127,7 +128,8 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
                     <span>{item.title}</span>
                     {hasChildren && (
                       <>
-                        <FaChevronRight
+                        <AnimatedIcon
+                          icon={ChevronRight}
                           size={14}
                           className="list-expand-icon"
                         />

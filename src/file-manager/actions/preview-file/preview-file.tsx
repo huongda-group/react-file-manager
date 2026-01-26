@@ -4,9 +4,9 @@ import Loader from "../../../components/loader/loader";
 import { useSelection } from "../../../contexts/selection";
 import Button from "../../../components/button/button";
 import { getDataSize } from "../../../utils/get-data-size";
-import { MdOutlineFileDownload } from "react-icons/md";
+import { Download, FileText } from "lucide-react";
 import { useFileIcons } from "../../../hooks/use-file-icons";
-import { FaRegFileAlt } from "react-icons/fa";
+import { AnimatedIcon } from "../../../components/ui/animated-icon";
 import { useTranslation } from "../../../contexts/translation";
 import { IFile } from "../../../types";
 import "./preview-file.css";
@@ -77,7 +77,7 @@ const PreviewFileAction: React.FC<PreviewFileActionProps> = ({
         ].includes(extension) && (
             <div className="preview-error">
               <span className="error-icon">
-                {fileIcons[extension] ?? <FaRegFileAlt size={73} />}
+                {fileIcons[extension] ?? <AnimatedIcon icon={FileText} size={73} />}
               </span>
               <span className="error-msg">{t("previewUnavailable")}</span>
               <div className="file-info">
@@ -87,7 +87,7 @@ const PreviewFileAction: React.FC<PreviewFileActionProps> = ({
               </div>
               <Button onClick={handleDownload} padding="0.45rem .9rem">
                 <div className="download-btn">
-                  <MdOutlineFileDownload size={18} />
+                  <AnimatedIcon icon={Download} size={18} />
                   <span>{t("download")}</span>
                 </div>
               </Button>

@@ -1,6 +1,7 @@
 import { useRef, useState, DragEvent, ChangeEvent } from "react";
 import Button from "../../../components/button/button";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import { CloudUpload } from "lucide-react";
+import { AnimatedIcon } from "../../../components/ui/animated-icon";
 import UploadItem from "../../../file-manager/actions/upload-file/upload-item";
 import Loader from "../../../components/loader/loader";
 import { useFileNavigation } from "../../../contexts/file-navigation";
@@ -140,7 +141,7 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
           onDragLeave={() => setIsDragging(false)}
         >
           <div className="input-text">
-            <AiOutlineCloudUpload size={30} />
+            <AnimatedIcon icon={CloudUpload} size={30} animation="bounce" />
             <span>{t("dragFileToUpload")}</span>
           </div>
         </div>

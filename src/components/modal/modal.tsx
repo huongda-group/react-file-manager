@@ -1,4 +1,5 @@
-import { MdClose } from "react-icons/md";
+import { X } from "lucide-react";
+import { AnimatedIcon } from "../ui/animated-icon";
 import { useEffect, useRef, KeyboardEvent, PropsWithChildren } from "react";
 import { useTranslation } from "../../contexts/translation";
 import "./modal.css";
@@ -48,11 +49,13 @@ const Modal: React.FC<ModalProps> = ({
       <div className="fm-modal-header">
         <span className="fm-modal-heading">{heading}</span>
         {closeButton && (
-          <MdClose
+          <AnimatedIcon
+            icon={X}
             size={18}
-            onClick={() => setShow(false)}
             className="close-icon"
+            onClick={() => setShow(false)}
             title={t("close")}
+            animation="rotate"
           />
         )}
       </div>
