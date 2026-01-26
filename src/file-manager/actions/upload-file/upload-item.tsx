@@ -3,13 +3,13 @@ import Progress from "../../../components/progress/progress";
 import { getFileExtension } from "../../../utils/get-file-extension";
 import { useFileIcons } from "../../../hooks/use-file-icons";
 import { FaRegFile } from "react-icons/fa6";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getDataSize } from "../../../utils/get-data-size";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { useFiles } from "../../../contexts/files";
 import { useTranslation } from "../../../contexts/translation";
-import { IFileUploadConfig, IUploadFileData } from "./upload-file";
+import { IUploadFileData } from "./upload-file";
 
 interface UploadItemProps {
   index: number;
@@ -18,7 +18,7 @@ interface UploadItemProps {
   setIsUploading: React.Dispatch<
     React.SetStateAction<{ [key: number]: boolean }>
   >;
-  fileUploadConfig?: IFileUploadConfig;
+  onUpload?: (file: File) => Promise<any>;
   onFileUploaded: (response: any) => void;
   handleFileRemove: (index: number) => void;
 }
@@ -28,7 +28,7 @@ const UploadItem: React.FC<UploadItemProps> = ({
   fileData,
   setFiles,
   setIsUploading,
-  fileUploadConfig,
+  onUpload,
   onFileUploaded,
   handleFileRemove,
 }) => {
@@ -37,11 +37,14 @@ const UploadItem: React.FC<UploadItemProps> = ({
   const [isCanceled, setIsCanceled] = useState(false);
   const [uploadFailed, setUploadFailed] = useState(false);
   const fileIcons = useFileIcons(33);
-  const xhrRef = useRef<XMLHttpRequest | null>(null);
+
+  // const xhrRef = useRef<XMLHttpRequest | null>(null); // Removing XHR ref
+  // Aborting promise is harder, for now we just handle UI state or if we want to support abort we need AbortController support in onUpload.
+  // Assuming simple promise for now.
   const { onError } = useFiles();
   const t = useTranslation();
 
-  const handleUploadError = (xhr: XMLHttpRequest) => {
+  const handleUploadError = (err: any) => {
     setUploadProgress(0);
     setIsUploading((prev) => ({
       ...prev,
@@ -51,9 +54,9 @@ const UploadItem: React.FC<UploadItemProps> = ({
       type: "upload",
       message: t("uploadFail"),
       response: {
-        status: xhr.status,
-        statusText: xhr.statusText,
-        data: xhr.response,
+        status: err.status || 500,
+        statusText: err.statusText || "Error",
+        data: err,
       },
     };
 
@@ -74,80 +77,56 @@ const UploadItem: React.FC<UploadItemProps> = ({
     onError(error); // Adjusted onError to match current signature or updated Context if needed
   };
 
-  const fileUpload = (fileData: IUploadFileData) => {
+  const fileUpload = async (fileData: IUploadFileData) => {
     if (!!fileData.error) return;
 
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhrRef.current = xhr;
+    try {
       setIsUploading((prev) => ({
         ...prev,
         [index]: true,
       }));
 
-      xhr.upload.onprogress = (event) => {
-        if (event.lengthComputable) {
-          const progress = Math.round((event.loaded / event.total) * 100);
-          setUploadProgress(progress);
-        }
-      };
-
-      xhr.onload = () => {
-        setIsUploading((prev) => ({
-          ...prev,
-          [index]: false,
-        }));
-        if (xhr.status === 200 || xhr.status === 201) {
-          setIsUploaded(true);
-          onFileUploaded(xhr.response);
-          resolve(xhr.response);
-        } else {
-          reject(xhr.statusText);
-          handleUploadError(xhr);
-        }
-      };
-
-      xhr.onerror = () => {
-        reject(xhr.statusText);
-        handleUploadError(xhr);
-      };
-
-      const method = fileUploadConfig?.method || "POST";
-      xhr.open(method, fileUploadConfig?.url || "", true);
-      xhr.withCredentials = fileUploadConfig?.withCredentials || false;
-      const headers = fileUploadConfig?.headers;
-      for (let key in headers) {
-        xhr.setRequestHeader(key, headers[key]);
+      let response;
+      if (onUpload) {
+        response = await onUpload(fileData.file);
+      } else {
+        // Fallback or error if onUpload is not provided (though it should be required in types mainly)
+        throw new Error("Upload handler not provided");
       }
 
-      const formData = new FormData();
-      const appendData = fileData?.appendData;
-      for (let key in appendData) {
-        appendData[key] && formData.append(key, appendData[key]);
-      }
-      formData.append("file", fileData.file);
-
-      xhr.send(formData);
-    });
-  };
-
-  useEffect(() => {
-    // Prevent double uploads with strict mode
-    if (!xhrRef.current) {
-      fileUpload(fileData);
-    }
-  }, []);
-
-  const handleAbortUpload = () => {
-    if (xhrRef.current) {
-      xhrRef.current.abort();
       setIsUploading((prev) => ({
         ...prev,
         [index]: false,
       }));
-      setIsCanceled(true);
-      setUploadProgress(0);
+      setUploadProgress(100);
+      setIsUploaded(true);
+      onFileUploaded(response);
+      return response;
+    } catch (err: any) {
+      setIsUploading((prev) => ({
+        ...prev,
+        [index]: false,
+      }));
+      handleUploadError(err);
+      throw err.message || "Upload failed";
     }
+  };
+
+  useEffect(() => {
+    // Prevent double uploads with strict mode
+    // if (!xhrRef.current) {
+    fileUpload(fileData);
+    // }
+  }, []);
+
+  const handleAbortUpload = () => {
+    // If we want to support real abort, onUpload should accept an AbortSignal
+    setIsUploading((prev) => ({
+      ...prev,
+      [index]: false,
+    }));
+    setIsCanceled(true);
+    setUploadProgress(0);
   };
 
   const handleRetry = () => {

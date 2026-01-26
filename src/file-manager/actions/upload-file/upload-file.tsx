@@ -11,12 +11,7 @@ import { useTranslation } from "../../../contexts/translation";
 import { IFile } from "../../../types";
 import "./upload-file.css";
 
-export interface IFileUploadConfig {
-  url: string;
-  method?: string;
-  headers?: { [key: string]: string };
-  withCredentials?: boolean;
-}
+
 
 export interface IUploadFileData {
   file: File;
@@ -26,7 +21,7 @@ export interface IUploadFileData {
 }
 
 interface UploadFileActionProps {
-  fileUploadConfig: IFileUploadConfig;
+  onUpload?: (file: File) => Promise<any>;
   maxFileSize?: number;
   acceptedFileTypes?: string;
   onFileUploading: (file: File, parent: IFile | null) => any;
@@ -34,7 +29,7 @@ interface UploadFileActionProps {
 }
 
 const UploadFileAction: React.FC<UploadFileActionProps> = ({
-  fileUploadConfig,
+  onUpload,
   maxFileSize,
   acceptedFileTypes,
   onFileUploading,
@@ -183,7 +178,7 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
                 key={index}
                 fileData={fileData}
                 setFiles={setFiles}
-                fileUploadConfig={fileUploadConfig}
+                onUpload={onUpload} // Changed prop
                 setIsUploading={setIsUploading}
                 onFileUploaded={onFileUploaded}
                 handleFileRemove={handleFileRemove}

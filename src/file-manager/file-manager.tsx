@@ -16,7 +16,6 @@ import { TranslationProvider } from "../contexts/translation";
 import { formatDate as defaultFormatDate } from "../utils/format-date";
 import "../file-manager/file-manager.css";
 import { IFile } from "../types";
-import { IFileUploadConfig } from "./actions/upload-file/upload-file";
 
 interface IPermissions {
   create?: boolean;
@@ -30,7 +29,7 @@ interface IPermissions {
 
 interface FileManagerProps {
   files: IFile[];
-  fileUploadConfig?: IFileUploadConfig;
+  onUpload?: (file: File) => Promise<any>;
   isLoading?: boolean;
   onCreateFolder?: (name: string, parent: IFile | null) => void;
   onFileUploading?: (file: File, parent: IFile | null) => any;
@@ -84,7 +83,7 @@ const defaultPermissions: IPermissions = {
 
 const FileManager: React.FC<FileManagerProps> = ({
   files,
-  fileUploadConfig,
+  onUpload,
   isLoading,
   onCreateFolder,
   onFileUploading = () => { },
@@ -253,7 +252,7 @@ const FileManager: React.FC<FileManagerProps> = ({
 
                   {/* Actions need fileUploadConfig to be potentially undefined, handled in component */}
                   <Actions
-                    fileUploadConfig={fileUploadConfig as IFileUploadConfig}
+                    onUpload={onUpload}
                     onFileUploading={onFileUploading}
                     onFileUploaded={onFileUploaded}
                     onDelete={onDelete}

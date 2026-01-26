@@ -1,9 +1,7 @@
 import { useEffect, useState, ReactElement } from "react";
 import Modal from "../../components/modal/modal";
 import DeleteAction from "../../file-manager/actions/delete/delete";
-import UploadFileAction, {
-  IFileUploadConfig,
-} from "../../file-manager/actions/upload-file/upload-file";
+import UploadFileAction from "../../file-manager/actions/upload-file/upload-file";
 import PreviewFileAction from "../../file-manager/actions/preview-file/preview-file";
 import { useSelection } from "../../contexts/selection";
 import { useShortcutHandler } from "../../hooks/use-shortcut-handler";
@@ -22,7 +20,7 @@ interface IPermissions {
 }
 
 interface ActionsProps {
-  fileUploadConfig: IFileUploadConfig;
+  onUpload?: (file: File) => Promise<any>;
   onFileUploading: (file: File, parent: IFile | null) => any;
   onFileUploaded: (response: any) => void;
   onDelete: (files: IFile[]) => void;
@@ -42,7 +40,7 @@ interface IActionType {
 }
 
 const Actions: React.FC<ActionsProps> = ({
-  fileUploadConfig,
+  onUpload,
   onFileUploading,
   onFileUploaded,
   onDelete,
@@ -66,7 +64,7 @@ const Actions: React.FC<ActionsProps> = ({
       title: t("upload"),
       component: (
         <UploadFileAction
-          fileUploadConfig={fileUploadConfig}
+          onUpload={onUpload}
           maxFileSize={maxFileSize}
           acceptedFileTypes={acceptedFileTypes}
           onFileUploading={onFileUploading}

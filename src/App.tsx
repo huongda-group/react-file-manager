@@ -6,9 +6,7 @@ import { IFile } from "./types";
 import { LayoutType } from "./contexts/layout";
 
 function App() {
-  const fileUploadConfig = {
-    url: (import.meta.env.VITE_API_BASE_URL as string) + "/upload",
-  };
+
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState<IFile[]>([
     {
@@ -217,7 +215,19 @@ function App() {
       <div className="file-manager-container">
         <FileManager
           files={files}
-          fileUploadConfig={fileUploadConfig}
+          onUpload={async (file) => {
+            console.log("Mock Uploading:", file);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            // Return dummy response
+            return {
+              _id: "file-" + Date.now(),
+              name: file.name,
+              isDirectory: false,
+              path: currentPath ? `${currentPath}/${file.name}` : `/${file.name}`,
+              updatedAt: new Date().toISOString(),
+              size: file.size,
+            };
+          }}
           isLoading={isLoading}
           onCreateFolder={handleCreateFolder}
           onFileUploading={handleFileUploading}
