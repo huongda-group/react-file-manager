@@ -15,6 +15,12 @@
 
 .dialog[open] {
   animation: expand 0.4s forwards;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);

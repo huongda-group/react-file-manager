@@ -20,6 +20,7 @@ svg {
   overflow-x: hidden;
   padding: 0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.253);
+  margin: auto;
 }
 
 .w-25 {
