@@ -56,7 +56,7 @@
       &:focus {
         cursor: pointer;
         color: var(--fm-primary-color);
-        background-color: #dddcdc;
+        background-color: var(--fm-item-hover-bg-color);
         border-radius: 5px;
       }
     }
@@ -83,7 +83,8 @@
 
     &:hover {
       cursor: pointer;
-      background-color: rgb(117, 117, 117);
+      background-color: var(--fm-item-hover-bg-color);
+      color: var(--fm-item-hover-color);
     }
   }
 }

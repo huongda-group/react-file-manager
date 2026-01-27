@@ -23,17 +23,18 @@ const Checkbox: React.FC<CheckboxProps> = ({
   disabled = false,
 }) => {
   return (
-    <input
-      className={`fm-checkbox ${className}`}
-      type="checkbox"
-      name={name}
-      id={id}
-      checked={checked}
-      onClick={onClick}
-      onChange={onChange}
-      title={title}
-      disabled={disabled}
-    />
+    <label className={`fm-checkbox-wrapper ${className}`} title={title}>
+      <input
+        type="checkbox"
+        name={name}
+        id={id}
+        checked={checked}
+        onClick={onClick}
+        onChange={onChange}
+        disabled={disabled}
+      />
+      <span className="fm-checkbox-checkmark"></span>
+    </label>
   );
 };
 

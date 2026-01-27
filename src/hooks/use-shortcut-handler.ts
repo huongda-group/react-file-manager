@@ -85,6 +85,7 @@ export const useShortcutHandler = (
   const triggerRefresh = () => {
     validateApiCallback(onRefresh, "onRefresh");
     setClipBoard(null);
+    setSelectedFiles([]);
   };
 
   const triggerGridLayout = () => {

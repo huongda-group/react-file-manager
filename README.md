@@ -12,7 +12,7 @@ An open-source React.js package for easy integration of a file manager into appl
 - **Navigation**: Use the breadcrumb trail and sidebar navigation pane for quick directory
   traversal.
 - **Toolbar & Context Menu**: Access all common actions (upload, download, delete, copy, move,
-  rename, etc.) via the toolbar or right-click for the same options in the context menu.
+  rename, etc.) via the toolbar or right-click. Utility actions like **Refresh, View Toggle, and Fullscreen** are always accessible for a consistent experience.
 - **Multi-Selection**: Select multiple files and folders at once to perform bulk actions like
   delete, copy, move, or download.
 - **Keyboard Shortcuts**: Quickly perform file operations like copy, paste, delete, and more using
@@ -173,7 +173,7 @@ The following CSS variables can be overridden in your global CSS to customize th
 | Switch to Grid Layout          | `CTRL + Shift + 2` |
 | Jump to First File in the List | `Home`             |
 | Jump to Last File in the List  | `End`              |
-| Refresh File List              | `F5`               |
+| Refresh File List              | `F5` (also clears selection) |
 | Clear Selection                | `Esc`              |
 
 ## 🛡️ Permissions

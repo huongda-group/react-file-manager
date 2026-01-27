@@ -108,6 +108,7 @@ const useFileList = (
     setVisible(false);
     validateApiCallback(onRefresh, "onRefresh");
     setClipBoard(null);
+    setSelectedFiles([]);
   };
 
   const handleCreateNewFolder = () => {
@@ -191,6 +192,12 @@ const useFileList = (
         <AnimatedIcon icon={File} size={16} />
       ),
       onClick: handleFileOpen,
+      divider: true,
+    },
+    {
+      title: t("refresh"),
+      icon: <AnimatedIcon icon={RefreshCw} size={18} animation="spin" />,
+      onClick: handleRefresh,
       divider: true,
     },
     {

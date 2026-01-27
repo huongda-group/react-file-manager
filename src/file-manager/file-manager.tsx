@@ -95,7 +95,7 @@ const FileManager: React.FC<FileManagerProps> = ({
   onDownload,
   onDelete = () => null,
   onLayoutChange = () => { },
-  onRefresh = () => { },
+  onRefresh,
   onFileOpen = () => { },
   onFolderChange = () => { },
   onSelect,
@@ -176,6 +176,12 @@ const FileManager: React.FC<FileManagerProps> = ({
     [userPermissions]
   );
 
+  const handleRefresh = () => {
+    if (onRefresh) {
+      onRefresh();
+    }
+  };
+
   return (
     <main
       ref={mainRef}
@@ -199,7 +205,7 @@ const FileManager: React.FC<FileManagerProps> = ({
                 <LayoutProvider layout={layout}>
                   <Toolbar
                     onLayoutChange={onLayoutChange}
-                    onRefresh={onRefresh}
+                    onRefresh={handleRefresh}
                     triggerAction={triggerAction}
                     permissions={permissionsObj}
                     isFullScreen={isFullScreen}
@@ -241,7 +247,7 @@ const FileManager: React.FC<FileManagerProps> = ({
                         onCreateFolder={onCreateFolder}
                         onRename={onRename}
                         onFileOpen={onFileOpen}
-                        onRefresh={onRefresh}
+                        onRefresh={handleRefresh}
                         enableFilePreview={enableFilePreview}
                         triggerAction={triggerAction}
                         permissions={permissionsObj}
@@ -256,7 +262,7 @@ const FileManager: React.FC<FileManagerProps> = ({
                     onFileUploading={onFileUploading}
                     onFileUploaded={onFileUploaded}
                     onDelete={onDelete}
-                    onRefresh={onRefresh}
+                    onRefresh={handleRefresh}
                     maxFileSize={maxFileSize}
                     filePreviewPath={filePreviewPath}
                     filePreviewComponent={filePreviewComponent}

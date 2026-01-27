@@ -100,19 +100,23 @@
     }
 
     .rename-file-container.list {
-      top: 6px;
-      left: 58px;
+      position: relative;
+      top: unset;
+      left: 7px;
       text-align: left;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      height: 100%;
 
       .rename-file {
         min-width: 15%;
         text-align: left;
         border-radius: 3px;
         border: none;
-        top: 5px;
         white-space: nowrap;
         overflow-x: hidden;
-        max-width: calc(100% - 62px);
+        width: 100%;
       }
 
       .folder-name-error.right {
@@ -161,7 +165,9 @@
 
     .file-select-all {
       width: 5%;
-      height: 0.83em;
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
 
     .file-name {
@@ -171,12 +177,12 @@
       user-select: none;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(0, 0, 0, 0.05);
       }
 
       &.active {
-        background-color: rgba(0, 123, 255, 0.1);
-        color: #007bff;
+        background-color: transparent !important;
+        color: var(--fm-primary-color) !important;
       }
     }
 
@@ -187,12 +193,12 @@
       user-select: none;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(0, 0, 0, 0.05);
       }
 
       &.active {
-        background-color: rgba(0, 123, 255, 0.1);
-        color: #007bff;
+        background-color: transparent !important;
+        color: var(--fm-primary-color) !important;
       }
     }
 
@@ -203,12 +209,12 @@
       user-select: none;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(0, 0, 0, 0.05);
       }
 
       &.active {
-        background-color: rgba(0, 123, 255, 0.1);
-        color: #007bff;
+        background-color: transparent !important;
+        color: var(--fm-primary-color) !important;
       }
     }
 
@@ -220,12 +226,15 @@
 
   .file-item-container {
     display: flex;
+    align-items: center;
     width: 100%;
     margin: 0;
     border-radius: 0;
+    min-height: 38px;
 
     &:hover {
-      background-color: rgb(0, 0, 0, 0.04);
+      background-color: var(--fm-item-hover-bg-color);
+      color: var(--fm-item-hover-color);
     }
   }
 
@@ -236,20 +245,36 @@
   }
 
   .file-item {
-    flex-direction: row;
-    height: 13px;
-    justify-content: unset;
-    padding: 15px;
-    padding-left: 33px;
-    margin: 0;
-    width: calc(70% - 30px);
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    height: auto !important;
+    width: 70% !important;
+    gap: 8px !important;
+    padding: 10px 15px !important;
+    margin: 0 !important;
 
     &:hover {
       background-color: unset;
     }
 
     .selection-checkbox {
-      top: 12px;
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+      margin: 0 14px 0 0 !important;
+      display: block !important;
+      height: 18px !important;
+      width: 18px !important;
+      flex-shrink: 0 !important;
+
+      .fm-checkbox-checkmark {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin: 0 !important;
+      }
     }
 
     .file-name {
@@ -263,6 +288,7 @@
     justify-content: center;
     font-size: 0.8em;
     width: calc(20%);
+    height: 100%;
   }
 
   .size {
@@ -271,6 +297,7 @@
     justify-content: center;
     font-size: 0.8em;
     width: calc(10%);
+    height: 100%;
   }
 }
 

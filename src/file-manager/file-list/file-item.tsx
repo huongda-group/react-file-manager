@@ -245,14 +245,15 @@ const FileItem: React.FC<FileItemProps> = ({
     >
       <div className="file-item">
         {!file.isEditing && (
-          <Checkbox
-            name={file.name}
-            id={file.name}
-            checked={fileSelected}
-            className={`selection-checkbox ${checkboxClassName}`}
-            onChange={handleCheckboxChange}
-            onClick={(e) => e.stopPropagation()}
-          />
+          <div onClick={(e) => e.stopPropagation()}>
+            <Checkbox
+              name={file.name}
+              id={file.name}
+              checked={fileSelected}
+              className={`selection-checkbox ${checkboxClassName}`}
+              onChange={handleCheckboxChange}
+            />
+          </div>
         )}
         {file.isDirectory ? (
           <AnimatedIcon icon={FolderOpen} size={iconSize} />
