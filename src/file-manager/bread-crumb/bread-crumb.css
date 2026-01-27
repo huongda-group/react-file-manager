@@ -1,6 +1,7 @@
 .bread-crumb-container {
   position: relative;
   font-size: var(--fm-font-size);
+  background-color: var(--fm-bg-color);
 
   .breadcrumb {
     height: 40px;

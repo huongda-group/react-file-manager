@@ -56,6 +56,7 @@ svg {
     .navigation-pane {
       z-index: 1;
       padding-top: 8px;
+      background-color: var(--fm-bg-color);
 
       position: relative;
 

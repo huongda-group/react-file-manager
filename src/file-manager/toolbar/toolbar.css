@@ -3,6 +3,7 @@
   min-height: 44px;
   border-bottom: 1px solid var(--fm-border-color);
   padding: 0 10px;
+  background-color: var(--fm-bg-color);
 
   .file-action-container {
     display: flex;
