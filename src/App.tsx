@@ -243,7 +243,7 @@ function App() {
           onFileOpen={handleFileOpen}
           onSelectionChange={handleSelectionChange}
           onError={handleError}
-          layout="grid"
+          layout="list"
           enableFilePreview
           maxFileSize={10485760}
           filePreviewPath={import.meta.env.VITE_API_FILES_BASE_URL as string}

@@ -1,4 +1,5 @@
 :root {
+  --fm-primary-color: #6155b4;
   --fm-border-color: #cfcfcf;
   --fm-item-hover-bg-color: rgba(0, 0, 0, 0.05);
   --fm-item-hover-color: #000;

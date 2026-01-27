@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   FolderPlus,
   Upload,
@@ -16,7 +15,6 @@ import {
   X,
 } from "lucide-react";
 import { AnimatedIcon } from "../../components/ui/animated-icon";
-import LayoutToggler from "../../file-manager/toolbar/layout-toggler";
 import { useFileNavigation } from "../../contexts/file-navigation";
 import { useSelection } from "../../contexts/selection";
 import { useClipBoard } from "../../contexts/clipboard";
@@ -24,7 +22,7 @@ import { useLayout, LayoutType } from "../../contexts/layout";
 import { validateApiCallback } from "../../utils/validate-api-callback";
 import { useTranslation } from "../../contexts/translation";
 import "../../file-manager/toolbar/toolbar.css";
-import Tooltip from "../../components/tooltip/tooltip";
+
 import { IUseTriggerActionReturn } from "../../hooks/use-trigger-action";
 
 interface IPermissions {
@@ -54,12 +52,11 @@ const Toolbar: React.FC<ToolbarProps> = ({
   isFullScreen,
   onFullScreenToggle,
 }) => {
-  const [showToggleViewMenu, setShowToggleViewMenu] = useState(false);
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { clipBoard, setClipBoard, handleCutCopy, handlePasting } =
     useClipBoard();
-  const { activeLayout } = useLayout();
+  const { activeLayout, setActiveLayout } = useLayout();
   const t = useTranslation();
 
   function handleFilePasting() {
@@ -98,13 +95,17 @@ const Toolbar: React.FC<ToolbarProps> = ({
     {
       icon:
         activeLayout === "grid" ? (
-          <AnimatedIcon icon={Grid} size={18} />
-        ) : (
           <AnimatedIcon icon={List} size={18} />
+        ) : (
+          <AnimatedIcon icon={Grid} size={18} />
         ),
       title: t("changeView"),
-      text: t("view"), // Assuming "view" is in translation or I'll use raw text if not
-      onClick: () => setShowToggleViewMenu((prev) => !prev),
+      text: t("view"),
+      onClick: () => {
+        const newLayout = activeLayout === "grid" ? "list" : "grid";
+        setActiveLayout(newLayout);
+        onLayoutChange(newLayout);
+      },
     },
     {
       icon: <AnimatedIcon icon={RefreshCw} size={18} animation="spin" />,
@@ -237,20 +238,13 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
         <div className="toolbar-right-container">
           {toolbarRightItems.map((item, index) => (
-            <Tooltip text={item.title} key={index}>
-              <button className="item-action" onClick={item.onClick}>
-                {item.icon}
-                <span>{item.text || item.title}</span>
-              </button>
-            </Tooltip>
+            <button className="item-action" onClick={item.onClick} key={index} title={item.title}>
+              {item.icon}
+              <span>{item.text || item.title}</span>
+            </button>
           ))}
 
-          {showToggleViewMenu && (
-            <LayoutToggler
-              setShowToggleViewMenu={setShowToggleViewMenu}
-              onLayoutChange={onLayoutChange}
-            />
-          )}
+
         </div>
       </div>
     </div>

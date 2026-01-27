@@ -18,8 +18,3 @@ export interface IApiResponse<T = any> {
   message?: string;
   [key: string]: any;
 }
-
-export interface IFileMovePayload {
-  files: IFile[];
-  destination: IFolder;
-}

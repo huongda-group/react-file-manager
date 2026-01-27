@@ -62,7 +62,7 @@
 
   .file-item {
     position: relative;
-    height: 100px;
+    height: 110px;
     width: 138px;
     display: flex;
     flex-direction: column;
@@ -73,9 +73,22 @@
     padding-bottom: 5px;
     border-radius: 5px;
 
+    color: var(--fm-text-color);
+
     &:hover {
       background-color: var(--fm-item-hover-bg-color);
       color: var(--fm-item-hover-color);
+    }
+
+    .text-truncate {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      width: 100%;
+      text-align: center;
+      line-height: 1.5;
+      padding-bottom: 2px;
     }
 
     .selection-checkbox {
@@ -254,6 +267,10 @@
     gap: 8px !important;
     padding: 10px 15px !important;
     margin: 0 !important;
+
+    .text-truncate {
+      text-align: left !important;
+    }
 
     &:hover {
       background-color: unset;

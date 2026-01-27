@@ -34,6 +34,7 @@ svg {
   font-family: var(--fm-font-family);
   border: 1px solid var(--fm-border-color);
   border-radius: 8px;
+  overflow: hidden;
 
   button {
     font-family: var(--fm-font-family);
@@ -93,8 +94,6 @@ svg {
       background-color: var(--fm-bg-color);
       padding-right: 0px;
       padding-left: 0px;
-      border-bottom-right-radius: 8px;
-      border-bottom-left-radius: 8px;
     }
   }
 }

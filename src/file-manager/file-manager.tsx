@@ -14,6 +14,7 @@ import { useTriggerAction } from "../hooks/use-trigger-action";
 import { useColumnResize } from "../hooks/use-column-resize";
 import { TranslationProvider } from "../contexts/translation";
 import { formatDate as defaultFormatDate } from "../utils/format-date";
+import "../styles/variables.css";
 import "../file-manager/file-manager.css";
 import { IFile } from "../types";
 
@@ -69,6 +70,7 @@ interface FileManagerProps {
   className?: string;
   style?: CSSProperties;
   formatDate?: (date: string | number | Date) => string;
+  theme?: "light" | "dark";
 }
 
 const defaultPermissions: IPermissions = {
@@ -101,7 +103,7 @@ const FileManager: React.FC<FileManagerProps> = ({
   onSelect,
   onSelectionChange,
   onError = () => { },
-  layout = "grid",
+  layout = "list",
   enableFilePreview = true,
   maxFileSize,
   filePreviewPath,
@@ -119,6 +121,7 @@ const FileManager: React.FC<FileManagerProps> = ({
   className = "",
   style = {},
   formatDate = defaultFormatDate,
+  theme = "dark",
 }) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] =
     useState(defaultNavExpanded);
@@ -185,6 +188,7 @@ const FileManager: React.FC<FileManagerProps> = ({
   return (
     <main
       ref={mainRef}
+      data-theme={theme}
       className={`file-explorer ${className}`}
       onContextMenu={(e) => e.preventDefault()}
       style={{ ...customStyles, ...style }}

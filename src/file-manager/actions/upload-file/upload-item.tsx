@@ -2,7 +2,7 @@ import { X, File, CheckCircle, RotateCw } from "lucide-react";
 import Progress from "../../../components/progress/progress";
 import { getFileExtension } from "../../../utils/get-file-extension";
 import { useFileIcons } from "../../../hooks/use-file-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getDataSize } from "../../../utils/get-data-size";
 import { AnimatedIcon } from "../../../components/ui/animated-icon";
 import { useFiles } from "../../../contexts/files";
@@ -35,10 +35,6 @@ const UploadItem: React.FC<UploadItemProps> = ({
   const [isCanceled, setIsCanceled] = useState(false);
   const [uploadFailed, setUploadFailed] = useState(false);
   const fileIcons = useFileIcons(33);
-
-  // const xhrRef = useRef<XMLHttpRequest | null>(null); // Removing XHR ref
-  // Aborting promise is harder, for now we just handle UI state or if we want to support abort we need AbortController support in onUpload.
-  // Assuming simple promise for now.
   const { onError } = useFiles();
   const t = useTranslation();
 
@@ -110,11 +106,13 @@ const UploadItem: React.FC<UploadItemProps> = ({
     }
   };
 
+  const hasStartedUploadRef = useRef(false);
+
   useEffect(() => {
-    // Prevent double uploads with strict mode
-    // if (!xhrRef.current) {
-    fileUpload(fileData);
-    // }
+    if (!hasStartedUploadRef.current) {
+      hasStartedUploadRef.current = true;
+      fileUpload(fileData);
+    }
   }, []);
 
   const handleAbortUpload = () => {
