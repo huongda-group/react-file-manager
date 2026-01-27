@@ -61,7 +61,9 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
       (item) =>
         item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
     );
-    if (fileExists) return t("fileAlreadyExist");
+    if (fileExists) {
+      return t("fileAlreadyExist");
+    }
 
     const sizeError = maxFileSize && file.size > maxFileSize;
     if (sizeError)
@@ -106,6 +108,7 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
     if (e.target.files) {
       const choosenFiles = Array.from(e.target.files);
       setSelectedFiles(choosenFiles);
+      e.target.value = "";
     }
   };
 
