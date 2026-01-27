@@ -1,4 +1,4 @@
-![React File Manager](https://github.com/user-attachments/assets/cad4d71d-a2fd-4064-9fce-c0c3a7cb4613)
+### [View demo](https://react-file-manager.huongda.dev/)
 
 <p>
 An open-source React.js package for easy integration of a file manager into applications. It provides a user-friendly interface for managing files and folders, including viewing, uploading, and deleting, with full UI and backend integration.
@@ -19,8 +19,6 @@ An open-source React.js package for easy integration of a file manager into appl
   intuitive keyboard shortcuts.
 - **Drag-and-Drop**: Move selected files and folders by dragging them to the desired directory,
   making file organization effortless.
-
-![React File Manager](https://github.com/user-attachments/assets/e68f750b-86bf-450d-b27e-fd3dedebf1bd)
 
 ## 🚀 Installation
 
