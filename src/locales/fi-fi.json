@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Pienennä navigointipaneeli",
   "expandNavigationPane": "Laajenna navigointipaneeli",
   "enterFullScreen": "Koko näyttö",
-  "exitFullScreen": "Poistu koko näytöstä"
+  "exitFullScreen": "Poistu koko näytöstä",
+  "chmod": "Muuta käyttöoikeuksia",
+  "read": "Luku",
+  "write": "Kirjoitus",
+  "execute": "Suorita",
+  "owner": "Omistaja",
+  "group": "Ryhmä",
+  "others": "Muut",
+  "permission": "Käyttöoikeus",
+  "apply": "Käytä"
 }

@@ -18,20 +18,20 @@ const SelectionContext = createContext<ISelectionContext | undefined>(undefined)
 
 interface SelectionProviderProps extends PropsWithChildren {
   onDownload?: (files: IFile[]) => void;
-  onSelect?: (files: IFile[]) => void;
+
   onSelectionChange?: (files: IFile[]) => void;
 }
 
 export const SelectionProvider = ({
   children,
   onDownload,
-  onSelect,
+
   onSelectionChange,
 }: SelectionProviderProps) => {
   const [selectedFiles, setSelectedFiles] = useState<IFile[]>([]);
 
   useEffect(() => {
-    onSelect?.(selectedFiles);
+
     onSelectionChange?.(selectedFiles);
   }, [selectedFiles]);
 

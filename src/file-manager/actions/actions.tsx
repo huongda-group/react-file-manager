@@ -2,6 +2,7 @@ import { useEffect, useState, ReactElement } from "react";
 import Modal from "../../components/modal/modal";
 import DeleteAction from "../../file-manager/actions/delete/delete";
 import UploadFileAction from "../../file-manager/actions/upload-file/upload-file";
+import ChmodAction from "../../file-manager/actions/chmod/chmod";
 import PreviewFileAction from "../../file-manager/actions/preview-file/preview-file";
 import { useSelection } from "../../contexts/selection";
 import { useShortcutHandler } from "../../hooks/use-shortcut-handler";
@@ -17,6 +18,7 @@ interface IPermissions {
   rename?: boolean;
   download?: boolean;
   delete?: boolean;
+  chmod?: boolean;
 }
 
 interface ActionsProps {
@@ -24,6 +26,7 @@ interface ActionsProps {
   onFileUploading: (file: File, parent: IFile | null) => any;
   onFileUploaded: (response: any) => void;
   onDelete: (files: IFile[]) => void;
+  onChmod?: (files: IFile[], permissions: string) => void;
   onRefresh: () => void;
   maxFileSize?: number;
   filePreviewPath?: string;
@@ -44,6 +47,7 @@ const Actions: React.FC<ActionsProps> = ({
   onFileUploading,
   onFileUploaded,
   onDelete,
+  onChmod = () => { },
   onRefresh,
   maxFileSize,
   filePreviewPath,
@@ -89,6 +93,13 @@ const Actions: React.FC<ActionsProps> = ({
         />
       ),
       width: "50%",
+    },
+    chmod: {
+      title: t("chmod"),
+      component: (
+        <ChmodAction triggerAction={triggerAction} onChmod={onChmod} />
+      ),
+      width: "30%",
     },
   };
 

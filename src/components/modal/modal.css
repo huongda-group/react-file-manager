@@ -21,6 +21,10 @@
   bottom: 0;
   left: 0;
   right: 0;
+  background: var(--fm-bg-color);
+  color: var(--fm-text-color);
+  border: 1px solid var(--fm-border-color);
+  border-radius: 6px;
 
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);

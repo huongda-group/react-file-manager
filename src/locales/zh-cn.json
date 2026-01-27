@@ -51,5 +51,14 @@
   "collapseNavigationPane": "折叠导航窗格",
   "expandNavigationPane": "展开导航窗格",
   "enterFullScreen": "全屏",
-  "exitFullScreen": "退出全屏"
+  "exitFullScreen": "退出全屏",
+  "chmod": "更改权限",
+  "read": "读取",
+  "write": "写入",
+  "execute": "执行",
+  "owner": "所有者",
+  "group": "组",
+  "others": "其他",
+  "permission": "权限",
+  "apply": "应用"
 }

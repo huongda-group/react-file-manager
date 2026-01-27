@@ -19,6 +19,7 @@ interface IPermissions {
   rename?: boolean;
   download?: boolean;
   delete?: boolean;
+  chmod?: boolean;
 }
 
 interface FileListProps {

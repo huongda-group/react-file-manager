@@ -51,5 +51,14 @@
   "collapseNavigationPane": "כווץ את לوح הניווט",
   "expandNavigationPane": "הרחב את לוח הניווט",
   "enterFullScreen": "מסך מלא",
-  "exitFullScreen": "יציאה ממסך מלא"
+  "exitFullScreen": "יציאה ממסך מלא",
+  "chmod": "שנה הרשאות",
+  "read": "קריאה",
+  "write": "כתיבה",
+  "execute": "הרצה",
+  "owner": "בעלים",
+  "group": "קבוצה",
+  "others": "אחרים",
+  "permission": "הרשאה",
+  "apply": "החל"
 }

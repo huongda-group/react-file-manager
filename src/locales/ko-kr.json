@@ -51,5 +51,14 @@
   "collapseNavigationPane": "탐색 창 축소",
   "expandNavigationPane": "탐색 창 확장",
   "enterFullScreen": "전체 화면",
-  "exitFullScreen": "전체 화면 종료"
+  "exitFullScreen": "전체 화면 종료",
+  "chmod": "권한 변경",
+  "read": "읽기",
+  "write": "쓰기",
+  "execute": "실행",
+  "owner": "소유자",
+  "group": "그룹",
+  "others": "기타",
+  "permission": "권한",
+  "apply": "적용"
 }

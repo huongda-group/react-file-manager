@@ -51,5 +51,14 @@
   "collapseNavigationPane": "طي لوحة التنقل",
   "expandNavigationPane": "توسيع لوحة التنقل",
   "enterFullScreen": "ملء الشاشة",
-  "exitFullScreen": "الخروج من ملء الشاشة"
+  "exitFullScreen": "الخروج من ملء الشاشة",
+  "chmod": "تغيير الأذونات",
+  "read": "قراءة",
+  "write": "كتابة",
+  "execute": "تنفيذ",
+  "owner": "المالك",
+  "group": "المجموعة",
+  "others": "الآخرون",
+  "permission": "الإذن",
+  "apply": "تطبيق"
 }

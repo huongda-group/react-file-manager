@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Згорнути панель навігації",
   "expandNavigationPane": "Розгорнути панель навігації",
   "enterFullScreen": "Повний екран",
-  "exitFullScreen": "Вийти з повного екрана"
+  "exitFullScreen": "Вийти з повного екрана",
+  "chmod": "Змінити права доступу",
+  "read": "Читання",
+  "write": "Запис",
+  "execute": "Виконання",
+  "owner": "Власник",
+  "group": "Група",
+  "others": "Інші",
+  "permission": "Право доступу",
+  "apply": "Застосувати"
 }

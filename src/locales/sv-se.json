@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Dölj navigationsfönster",
   "expandNavigationPane": "Visa navigationsfönster",
   "enterFullScreen": "Helskärm",
-  "exitFullScreen": "Avsluta helskärm"
+  "exitFullScreen": "Avsluta helskärm",
+  "chmod": "Ändra behörigheter",
+  "read": "Läs",
+  "write": "Skriv",
+  "execute": "Kör",
+  "owner": "Ägare",
+  "group": "Grupp",
+  "others": "Andra",
+  "permission": "Behörighet",
+  "apply": "Tillämpa"
 }

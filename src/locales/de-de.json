@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Navigationsbereich einklappen",
   "expandNavigationPane": "Navigationsbereich erweitern",
   "enterFullScreen": "Vollbild",
-  "exitFullScreen": "Vollbild beenden"
+  "exitFullScreen": "Vollbild beenden",
+  "chmod": "Berechtigungen ändern",
+  "read": "Lesen",
+  "write": "Schreiben",
+  "execute": "Ausführen",
+  "owner": "Eigentümer",
+  "group": "Gruppe",
+  "others": "Andere",
+  "permission": "Berechtigung",
+  "apply": "Anwenden"
 }

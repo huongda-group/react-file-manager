@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Recolher painel de navegação",
   "expandNavigationPane": "Expandir painel de navegação",
   "enterFullScreen": "Ecrã inteiro",
-  "exitFullScreen": "Sair do ecrã inteiro"
+  "exitFullScreen": "Sair do ecrã inteiro",
+  "chmod": "Alterar permissões",
+  "read": "Leitura",
+  "write": "Escrita",
+  "execute": "Execução",
+  "owner": "Proprietário",
+  "group": "Grupo",
+  "others": "Outros",
+  "permission": "Permissão",
+  "apply": "Aplicar"
 }

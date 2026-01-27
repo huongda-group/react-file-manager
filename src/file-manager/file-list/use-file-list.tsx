@@ -12,7 +12,8 @@ import {
   Trash2,
   Download,
   Upload,
-  FolderOpen
+  FolderOpen,
+  Shield
 } from "lucide-react";
 import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useClipBoard } from "../../contexts/clipboard";
@@ -35,6 +36,7 @@ interface IPermissions {
   rename?: boolean;
   download?: boolean;
   delete?: boolean;
+  chmod?: boolean;
 }
 
 const useFileList = (
@@ -102,6 +104,11 @@ const useFileList = (
   const handleDelete = () => {
     setVisible(false);
     triggerAction.show("delete");
+  };
+
+  const handleChmod = () => {
+    setVisible(false);
+    triggerAction.show("chmod");
   };
 
   const handleRefresh = () => {
@@ -229,6 +236,12 @@ const useFileList = (
       icon: <AnimatedIcon icon={FilePenLine} size={19} animation="wiggle" />,
       onClick: handleRenaming,
       hidden: selectedFiles.length > 1 || !permissions.rename,
+    },
+    {
+      title: t("chmod"),
+      icon: <AnimatedIcon icon={Shield} size={18} />,
+      onClick: handleChmod,
+      hidden: !permissions.chmod,
     },
     {
       title: t("download"),

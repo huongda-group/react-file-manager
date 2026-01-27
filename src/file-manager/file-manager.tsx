@@ -13,6 +13,7 @@ import { LayoutProvider, LayoutType } from "../contexts/layout";
 import { useTriggerAction } from "../hooks/use-trigger-action";
 import { useColumnResize } from "../hooks/use-column-resize";
 import { TranslationProvider } from "../contexts/translation";
+import { ThemeProvider } from "../contexts/theme";
 import { formatDate as defaultFormatDate } from "../utils/format-date";
 import "../styles/variables.css";
 import "../file-manager/file-manager.css";
@@ -26,6 +27,7 @@ interface IPermissions {
   rename?: boolean;
   download?: boolean;
   delete?: boolean;
+  chmod?: boolean;
 }
 
 interface FileManagerProps {
@@ -45,11 +47,12 @@ interface FileManagerProps {
   onRename?: (file: IFile, newName: string) => void;
   onDownload?: (files: IFile[]) => void;
   onDelete?: (files: IFile[]) => void;
+  onChmod?: (files: IFile[], permissions: string) => void;
   onLayoutChange?: (layout: LayoutType) => void;
   onRefresh?: () => void;
   onFileOpen?: (file: IFile) => void;
   onFolderChange?: (path: string) => void;
-  onSelect?: (files: IFile[]) => void;
+
   onSelectionChange?: (files: IFile[]) => void;
   onError?: (error: any) => void;
   layout?: "grid" | "list";
@@ -81,6 +84,7 @@ const defaultPermissions: IPermissions = {
   rename: true,
   download: true,
   delete: true,
+  chmod: true,
 };
 
 const FileManager: React.FC<FileManagerProps> = ({
@@ -96,11 +100,12 @@ const FileManager: React.FC<FileManagerProps> = ({
   onRename,
   onDownload,
   onDelete = () => null,
+  onChmod,
   onLayoutChange = () => { },
   onRefresh,
   onFileOpen = () => { },
   onFolderChange = () => { },
-  onSelect,
+
   onSelectionChange,
   onError = () => { },
   layout = "list",
@@ -194,92 +199,94 @@ const FileManager: React.FC<FileManagerProps> = ({
       style={{ ...customStyles, ...style }}
     >
       <Loader loading={isLoading} />
-      <TranslationProvider language={language}>
-        <FilesProvider filesData={files} onError={onError}>
-          <FileNavigationProvider
-            initialPath={initialPath}
-            onFolderChange={onFolderChange}
-          >
-            <SelectionProvider
-              onDownload={onDownload}
-              onSelect={onSelect}
-              onSelectionChange={onSelectionChange}
+      <ThemeProvider theme={theme}>
+        <TranslationProvider language={language}>
+          <FilesProvider filesData={files} onError={onError}>
+            <FileNavigationProvider
+              initialPath={initialPath}
+              onFolderChange={onFolderChange}
             >
-              <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
-                <LayoutProvider layout={layout}>
-                  <Toolbar
-                    onLayoutChange={onLayoutChange}
-                    onRefresh={handleRefresh}
-                    triggerAction={triggerAction}
-                    permissions={permissionsObj}
-                    isFullScreen={isFullScreen}
-                    onFullScreenToggle={toggleFullScreen}
-                  />
-                  <section
-                    ref={containerRef as RefObject<HTMLDivElement>}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    className="files-container"
-                  >
-                    <div
-                      className={`navigation-pane ${isNavigationPaneOpen ? "open" : "closed"
-                        }`}
-                      style={{
-                        width: colSizes.col1 + "%",
-                      }}
+              <SelectionProvider
+                onDownload={onDownload}
+                onSelectionChange={onSelectionChange}
+              >
+                <ClipBoardProvider onPaste={onPaste} onCut={onCut} onCopy={onCopy}>
+                  <LayoutProvider layout={layout}>
+                    <Toolbar
+                      onLayoutChange={onLayoutChange}
+                      onRefresh={handleRefresh}
+                      triggerAction={triggerAction}
+                      permissions={permissionsObj}
+                      isFullScreen={isFullScreen}
+                      onFullScreenToggle={toggleFullScreen}
+                    />
+                    <section
+                      ref={containerRef as RefObject<HTMLDivElement>}
+                      onMouseMove={handleMouseMove}
+                      onMouseUp={handleMouseUp}
+                      className="files-container"
                     >
-                      <NavigationPane onFileOpen={onFileOpen} />
                       <div
-                        className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""
+                        className={`navigation-pane ${isNavigationPaneOpen ? "open" : "closed"
                           }`}
-                        onMouseDown={handleMouseDown}
-                      />
-                    </div>
+                        style={{
+                          width: colSizes.col1 + "%",
+                        }}
+                      >
+                        <NavigationPane onFileOpen={onFileOpen} />
+                        <div
+                          className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""
+                            }`}
+                          onMouseDown={handleMouseDown}
+                        />
+                      </div>
 
-                    <div
-                      className="folders-preview"
-                      style={{
-                        width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%",
-                      }}
-                    >
-                      <BreadCrumb
-                        collapsibleNav={collapsibleNav}
-                        isNavigationPaneOpen={isNavigationPaneOpen}
-                        setNavigationPaneOpen={setNavigationPaneOpen}
-                      />
-                      <FileList
-                        onCreateFolder={onCreateFolder}
-                        onRename={onRename}
-                        onFileOpen={onFileOpen}
-                        onRefresh={handleRefresh}
-                        enableFilePreview={enableFilePreview}
-                        triggerAction={triggerAction}
-                        permissions={permissionsObj}
-                        formatDate={formatDate}
-                      />
-                    </div>
-                  </section>
+                      <div
+                        className="folders-preview"
+                        style={{
+                          width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%",
+                        }}
+                      >
+                        <BreadCrumb
+                          collapsibleNav={collapsibleNav}
+                          isNavigationPaneOpen={isNavigationPaneOpen}
+                          setNavigationPaneOpen={setNavigationPaneOpen}
+                        />
+                        <FileList
+                          onCreateFolder={onCreateFolder}
+                          onRename={onRename}
+                          onFileOpen={onFileOpen}
+                          onRefresh={handleRefresh}
+                          enableFilePreview={enableFilePreview}
+                          triggerAction={triggerAction}
+                          permissions={permissionsObj}
+                          formatDate={formatDate}
+                        />
+                      </div>
+                    </section>
 
-                  {/* Actions need fileUploadConfig to be potentially undefined, handled in component */}
-                  <Actions
-                    onUpload={onUpload}
-                    onFileUploading={onFileUploading}
-                    onFileUploaded={onFileUploaded}
-                    onDelete={onDelete}
-                    onRefresh={handleRefresh}
-                    maxFileSize={maxFileSize}
-                    filePreviewPath={filePreviewPath}
-                    filePreviewComponent={filePreviewComponent}
-                    acceptedFileTypes={acceptedFileTypes}
-                    triggerAction={triggerAction}
-                    permissions={permissionsObj}
-                  />
-                </LayoutProvider>
-              </ClipBoardProvider>
-            </SelectionProvider>
-          </FileNavigationProvider>
-        </FilesProvider>
-      </TranslationProvider>
+                    {/* Actions need fileUploadConfig to be potentially undefined, handled in component */}
+                    <Actions
+                      onUpload={onUpload}
+                      onFileUploading={onFileUploading}
+                      onFileUploaded={onFileUploaded}
+                      onDelete={onDelete}
+                      onChmod={onChmod}
+                      onRefresh={handleRefresh}
+                      maxFileSize={maxFileSize}
+                      filePreviewPath={filePreviewPath}
+                      filePreviewComponent={filePreviewComponent}
+                      acceptedFileTypes={acceptedFileTypes}
+                      triggerAction={triggerAction}
+                      permissions={permissionsObj}
+                    />
+                  </LayoutProvider>
+                </ClipBoardProvider>
+              </SelectionProvider>
+            </FileNavigationProvider>
+          </FilesProvider>
+        </TranslationProvider>
+      </ThemeProvider>
     </main>
   );
 };

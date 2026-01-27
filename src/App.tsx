@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Sun, Moon, Github } from "lucide-react";
 import "./styles/variables.css";
 import "./app.css";
 import FileManager from "./file-manager/file-manager";
@@ -8,6 +9,7 @@ import { LayoutType } from "./contexts/layout";
 function App() {
 
   const [isLoading, setIsLoading] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [files, setFiles] = useState<IFile[]>([
     {
       _id: "root-1",
@@ -210,11 +212,27 @@ function App() {
     console.log("Selected Files", filesSelected);
   };
 
+  const handleChmod = (filesToChmod: IFile[], permissions: string) => {
+    console.log("Chmod Files:", filesToChmod, "Permissions:", permissions);
+    alert(`Setting permissions ${permissions} on ${filesToChmod.length} item(s)`);
+  };
+
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
+      <div className="header">
+        <h1>React File Manager</h1>
+        <button
+          className="theme-toggle"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+        >
+          {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+        </button>
+      </div>
       <div className="file-manager-container">
         <FileManager
           files={files}
+          theme={theme}
           onUpload={async (file) => {
             console.log("Mock Uploading:", file);
             await new Promise((resolve) => setTimeout(resolve, 500));
@@ -242,6 +260,7 @@ function App() {
           onRefresh={handleRefresh}
           onFileOpen={handleFileOpen}
           onSelectionChange={handleSelectionChange}
+          onChmod={handleChmod}
           onError={handleError}
           layout="list"
           enableFilePreview
@@ -253,6 +272,17 @@ function App() {
           initialPath={currentPath}
           onFolderChange={setCurrentPath}
         />
+      </div>
+      <div className="footer">
+        <a
+          href="https://github.com/huongda-group/react-file-manager"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="github-link"
+        >
+          <Github size={18} />
+          <span>View on GitHub</span>
+        </a>
       </div>
     </div>
   );

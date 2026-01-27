@@ -51,5 +51,14 @@
   "collapseNavigationPane": "نیویگیشن پین کو بند کریں",
   "expandNavigationPane": "نیویگیشن پین کو کھولیں",
   "enterFullScreen": "پوری سکرین",
-  "exitFullScreen": "پوری سکرین سے باہر نکلیں"
+  "exitFullScreen": "پوری سکرین سے باہر نکلیں",
+  "chmod": "اجازتیں تبدیل کریں",
+  "read": "پڑھنا",
+  "write": "لکھنا",
+  "execute": "چلانا",
+  "owner": "مالک",
+  "group": "گروپ",
+  "others": "دوسرے",
+  "permission": "اجازت",
+  "apply": "لاگو کریں"
 }

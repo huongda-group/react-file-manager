@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Skjul navigasjonsrute",
   "expandNavigationPane": "Utvid navigasjonsrute",
   "enterFullScreen": "Fullskjerm",
-  "exitFullScreen": "Avslutt fullskjerm"
+  "exitFullScreen": "Avslutt fullskjerm",
+  "chmod": "Endre tillatelser",
+  "read": "Les",
+  "write": "Skriv",
+  "execute": "Kjør",
+  "owner": "Eier",
+  "group": "Gruppe",
+  "others": "Andre",
+  "permission": "Tillatelse",
+  "apply": "Bruk"
 }

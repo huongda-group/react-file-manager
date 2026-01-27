@@ -1,8 +1,8 @@
+import { memo, useRef, useEffect, useState, useCallback } from "react";
 import { X, File, CheckCircle, RotateCw } from "lucide-react";
 import Progress from "../../../components/progress/progress";
 import { getFileExtension } from "../../../utils/get-file-extension";
 import { useFileIcons } from "../../../hooks/use-file-icons";
-import { useEffect, useState, useRef } from "react";
 import { getDataSize } from "../../../utils/get-data-size";
 import { AnimatedIcon } from "../../../components/ui/animated-icon";
 import { useFiles } from "../../../contexts/files";
@@ -10,19 +10,17 @@ import { useTranslation } from "../../../contexts/translation";
 import { IUploadFileData } from "./upload-file";
 
 interface UploadItemProps {
-  index: number;
+  id: string;
   fileData: IUploadFileData;
   setFiles: React.Dispatch<React.SetStateAction<IUploadFileData[]>>;
-  setIsUploading: React.Dispatch<
-    React.SetStateAction<{ [key: number]: boolean }>
-  >;
+  setIsUploading: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
   onUpload?: (file: File) => Promise<any>;
   onFileUploaded: (response: any) => void;
-  handleFileRemove: (index: number) => void;
+  handleFileRemove: (id: string) => void;
 }
 
-const UploadItem: React.FC<UploadItemProps> = ({
-  index,
+const UploadItem: React.FC<UploadItemProps> = memo(({
+  id,
   fileData,
   setFiles,
   setIsUploading,
@@ -37,13 +35,15 @@ const UploadItem: React.FC<UploadItemProps> = ({
   const fileIcons = useFileIcons(33);
   const { onError } = useFiles();
   const t = useTranslation();
+  const hasStartedUploadRef = useRef(false);
 
-  const handleUploadError = (err: any) => {
+  const updateUploadStatus = useCallback((status: boolean) => {
+    setIsUploading((prev) => ({ ...prev, [id]: status }));
+  }, [id, setIsUploading]);
+
+  const handleUploadError = useCallback((err: any) => {
     setUploadProgress(0);
-    setIsUploading((prev) => ({
-      ...prev,
-      [index]: false,
-    }));
+    updateUploadStatus(false);
     const error = {
       type: "upload",
       message: t("uploadFail"),
@@ -55,58 +55,40 @@ const UploadItem: React.FC<UploadItemProps> = ({
     };
 
     setFiles((prev) =>
-      prev.map((file, i) => {
-        if (index === i) {
-          return {
-            ...file,
-            error: error.message,
-          };
+      prev.map((file) => {
+        if (file.id === id) {
+          return { ...file, error: error.message };
         }
         return file;
       })
     );
 
     setUploadFailed(true);
+    onError(error);
+  }, [id, onError, setFiles, t, updateUploadStatus]);
 
-    onError(error); // Adjusted onError to match current signature or updated Context if needed
-  };
-
-  const fileUpload = async (fileData: IUploadFileData) => {
-    if (!!fileData.error) return;
+  const fileUpload = useCallback(async (data: IUploadFileData) => {
+    if (data.error) {
+      return;
+    }
 
     try {
-      setIsUploading((prev) => ({
-        ...prev,
-        [index]: true,
-      }));
-
-      let response;
-      if (onUpload) {
-        response = await onUpload(fileData.file);
-      } else {
-        // Fallback or error if onUpload is not provided (though it should be required in types mainly)
+      updateUploadStatus(true);
+      if (!onUpload) {
         throw new Error("Upload handler not provided");
       }
-
-      setIsUploading((prev) => ({
-        ...prev,
-        [index]: false,
-      }));
+      const response = await onUpload(data.file);
+      updateUploadStatus(false);
       setUploadProgress(100);
       setIsUploaded(true);
       onFileUploaded(response);
       return response;
     } catch (err: any) {
-      setIsUploading((prev) => ({
-        ...prev,
-        [index]: false,
-      }));
+      updateUploadStatus(false);
       handleUploadError(err);
       throw err.message || "Upload failed";
     }
-  };
-
-  const hasStartedUploadRef = useRef(false);
+  }, [handleUploadError, onFileUploaded, onUpload, updateUploadStatus]);
 
   useEffect(() => {
     if (!hasStartedUploadRef.current) {
@@ -115,25 +97,18 @@ const UploadItem: React.FC<UploadItemProps> = ({
     }
   }, []);
 
-  const handleAbortUpload = () => {
-    // If we want to support real abort, onUpload should accept an AbortSignal
-    setIsUploading((prev) => ({
-      ...prev,
-      [index]: false,
-    }));
+  const handleAbortUpload = useCallback(() => {
+    updateUploadStatus(false);
     setIsCanceled(true);
     setUploadProgress(0);
-  };
+  }, [updateUploadStatus]);
 
-  const handleRetry = () => {
+  const handleRetry = useCallback(() => {
     if (fileData?.file) {
       setFiles((prev) =>
-        prev.map((file, i) => {
-          if (index === i) {
-            return {
-              ...file,
-              error: undefined, // Fixed to clear error
-            };
+        prev.map((file) => {
+          if (file.id === id) {
+            return { ...file, error: undefined };
           }
           return file;
         })
@@ -142,13 +117,11 @@ const UploadItem: React.FC<UploadItemProps> = ({
       setIsCanceled(false);
       setUploadFailed(false);
     }
-  };
+  }, [fileData, fileUpload, id, setFiles]);
 
-  // File was removed by the user beacuse it was unsupported or exceeds file size limit.
-  if (!!fileData.removed) {
+  if (fileData.removed) {
     return null;
   }
-  //
 
   return (
     <li>
@@ -160,10 +133,7 @@ const UploadItem: React.FC<UploadItemProps> = ({
       <div className="file">
         <div className="file-details">
           <div className="file-info">
-            <span
-              className="file-name text-truncate"
-              title={fileData.file?.name}
-            >
+            <span className="file-name text-truncate" title={fileData.file?.name}>
               {fileData.file?.name}
             </span>
             <span className="file-size">{getDataSize(fileData.file?.size)}</span>
@@ -173,22 +143,14 @@ const UploadItem: React.FC<UploadItemProps> = ({
               <AnimatedIcon icon={CheckCircle} />
             </div>
           ) : isCanceled || uploadFailed ? (
-            <div
-              className="retry-upload"
-              title="Retry"
-              onClick={handleRetry}
-            >
+            <div className="retry-upload" title="Retry" onClick={handleRetry}>
               <AnimatedIcon icon={RotateCw} />
             </div>
           ) : (
             <div
               className="rm-file"
-              title={`${!!fileData.error ? t("Remove") : t("abortUpload")}`}
-              onClick={
-                !!fileData.error
-                  ? () => handleFileRemove(index)
-                  : handleAbortUpload
-              }
+              title={fileData.error ? t("remove") : t("abortUpload")}
+              onClick={fileData.error ? () => handleFileRemove(id) : handleAbortUpload}
             >
               <AnimatedIcon icon={X} />
             </div>
@@ -203,6 +165,8 @@ const UploadItem: React.FC<UploadItemProps> = ({
       </div>
     </li>
   );
-};
+});
+
+UploadItem.displayName = "UploadItem";
 
 export default UploadItem;

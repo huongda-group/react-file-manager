@@ -1,4 +1,4 @@
-import { useRef, useState, DragEvent, ChangeEvent } from "react";
+import { useRef, useState, DragEvent, ChangeEvent, useCallback } from "react";
 import Button from "../../../components/button/button";
 import { CloudUpload } from "lucide-react";
 import { AnimatedIcon } from "../../../components/ui/animated-icon";
@@ -12,9 +12,8 @@ import { useTranslation } from "../../../contexts/translation";
 import { IFile } from "../../../types";
 import "./upload-file.css";
 
-
-
 export interface IUploadFileData {
+  id: string;
   file: File;
   appendData?: any;
   error?: string;
@@ -29,6 +28,8 @@ interface UploadFileActionProps {
   onFileUploaded: (response: any) => void;
 }
 
+const generateId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+
 const UploadFileAction: React.FC<UploadFileActionProps> = ({
   onUpload,
   maxFileSize,
@@ -38,110 +39,109 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
 }) => {
   const [files, setFiles] = useState<IUploadFileData[]>([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [isUploading, setIsUploading] = useState<{ [key: number]: boolean }>({});
-  const { currentFolder, currentPathFiles } = useFileNavigation();
+  const [isUploading, setIsUploading] = useState<{ [key: string]: boolean }>({});
+  const { currentFolder } = useFileNavigation();
   const { onError } = useFiles();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const t = useTranslation();
 
-  // To open choose file if the "Choose File" button is focused and Enter key is pressed
-  const handleChooseFileKeyDown = (e: React.KeyboardEvent) => {
+  const handleChooseFileKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       fileInputRef.current?.click();
     }
-  };
+  }, []);
 
-  const checkFileError = (file: File) => {
+  const checkFileError = useCallback((file: File) => {
     if (acceptedFileTypes) {
       const extError = !acceptedFileTypes.includes(getFileExtension(file.name));
-      if (extError) return t("fileTypeNotAllowed");
+      if (extError) {
+        return t("fileTypeNotAllowed");
+      }
     }
-
-    const fileExists = currentPathFiles.some(
-      (item) =>
-        item.name.toLowerCase() === file.name.toLowerCase() && !item.isDirectory
-    );
-    if (fileExists) {
-      return t("fileAlreadyExist");
-    }
-
     const sizeError = maxFileSize && file.size > maxFileSize;
-    if (sizeError)
+    if (sizeError) {
       return `${t("maxUploadSize")} ${getDataSize(maxFileSize, 0)}.`;
-  };
+    }
+  }, [acceptedFileTypes, maxFileSize, t]);
 
-  const setSelectedFiles = (fileList: File[]) => {
-    const validFiles = fileList.filter(
-      (item) =>
-        !files.some(
-          (fileData) =>
-            fileData.file.name.toLowerCase() === item.name.toLowerCase()
-        )
-    );
+  const setSelectedFiles = useCallback((fileList: File[]) => {
+    setFiles((prev) => {
+      const validFiles = fileList.filter(
+        (item) => !prev.some((fileData) => fileData.file.name.toLowerCase() === item.name.toLowerCase())
+      );
 
-    if (validFiles.length > 0) {
+      if (validFiles.length === 0) {
+        return prev;
+      }
+
       const newFiles = validFiles.map((file) => {
         const appendData = onFileUploading(file, currentFolder);
         const error = checkFileError(file);
-        // Error handling matches Context or custom logic
-        if (error) onError({ type: "upload", message: error });
-
+        if (error) {
+          onError({ type: "upload", message: error });
+        }
         return {
+          id: generateId(),
           file: file,
           appendData: appendData,
           ...(error && { error: error }),
         };
       });
-      setFiles((prev) => [...prev, ...newFiles]);
-    }
-  };
+      return [...prev, ...newFiles];
+    });
+  }, [checkFileError, currentFolder, onError, onFileUploading]);
 
-  // Todo: Also validate allowed file extensions on drop
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+  const handleDrop = useCallback((e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    setSelectedFiles(droppedFiles);
-  };
+    setSelectedFiles(Array.from(e.dataTransfer.files));
+  }, [setSelectedFiles]);
 
-  const handleChooseFile = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  }, []);
+
+  const handleDragEnter = useCallback(() => {
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleChooseFile = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const choosenFiles = Array.from(e.target.files);
-      setSelectedFiles(choosenFiles);
+      setSelectedFiles(Array.from(e.target.files));
       e.target.value = "";
     }
-  };
+  }, [setSelectedFiles]);
 
-  const handleFileRemove = (index: number) => {
+  const handleFileRemove = useCallback((id: string) => {
     setFiles((prev) => {
-      const newFiles = prev.map((file, i) => {
-        if (index === i) {
-          return {
-            ...file,
-            removed: true,
-          };
+      const newFiles = prev.map((file) => {
+        if (file.id === id) {
+          return { ...file, removed: true };
         }
         return file;
       });
-
-      // If every file is removed, empty files array
-      if (newFiles.every((file) => !!file.removed)) return [];
-
+      if (newFiles.every((file) => !!file.removed)) {
+        return [];
+      }
       return newFiles;
     });
-  };
+  }, []);
+
+  const isAnyUploading = Object.values(isUploading).some(Boolean);
 
   return (
-    <div
-      className={`fm-upload-file ${files.length > 0 ? "file-selcted" : ""}`}
-    >
+    <div className={`fm-upload-file ${files.length > 0 ? "file-selcted" : ""}`}>
       <div className="select-files">
         <div
           className={`draggable-file-input ${isDragging ? "dragging" : ""}`}
           onDrop={handleDrop}
-          onDragOver={(e) => e.preventDefault()}
-          onDragEnter={() => setIsDragging(true)}
-          onDragLeave={() => setIsDragging(false)}
+          onDragOver={handleDragOver}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
         >
           <div className="input-text">
             <AnimatedIcon icon={CloudUpload} size={30} animation="bounce" />
@@ -166,7 +166,7 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
       {files.length > 0 && (
         <div className="files-progress">
           <div className="heading">
-            {Object.values(isUploading).some((fileUploading) => fileUploading) ? (
+            {isAnyUploading ? (
               <>
                 <h2>{t("uploading")}</h2>
                 <Loader loading={true} className="upload-loading" />
@@ -176,13 +176,13 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
             )}
           </div>
           <ul>
-            {files.map((fileData, index) => (
+            {files.map((fileData) => (
               <UploadItem
-                index={index}
-                key={index}
+                key={fileData.id}
+                id={fileData.id}
                 fileData={fileData}
                 setFiles={setFiles}
-                onUpload={onUpload} // Changed prop
+                onUpload={onUpload}
                 setIsUploading={setIsUploading}
                 onFileUploaded={onFileUploaded}
                 handleFileRemove={handleFileRemove}

@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Свернуть панель навигации",
   "expandNavigationPane": "Развернуть панель навигации",
   "enterFullScreen": "Полноэкранный режим",
-  "exitFullScreen": "Выйти из полноэкранного режима"
+  "exitFullScreen": "Выйти из полноэкранного режима",
+  "chmod": "Изменить права доступа",
+  "read": "Чтение",
+  "write": "Запись",
+  "execute": "Выполнение",
+  "owner": "Владелец",
+  "group": "Группа",
+  "others": "Другие",
+  "permission": "Право доступа",
+  "apply": "Применить"
 }

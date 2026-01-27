@@ -52,5 +52,14 @@
   "collapseNavigationPane": "Gezinti Panelini Daralt",
   "expandNavigationPane": "Gezinti Panelini Genişlet",
   "enterFullScreen": "Tam ekran",
-  "exitFullScreen": "Tam ekrandan çık"
+  "exitFullScreen": "Tam ekrandan çık",
+  "chmod": "İzinleri değiştir",
+  "read": "Okuma",
+  "write": "Yazma",
+  "execute": "Çalıştırma",
+  "owner": "Sahip",
+  "group": "Grup",
+  "others": "Diğerleri",
+  "permission": "İzin",
+  "apply": "Uygula"
 }

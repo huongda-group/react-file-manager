@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Thu gọn ngăn điều hướng",
   "expandNavigationPane": "Mở rộng ngăn điều hướng",
   "enterFullScreen": "Toàn màn hình",
-  "exitFullScreen": "Thoát toàn màn hình"
+  "exitFullScreen": "Thoát toàn màn hình",
+  "chmod": "Đổi quyền",
+  "read": "Đọc",
+  "write": "Ghi",
+  "execute": "Thực thi",
+  "owner": "Chủ sở hữu",
+  "group": "Nhóm",
+  "others": "Khác",
+  "permission": "Quyền",
+  "apply": "Áp dụng"
 }

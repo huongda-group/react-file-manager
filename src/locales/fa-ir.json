@@ -51,5 +51,14 @@
   "collapseNavigationPane": "بستن پنل ناوبری",
   "expandNavigationPane": "باز کردن پنل ناوبری",
   "enterFullScreen": "تمام‌صفحه",
-  "exitFullScreen": "خروج از تمام‌صفحه"
+  "exitFullScreen": "خروج از تمام‌صفحه",
+  "chmod": "تغییر مجوزها",
+  "read": "خواندن",
+  "write": "نوشتن",
+  "execute": "اجرا",
+  "owner": "مالک",
+  "group": "گروه",
+  "others": "سایرین",
+  "permission": "مجوز",
+  "apply": "اعمال"
 }

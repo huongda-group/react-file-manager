@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Collapse Navigation Pane",
   "expandNavigationPane": "Expand Navigation Pane",
   "enterFullScreen": "Full Screen",
-  "exitFullScreen": "Exit Full Screen"
+  "exitFullScreen": "Exit Full Screen",
+  "chmod": "Change Permissions",
+  "read": "Read",
+  "write": "Write",
+  "execute": "Execute",
+  "owner": "Owner",
+  "group": "Group",
+  "others": "Others",
+  "permission": "Permission",
+  "apply": "Apply"
 }

@@ -51,5 +51,14 @@
   "collapseNavigationPane": "Skjul navigationsrude",
   "expandNavigationPane": "Udvid navigationsrude",
   "enterFullScreen": "Fuld skærm",
-  "exitFullScreen": "Afslut fuld skærm"
+  "exitFullScreen": "Afslut fuld skærm",
+  "chmod": "Skift tilladelser",
+  "read": "Læs",
+  "write": "Skriv",
+  "execute": "Udfør",
+  "owner": "Ejer",
+  "group": "Gruppe",
+  "others": "Andre",
+  "permission": "Tilladelse",
+  "apply": "Anvend"
 }
