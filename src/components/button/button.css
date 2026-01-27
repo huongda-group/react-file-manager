@@ -19,8 +19,8 @@
 }
 
 .fm-button-secondary {
-  background-color: #f0f0f0;
-  color: black;
+  background-color: var(--fm-tertiary-bg-color);
+  color: var(--fm-text-color);
 
   &:hover {
     background-image: linear-gradient(rgba(0, 0, 0, 0.1),

@@ -73,7 +73,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
         <AnimatedIcon
           icon={FolderPlus}
           size={18}
-          strokeWidth={0.3}
           animation="bounce"
         />
       ),
@@ -156,7 +155,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 >
                   <AnimatedIcon
                     icon={CopyPlus}
-                    strokeWidth={0.1}
                     size={18}
                     animation="scale"
                   />

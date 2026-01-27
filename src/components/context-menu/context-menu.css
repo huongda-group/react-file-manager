@@ -1,7 +1,8 @@
 .fm-context-menu {
   position: absolute;
-  background-color: white;
-  border: 1px solid #c6c6c6;
+  background-color: var(--fm-popover-bg-color);
+  color: var(--fm-text-color);
+  border: 1px solid var(--fm-popover-border-color);
   border-radius: 6px;
   padding: 4px;
   z-index: 1;
@@ -29,12 +30,12 @@
 
         &:hover {
           cursor: pointer;
-          background-color: rgba(0, 0, 0, 0.07);
+          background-color: var(--fm-popover-hover-bg-color);
         }
       }
 
       li.active {
-        background-color: rgba(0, 0, 0, 0.07);
+        background-color: var(--fm-popover-hover-bg-color);
       }
 
       li.disable-paste {
@@ -48,33 +49,33 @@
     }
 
     .divider {
-      border-bottom: 1px solid #c6c6c6;
+      border-bottom: 1px solid var(--fm-popover-border-color);
       margin: 5px 0 3px 0;
     }
 
     .list-expand-icon {
       margin-left: auto;
-      color: #444444;
+      color: var(--fm-text-secondary-color);
     }
 
     .sub-menu {
       position: absolute;
       top: 0;
-      background-color: white;
-      border: 1px solid #c6c6c6;
+      background-color: var(--fm-popover-bg-color);
+      border: 1px solid var(--fm-popover-border-color);
       border-radius: 6px;
       padding: 4px;
       z-index: 1;
 
       .item-selected {
         width: 13px;
-        color: #444444;
+        color: var(--fm-text-secondary-color);
       }
 
       li {
 
         &:hover {
-          background-color: rgba(0, 0, 0, 0.07) !important;
+          background-color: var(--fm-popover-hover-bg-color) !important;
         }
       }
     }

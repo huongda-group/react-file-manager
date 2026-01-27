@@ -40,7 +40,8 @@ svg {
   }
 
   position: relative;
-  background-color: white;
+  background-color: var(--fm-bg-color);
+  color: var(--fm-text-color);
   cursor: default;
   /* Disable Text Selection on Double Click */
   -webkit-user-select: none;
@@ -88,7 +89,7 @@ svg {
 
     .folders-preview {
       z-index: 2;
-      background-color: white;
+      background-color: var(--fm-bg-color);
       padding-right: 0px;
       padding-left: 0px;
       border-bottom-right-radius: 8px;

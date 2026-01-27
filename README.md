@@ -153,6 +153,47 @@ The following CSS variables can be overridden in your global CSS to customize th
 | `--fm-item-hover-color`        | Text color when hovering over items.                                              | `#000`                  |
 | `--fm-font-size`               | Base font size.                                                                   | `16px`                  |
 | `--fm-font-family`       | Font family used in the component. Maps to the `fontFamily` prop.                 | `Nunito Sans, sans-serif` |
+| `--fm-bg-color`                | Background color of the file manager.                                             | `#ffffff`               |
+| `--fm-secondary-bg-color`      | Secondary background (header, sidebar).                                           | `#f5f5f5`               |
+| `--fm-tertiary-bg-color`       | Tertiary background (buttons).                                                    | `#f0f0f0`               |
+| `--fm-text-color`              | Primary text color.                                                               | `#000000`               |
+| `--fm-text-secondary-color`    | Secondary text color.                                                             | `#444444`               |
+| `--fm-popover-bg-color`        | Background color for popovers/context menus.                                      | `#ffffff`               |
+| `--fm-popover-border-color`    | Border color for popovers/context menus.                                          | `#c6c6c6`               |
+| `--fm-popover-hover-bg-color`  | Hover background for popover items.                                               | `rgba(0, 0, 0, 0.07)`   |
+
+### 🌙 Dark Theme
+
+The file manager supports dark theme out of the box. To enable dark mode, add `data-theme="dark"` attribute to your container or to the `<html>` element:
+
+```jsx
+// Option 1: Add to HTML element
+<html data-theme="dark">
+
+// Option 2: Add to a container element
+<div data-theme="dark">
+  <FileManager files={files} />
+</div>
+```
+
+You can also toggle dark mode dynamically:
+
+```jsx
+function App() {
+  const [isDark, setIsDark] = useState(false);
+
+  return (
+    <div data-theme={isDark ? "dark" : "light"}>
+      <button onClick={() => setIsDark(!isDark)}>
+        Toggle Theme
+      </button>
+      <FileManager files={files} />
+    </div>
+  );
+}
+```
+
+The dark theme automatically adjusts all colors including backgrounds, text, borders, and hover states.
 
 ## ⌨️ Keyboard Shortcuts
 

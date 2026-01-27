@@ -44,9 +44,9 @@
       z-index: 3;
       top: 105%;
       right: 22%;
-      background-color: white;
+      background-color: var(--fm-popover-bg-color);
       margin: 0;
-      border: 1px solid #c4c4c4;
+      border: 1px solid var(--fm-popover-border-color);
       border-radius: 5px;
       font-size: var(--fm-font-size);
 
@@ -79,7 +79,8 @@
   }
 
   .item-action {
-    background-color: white;
+    background-color: var(--fm-bg-color);
+    color: var(--fm-text-color);
     display: flex;
     align-items: center;
     gap: 7px;
