@@ -61,5 +61,7 @@
   "group": "Grup",
   "others": "Diğerleri",
   "permission": "İzin",
-  "apply": "Uygula"
+  "apply": "Uygula",
+  "compress": "Sıkıştır",
+  "decompress": "Dışarı Aktar"
 }

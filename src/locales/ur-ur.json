@@ -60,5 +60,7 @@
   "group": "گروپ",
   "others": "دوسرے",
   "permission": "اجازت",
-  "apply": "لاگو کریں"
+  "apply": "لاگو کریں",
+  "compress": "Compress",
+  "decompress": "Decompress"
 }

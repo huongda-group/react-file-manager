@@ -60,5 +60,7 @@
   "group": "그룹",
   "others": "기타",
   "permission": "권한",
-  "apply": "적용"
+  "apply": "적용",
+  "compress": "압축",
+  "decompress": "압축 풀기"
 }

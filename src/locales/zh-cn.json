@@ -60,5 +60,7 @@
   "group": "组",
   "others": "其他",
   "permission": "权限",
-  "apply": "应用"
+  "apply": "应用",
+  "compress": "压缩",
+  "decompress": "解压"
 }

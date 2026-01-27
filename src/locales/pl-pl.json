@@ -60,5 +60,7 @@
   "group": "Grupa",
   "others": "Inni",
   "permission": "Uprawnienie",
-  "apply": "Zastosuj"
+  "apply": "Zastosuj",
+  "compress": "Kompresuj",
+  "decompress": "Dekompresuj"
 }

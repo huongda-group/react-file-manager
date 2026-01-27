@@ -60,5 +60,7 @@
   "group": "Gruppe",
   "others": "Andre",
   "permission": "Tilladelse",
-  "apply": "Anvend"
+  "apply": "Anvend",
+  "compress": "Komprimer",
+  "decompress": "Dekomprimer"
 }

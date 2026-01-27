@@ -13,6 +13,8 @@ import {
   Download,
   Trash2,
   X,
+  Archive,
+  ArchiveRestore,
 } from "lucide-react";
 import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useFileNavigation } from "../../contexts/file-navigation";
@@ -33,6 +35,8 @@ interface IPermissions {
   rename?: boolean;
   download?: boolean;
   delete?: boolean;
+  compress?: boolean;
+  decompress?: boolean;
 }
 
 interface ToolbarProps {
@@ -42,6 +46,8 @@ interface ToolbarProps {
   permissions: IPermissions;
   isFullScreen: boolean;
   onFullScreenToggle: () => void;
+  onCompress?: (files: IFile[]) => void;
+  onDecompress?: (files: IFile[]) => void;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
@@ -51,6 +57,8 @@ const Toolbar: React.FC<ToolbarProps> = ({
   permissions,
   isFullScreen,
   onFullScreenToggle,
+  onCompress,
+  onDecompress,
 }) => {
   const { currentFolder } = useFileNavigation();
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
@@ -197,6 +205,31 @@ const Toolbar: React.FC<ToolbarProps> = ({
                   <span>{t("download")}</span>
                 </button>
               )}
+              {permissions.compress && onCompress && (
+                <button
+                  className="item-action file-action"
+                  onClick={() => onCompress(selectedFiles)}
+                >
+                  <AnimatedIcon icon={Archive} size={18} animation="bounce" />
+                  <span>{t("compress")}</span>
+                </button>
+              )}
+              {permissions.decompress &&
+                selectedFiles.length === 1 &&
+                !selectedFiles[0].isDirectory &&
+                onDecompress && (
+                  <button
+                    className="item-action file-action"
+                    onClick={() => onDecompress(selectedFiles)}
+                  >
+                    <AnimatedIcon
+                      icon={ArchiveRestore}
+                      size={18}
+                      animation="bounce"
+                    />
+                    <span>{t("decompress")}</span>
+                  </button>
+                )}
               {permissions.delete && (
                 <button
                   className="item-action file-action"

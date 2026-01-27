@@ -60,5 +60,7 @@
   "group": "समूह",
   "others": "अन्य",
   "permission": "अनुमति",
-  "apply": "लागू करें"
+  "apply": "लागू करें",
+  "compress": "Sankuchit Karein",
+  "decompress": "Vistarit Karein"
 }

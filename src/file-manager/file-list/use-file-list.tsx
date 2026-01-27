@@ -13,7 +13,9 @@ import {
   Download,
   Upload,
   FolderOpen,
-  Shield
+  Shield,
+  Archive,
+  ArchiveRestore
 } from "lucide-react";
 import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useClipBoard } from "../../contexts/clipboard";
@@ -37,6 +39,8 @@ interface IPermissions {
   download?: boolean;
   delete?: boolean;
   chmod?: boolean;
+  compress?: boolean;
+  decompress?: boolean;
 }
 
 const useFileList = (
@@ -44,7 +48,9 @@ const useFileList = (
   enableFilePreview: boolean | undefined,
   triggerAction: IUseTriggerActionReturn,
   permissions: IPermissions,
-  onFileOpen: (file: IFile) => void
+  onFileOpen: (file: IFile) => void,
+  onCompress?: (files: IFile[]) => void,
+  onDecompress?: (files: IFile[]) => void
 ) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState<number[]>([]);
   const [visible, setVisible] = useState(false);
@@ -252,8 +258,29 @@ const useFileList = (
     {
       title: t("delete"),
       icon: <AnimatedIcon icon={Trash2} size={19} animation="shake" />,
-      onClick: handleDelete,
       hidden: !permissions.delete,
+    },
+    {
+      title: t("compress"),
+      icon: <AnimatedIcon icon={Archive} size={18} animation="bounce" />,
+      onClick: () => {
+        onCompress?.(selectedFiles);
+        setVisible(false);
+      },
+      hidden: !permissions.compress || !onCompress,
+    },
+    {
+      title: t("decompress"),
+      icon: <AnimatedIcon icon={ArchiveRestore} size={18} animation="bounce" />,
+      onClick: () => {
+        onDecompress?.(selectedFiles);
+        setVisible(false);
+      },
+      hidden:
+        !permissions.decompress ||
+        !onDecompress ||
+        selectedFiles.length !== 1 ||
+        selectedFiles[0].isDirectory,
     },
   ];
 

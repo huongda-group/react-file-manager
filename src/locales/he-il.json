@@ -60,5 +60,7 @@
   "group": "קבוצה",
   "others": "אחרים",
   "permission": "הרשאה",
-  "apply": "החל"
+  "apply": "החל",
+  "compress": "לדחוס",
+  "decompress": "לחלץ"
 }

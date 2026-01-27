@@ -19,6 +19,8 @@ interface IPermissions {
   download?: boolean;
   delete?: boolean;
   chmod?: boolean;
+  compress?: boolean;
+  decompress?: boolean;
 }
 
 interface ActionsProps {

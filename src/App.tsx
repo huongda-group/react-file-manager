@@ -10,6 +10,7 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [language, setLanguage] = useState("vi-vn");
   const [files, setFiles] = useState<IFile[]>([
     {
       _id: "root-1",
@@ -217,22 +218,53 @@ function App() {
     alert(`Setting permissions ${permissions} on ${filesToChmod.length} item(s)`);
   };
 
+  const handleCompress = async (filesToCompress: IFile[], callback: (result: { status: boolean; message: string }) => void) => {
+    console.log("Compress Files:", filesToCompress);
+    // Simulate async
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    callback({ status: true, message: "Compressed successfully" });
+  };
+
+  const handleDecompress = async (filesToDecompress: IFile[], callback: (result: { status: boolean; message: string }) => void) => {
+    console.log("Decompress Files:", filesToDecompress);
+    // Simulate async
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    callback({ status: true, message: "Decompressed successfully" });
+  };
+
   return (
     <div className={`app ${theme}`}>
       <div className="header">
         <h1>React File Manager</h1>
-        <button
-          className="theme-toggle"
-          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
-        >
-          {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-        </button>
+        <div className="header-actions">
+          <select
+            className="lang-select"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            <option value="vi-vn">Tiếng Việt</option>
+            <option value="en-us">English</option>
+            <option value="fr-fr">Français</option>
+            <option value="de-de">Deutsch</option>
+            <option value="es-es">Español</option>
+            <option value="ja-jp">日本語</option>
+            <option value="zh-cn">简体中文</option>
+            <option value="ru-ru">Русский</option>
+          </select>
+          <button
+            className="theme-toggle"
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+          >
+            {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+          </button>
+        </div>
       </div>
       <div className="file-manager-container">
         <FileManager
           files={files}
           theme={theme}
+          language={language}
           onUpload={async (file) => {
             console.log("Mock Uploading:", file);
             await new Promise((resolve) => setTimeout(resolve, 500));
@@ -260,7 +292,10 @@ function App() {
           onRefresh={handleRefresh}
           onFileOpen={handleFileOpen}
           onSelectionChange={handleSelectionChange}
+
           onChmod={handleChmod}
+          onCompress={handleCompress}
+          onDecompress={handleDecompress}
           onError={handleError}
           layout="list"
           enableFilePreview

@@ -60,5 +60,7 @@
   "group": "Ryhmä",
   "others": "Muut",
   "permission": "Käyttöoikeus",
-  "apply": "Käytä"
+  "apply": "Käytä",
+  "compress": "Pakkaa",
+  "decompress": "Pura"
 }

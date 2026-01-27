@@ -51,6 +51,33 @@ body {
       font-weight: 600;
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-select {
+      background: none;
+      border: 1px solid #444;
+      color: inherit;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s ease;
+
+      &:focus {
+        border-color: #666;
+      }
+
+      option {
+        background-color: #32363a;
+        color: #fff;
+      }
+    }
+
     .theme-toggle {
       background: none;
       border: 1px solid #444;
@@ -66,6 +93,21 @@ body {
       &:hover {
         background: rgba(255, 255, 255, 0.1);
       }
+    }
+  }
+
+  &.light {
+    .lang-select {
+      border-color: #ccc;
+
+      option {
+        background-color: #fff;
+        color: #333;
+      }
+    }
+
+    .theme-toggle {
+      border-color: #ccc;
     }
   }
 

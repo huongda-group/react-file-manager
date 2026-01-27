@@ -60,5 +60,7 @@
   "group": "Groupe",
   "others": "Autres",
   "permission": "Permission",
-  "apply": "Appliquer"
+  "apply": "Appliquer",
+  "compress": "Compresser",
+  "decompress": "Décompresser"
 }

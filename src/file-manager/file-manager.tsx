@@ -18,6 +18,10 @@ import { formatDate as defaultFormatDate } from "../utils/format-date";
 import "../styles/variables.css";
 import "../file-manager/file-manager.css";
 import { IFile } from "../types";
+interface ICallbackResult {
+  status: boolean;
+  message: string;
+}
 
 interface IPermissions {
   create?: boolean;
@@ -28,6 +32,8 @@ interface IPermissions {
   download?: boolean;
   delete?: boolean;
   chmod?: boolean;
+  compress?: boolean;
+  decompress?: boolean;
 }
 
 interface FileManagerProps {
@@ -47,6 +53,8 @@ interface FileManagerProps {
   onRename?: (file: IFile, newName: string) => void;
   onDownload?: (files: IFile[]) => void;
   onDelete?: (files: IFile[]) => void;
+  onCompress?: (files: IFile[], callback: (result: ICallbackResult) => void) => void;
+  onDecompress?: (files: IFile[], callback: (result: ICallbackResult) => void) => void;
   onChmod?: (files: IFile[], permissions: string) => void;
   onLayoutChange?: (layout: LayoutType) => void;
   onRefresh?: () => void;
@@ -85,6 +93,8 @@ const defaultPermissions: IPermissions = {
   download: true,
   delete: true,
   chmod: true,
+  compress: true,
+  decompress: true,
 };
 
 const FileManager: React.FC<FileManagerProps> = ({
@@ -100,6 +110,8 @@ const FileManager: React.FC<FileManagerProps> = ({
   onRename,
   onDownload,
   onDelete = () => null,
+  onCompress,
+  onDecompress,
   onChmod,
   onLayoutChange = () => { },
   onRefresh,
@@ -130,6 +142,7 @@ const FileManager: React.FC<FileManagerProps> = ({
 }) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] =
     useState(defaultNavExpanded);
+  const [internalLoading, setInternalLoading] = useState(false);
   const triggerAction = useTriggerAction();
   const {
     containerRef,
@@ -190,6 +203,30 @@ const FileManager: React.FC<FileManagerProps> = ({
     }
   };
 
+  const handleCompression = (filesToCompress: IFile[]) => {
+    if (onCompress) {
+      setInternalLoading(true);
+      onCompress(filesToCompress, (result) => {
+        setInternalLoading(false);
+        if (!result.status && result.message) {
+          onError({ type: "compress", message: result.message });
+        }
+      });
+    }
+  };
+
+  const handleDecompression = (filesToDecompress: IFile[]) => {
+    if (onDecompress) {
+      setInternalLoading(true);
+      onDecompress(filesToDecompress, (result) => {
+        setInternalLoading(false);
+        if (!result.status && result.message) {
+          onError({ type: "decompress", message: result.message });
+        }
+      });
+    }
+  };
+
   return (
     <main
       ref={mainRef}
@@ -198,7 +235,7 @@ const FileManager: React.FC<FileManagerProps> = ({
       onContextMenu={(e) => e.preventDefault()}
       style={{ ...customStyles, ...style }}
     >
-      <Loader loading={isLoading} />
+      <Loader loading={isLoading || internalLoading} />
       <ThemeProvider theme={theme}>
         <TranslationProvider language={language}>
           <FilesProvider filesData={files} onError={onError}>
@@ -219,6 +256,8 @@ const FileManager: React.FC<FileManagerProps> = ({
                       permissions={permissionsObj}
                       isFullScreen={isFullScreen}
                       onFullScreenToggle={toggleFullScreen}
+                      onCompress={handleCompression}
+                      onDecompress={handleDecompression}
                     />
                     <section
                       ref={containerRef as RefObject<HTMLDivElement>}
@@ -261,6 +300,8 @@ const FileManager: React.FC<FileManagerProps> = ({
                           triggerAction={triggerAction}
                           permissions={permissionsObj}
                           formatDate={formatDate}
+                          onCompress={handleCompression}
+                          onDecompress={handleDecompression}
                         />
                       </div>
                     </section>

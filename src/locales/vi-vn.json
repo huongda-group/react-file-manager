@@ -60,5 +60,7 @@
   "group": "Nhóm",
   "others": "Khác",
   "permission": "Quyền",
-  "apply": "Áp dụng"
+  "apply": "Áp dụng",
+  "compress": "Nén",
+  "decompress": "Giải nén"
 }

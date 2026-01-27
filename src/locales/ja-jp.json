@@ -60,5 +60,7 @@
   "group": "グループ",
   "others": "その他",
   "permission": "権限",
-  "apply": "適用"
+  "apply": "適用",
+  "compress": "圧縮",
+  "decompress": "解凍"
 }

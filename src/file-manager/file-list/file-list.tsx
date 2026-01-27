@@ -20,6 +20,8 @@ interface IPermissions {
   download?: boolean;
   delete?: boolean;
   chmod?: boolean;
+  compress?: boolean;
+  decompress?: boolean;
 }
 
 interface FileListProps {
@@ -31,6 +33,8 @@ interface FileListProps {
   triggerAction: IUseTriggerActionReturn;
   permissions: IPermissions;
   formatDate: (date: string | number | Date) => string;
+  onCompress?: (files: IFile[]) => void;
+  onDecompress?: (files: IFile[]) => void;
 }
 
 const FileList: React.FC<FileListProps> = ({
@@ -42,6 +46,8 @@ const FileList: React.FC<FileListProps> = ({
   triggerAction,
   permissions,
   formatDate,
+  onCompress,
+  onDecompress,
 }) => {
   const { currentPathFiles, sortConfig, setSortConfig } = useFileNavigation();
   const filesViewRef = useRef<HTMLDivElement>(null);
@@ -64,7 +70,9 @@ const FileList: React.FC<FileListProps> = ({
     enableFilePreview,
     triggerAction,
     permissions,
-    onFileOpen
+    onFileOpen,
+    onCompress,
+    onDecompress
   );
 
   const contextMenuRef = useDetectOutsideClick(() => setVisible(false));
