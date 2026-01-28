@@ -63,5 +63,6 @@
   "permission": "権限",
   "apply": "適用",
   "compress": "圧縮",
-  "decompress": "解凍"
+  "decompress": "解凍",
+  "destinationPath": "転送先パス"
 }

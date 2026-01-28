@@ -47,8 +47,8 @@ interface ToolbarProps {
   permissions: IPermissions;
   isFullScreen: boolean;
   onFullScreenToggle: () => void;
-  onCompress?: (files: IFile[]) => void;
-  onDecompress?: (files: IFile[]) => void;
+  onCompress?: (files: IFile[], name: string) => void;
+  onDecompress?: (files: IFile[], destinationPath: string) => void;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
@@ -209,7 +209,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               {permissions.compress && onCompress && (
                 <button
                   className="item-action file-action"
-                  onClick={() => onCompress(selectedFiles)}
+                  onClick={() => triggerAction.show("compress")}
                 >
                   <AnimatedIcon icon={Archive} size={18} animation="bounce" />
                   <span>{t("compress")}</span>
@@ -221,7 +221,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 onDecompress && (
                   <button
                     className="item-action file-action"
-                    onClick={() => onDecompress(selectedFiles)}
+                    onClick={() => triggerAction.show("decompress")}
                   >
                     <AnimatedIcon
                       icon={ArchiveRestore}

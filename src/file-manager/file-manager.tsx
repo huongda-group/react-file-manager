@@ -53,8 +53,8 @@ interface FileManagerProps {
   onRename?: (file: IFile, newName: string) => void;
   onDownload?: (files: IFile[]) => void;
   onDelete?: (files: IFile[], trash: boolean) => void;
-  onCompress?: (files: IFile[], callback: (result: ICallbackResult) => void) => void;
-  onDecompress?: (files: IFile[], callback: (result: ICallbackResult) => void) => void;
+  onCompress?: (files: IFile[], name: string, callback: (result: ICallbackResult) => void) => void;
+  onDecompress?: (files: IFile[], destinationPath: string, callback: (result: ICallbackResult) => void) => void;
   onChmod?: (files: IFile[], permissions: string) => void;
   onLayoutChange?: (layout: LayoutType) => void;
   onRefresh?: () => void;
@@ -203,10 +203,10 @@ const FileManager: React.FC<FileManagerProps> = ({
     }
   };
 
-  const handleCompression = (filesToCompress: IFile[]) => {
+  const handleCompression = (filesToCompress: IFile[], name: string) => {
     if (onCompress) {
       setInternalLoading(true);
-      onCompress(filesToCompress, (result) => {
+      onCompress(filesToCompress, name, (result) => {
         setInternalLoading(false);
         if (!result.status && result.message) {
           onError({ type: "compress", message: result.message });
@@ -215,10 +215,10 @@ const FileManager: React.FC<FileManagerProps> = ({
     }
   };
 
-  const handleDecompression = (filesToDecompress: IFile[]) => {
+  const handleDecompression = (filesToDecompress: IFile[], destinationPath: string) => {
     if (onDecompress) {
       setInternalLoading(true);
-      onDecompress(filesToDecompress, (result) => {
+      onDecompress(filesToDecompress, destinationPath, (result) => {
         setInternalLoading(false);
         if (!result.status && result.message) {
           onError({ type: "decompress", message: result.message });
@@ -313,6 +313,8 @@ const FileManager: React.FC<FileManagerProps> = ({
                       onFileUploaded={onFileUploaded}
                       onDelete={onDelete}
                       onChmod={onChmod}
+                      onCompress={handleCompression}
+                      onDecompress={handleDecompression}
                       onRefresh={handleRefresh}
                       maxFileSize={maxFileSize}
                       filePreviewPath={filePreviewPath}

@@ -63,5 +63,6 @@
   "permission": "הרשאה",
   "apply": "החל",
   "compress": "לדחוס",
-  "decompress": "לחלץ"
+  "decompress": "לחלץ",
+  "destinationPath": "נתיב יעד"
 }

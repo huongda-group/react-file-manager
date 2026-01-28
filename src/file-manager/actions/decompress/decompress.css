@@ -1,0 +1,46 @@
+.fm-decompress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    color: var(--fm-text-color);
+}
+
+.fm-decompress-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.fm-decompress-input-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--fm-text-secondary-color);
+}
+
+.fm-decompress-input {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--fm-border-color, #eaeaea);
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: var(--fm-bg-color, #fff);
+    color: var(--fm-text-color, #333);
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.fm-decompress-input:hover {
+    border-color: var(--fm-primary-color);
+}
+
+.fm-decompress-input:focus {
+    border-color: var(--fm-primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--fm-primary-color-rgb), 0.2);
+}
+
+.fm-decompress-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}

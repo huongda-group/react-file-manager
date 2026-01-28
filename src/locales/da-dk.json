@@ -63,5 +63,6 @@
   "permission": "Tilladelse",
   "apply": "Anvend",
   "compress": "Komprimer",
-  "decompress": "Dekomprimer"
+  "decompress": "Dekomprimer",
+  "destinationPath": "Destinationsti"
 }

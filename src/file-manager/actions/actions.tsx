@@ -3,6 +3,8 @@ import Modal from "../../components/modal/modal";
 import DeleteAction from "../../file-manager/actions/delete/delete";
 import UploadFileAction from "../../file-manager/actions/upload-file/upload-file";
 import ChmodAction from "../../file-manager/actions/chmod/chmod";
+import CompressAction from "../../file-manager/actions/compress/compress";
+import DecompressAction from "../../file-manager/actions/decompress/decompress";
 import PreviewFileAction from "../../file-manager/actions/preview-file/preview-file";
 import { useSelection } from "../../contexts/selection";
 import { useShortcutHandler } from "../../hooks/use-shortcut-handler";
@@ -29,6 +31,8 @@ interface ActionsProps {
   onFileUploaded: (response: any) => void;
   onDelete: (files: IFile[], trash: boolean) => void;
   onChmod?: (files: IFile[], permissions: string) => void;
+  onCompress?: (files: IFile[], name: string) => void;
+  onDecompress?: (files: IFile[], destinationPath: string) => void;
   onRefresh: () => void;
   maxFileSize?: number;
   filePreviewPath?: string;
@@ -50,6 +54,8 @@ const Actions: React.FC<ActionsProps> = ({
   onFileUploaded,
   onDelete,
   onChmod = () => { },
+  onCompress,
+  onDecompress,
   onRefresh,
   maxFileSize,
   filePreviewPath,
@@ -100,6 +106,27 @@ const Actions: React.FC<ActionsProps> = ({
       title: t("chmod"),
       component: (
         <ChmodAction triggerAction={triggerAction} onChmod={onChmod} />
+      ),
+      width: "30%",
+    },
+    compress: {
+      title: t("compress"),
+      component: onCompress ? (
+        <CompressAction triggerAction={triggerAction} onCompress={onCompress} />
+      ) : (
+        <></>
+      ),
+      width: "30%",
+    },
+    decompress: {
+      title: t("decompress"),
+      component: onDecompress ? (
+        <DecompressAction
+          triggerAction={triggerAction}
+          onDecompress={onDecompress}
+        />
+      ) : (
+        <></>
       ),
       width: "30%",
     },

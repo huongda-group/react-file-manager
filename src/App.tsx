@@ -219,15 +219,15 @@ function App() {
     alert(`Setting permissions ${permissions} on ${filesToChmod.length} item(s)`);
   };
 
-  const handleCompress = async (filesToCompress: IFile[], callback: (result: { status: boolean; message: string }) => void) => {
-    console.log("Compress Files:", filesToCompress);
+  const handleCompress = async (filesToCompress: IFile[], name: string, callback: (result: { status: boolean; message: string }) => void) => {
+    console.log("Compress Files:", filesToCompress, "Name:", name);
     // Simulate async
     await new Promise((resolve) => setTimeout(resolve, 1000));
     callback({ status: true, message: "Compressed successfully" });
   };
 
-  const handleDecompress = async (filesToDecompress: IFile[], callback: (result: { status: boolean; message: string }) => void) => {
-    console.log("Decompress Files:", filesToDecompress);
+  const handleDecompress = async (filesToDecompress: IFile[], destinationPath: string, callback: (result: { status: boolean; message: string }) => void) => {
+    console.log("Decompress Files:", filesToDecompress, "Destination:", destinationPath);
     // Simulate async
     await new Promise((resolve) => setTimeout(resolve, 1000));
     callback({ status: true, message: "Decompressed successfully" });

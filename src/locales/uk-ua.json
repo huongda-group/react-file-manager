@@ -63,5 +63,6 @@
   "permission": "Право доступу",
   "apply": "Застосувати",
   "compress": "Стиснути",
-  "decompress": "Розархівувати"
+  "decompress": "Розархівувати",
+  "destinationPath": "Шлях призначення"
 }

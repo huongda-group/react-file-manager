@@ -63,5 +63,6 @@
   "permission": "권한",
   "apply": "적용",
   "compress": "압축",
-  "decompress": "압축 풀기"
+  "decompress": "압축 풀기",
+  "destinationPath": "대상 경로"
 }

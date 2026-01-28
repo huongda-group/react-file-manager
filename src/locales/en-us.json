@@ -63,5 +63,6 @@
   "permission": "Permission",
   "apply": "Apply",
   "compress": "Compress",
-  "decompress": "Decompress"
+  "decompress": "Decompress",
+  "destinationPath": "Destination Path"
 }

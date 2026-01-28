@@ -61,5 +61,8 @@
   "group": "گروه",
   "others": "سایرین",
   "permission": "مجوز",
-  "apply": "اعمال"
+  "apply": "اعمال",
+  "compress": "فشرده‌سازی",
+  "decompress": "استخراج",
+  "destinationPath": "مسیر مقصد"
 }

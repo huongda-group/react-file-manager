@@ -49,8 +49,8 @@ const useFileList = (
   triggerAction: IUseTriggerActionReturn,
   permissions: IPermissions,
   onFileOpen: (file: IFile) => void,
-  onCompress?: (files: IFile[]) => void,
-  onDecompress?: (files: IFile[]) => void
+  onCompress?: (files: IFile[], name: string) => void,
+  onDecompress?: (files: IFile[], destinationPath: string) => void
 ) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState<number[]>([]);
   const [visible, setVisible] = useState(false);
@@ -220,7 +220,7 @@ const useFileList = (
     },
     {
       title: t("copy"),
-      icon: <AnimatedIcon icon={Copy} strokeWidth={0.1} size={17} />,
+      icon: <AnimatedIcon icon={Copy} size={18} />,
       onClick: () => handleMoveOrCopyItems(false),
       divider: !lastSelectedFile?.isDirectory,
       hidden: !permissions.copy,
@@ -266,7 +266,7 @@ const useFileList = (
       title: t("compress"),
       icon: <AnimatedIcon icon={Archive} size={18} animation="bounce" />,
       onClick: () => {
-        onCompress?.(selectedFiles);
+        triggerAction.show("compress");
         setVisible(false);
       },
       hidden: !permissions.compress || !onCompress,
@@ -275,7 +275,7 @@ const useFileList = (
       title: t("decompress"),
       icon: <AnimatedIcon icon={ArchiveRestore} size={18} animation="bounce" />,
       onClick: () => {
-        onDecompress?.(selectedFiles);
+        triggerAction.show("decompress");
         setVisible(false);
       },
       hidden:

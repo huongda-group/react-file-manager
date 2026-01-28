@@ -64,5 +64,6 @@
   "permission": "İzin",
   "apply": "Uygula",
   "compress": "Sıkıştır",
-  "decompress": "Dışarı Aktar"
+  "decompress": "Dışarı Aktar",
+  "destinationPath": "Hedef Yol"
 }

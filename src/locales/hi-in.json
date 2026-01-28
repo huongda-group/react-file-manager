@@ -63,5 +63,6 @@
   "permission": "अनुमति",
   "apply": "लागू करें",
   "compress": "Sankuchit Karein",
-  "decompress": "Vistarit Karein"
+  "decompress": "Vistarit Karein",
+  "destinationPath": "गंतव्य पथ"
 }

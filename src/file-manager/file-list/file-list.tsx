@@ -33,8 +33,8 @@ interface FileListProps {
   triggerAction: IUseTriggerActionReturn;
   permissions: IPermissions;
   formatDate: (date: string | number | Date) => string;
-  onCompress?: (files: IFile[]) => void;
-  onDecompress?: (files: IFile[]) => void;
+  onCompress?: (files: IFile[], name: string) => void;
+  onDecompress?: (files: IFile[], destinationPath: string) => void;
 }
 
 const FileList: React.FC<FileListProps> = ({

@@ -63,5 +63,6 @@
   "permission": "الإذن",
   "apply": "تطبيق",
   "compress": "ضغط",
-  "decompress": "فك الضغط"
+  "decompress": "فك الضغط",
+  "destinationPath": "مسار الوجهة"
 }

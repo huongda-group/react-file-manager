@@ -61,5 +61,8 @@
   "group": "Grupp",
   "others": "Andra",
   "permission": "Behörighet",
-  "apply": "Tillämpa"
+  "apply": "Tillämpa",
+  "compress": "Komprimera",
+  "decompress": "Extrahera",
+  "destinationPath": "Målsökväg"
 }

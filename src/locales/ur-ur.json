@@ -63,5 +63,6 @@
   "permission": "اجازت",
   "apply": "لاگو کریں",
   "compress": "Compress",
-  "decompress": "Decompress"
+  "decompress": "Decompress",
+  "destinationPath": "منزل کا راستہ"
 }

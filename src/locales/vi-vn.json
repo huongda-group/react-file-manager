@@ -63,5 +63,6 @@
   "permission": "Quyền",
   "apply": "Áp dụng",
   "compress": "Nén",
-  "decompress": "Giải nén"
+  "decompress": "Giải nén",
+  "destinationPath": "Đường dẫn đích"
 }
