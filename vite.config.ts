@@ -7,6 +7,11 @@ import { resolve } from "path";
 export default defineConfig({
   publicDir: false,
   plugins: [react(), dts({ rollupTypes: true })],
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "./src"),
+    },
+  },
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),

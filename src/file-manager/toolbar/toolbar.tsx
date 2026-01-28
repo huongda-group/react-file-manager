@@ -21,11 +21,12 @@ import { useFileNavigation } from "../../contexts/file-navigation";
 import { useSelection } from "../../contexts/selection";
 import { useClipBoard } from "../../contexts/clipboard";
 import { useLayout, LayoutType } from "../../contexts/layout";
-import { validateApiCallback } from "../../utils/validate-api-callback";
+import { validateApiCallback } from "@/utils/validate-api-callback.ts";
 import { useTranslation } from "../../contexts/translation";
 import "../../file-manager/toolbar/toolbar.css";
-
-import { IUseTriggerActionReturn } from "../../hooks/use-trigger-action";
+import { IUseTriggerActionReturn } from "@/hooks/use-trigger-action.ts";
+import { IFile } from "@/types";
+import React from "react";
 
 interface IPermissions {
   create?: boolean;

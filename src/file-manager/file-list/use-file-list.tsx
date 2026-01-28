@@ -107,10 +107,7 @@ const useFileList = (
     setVisible(false);
   };
 
-  const handleDelete = () => {
-    setVisible(false);
-    triggerAction.show("delete");
-  };
+
 
   const handleChmod = () => {
     setVisible(false);
