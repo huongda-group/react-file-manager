@@ -9,6 +9,7 @@
   "rename": "Переименовать",
   "download": "Скачать",
   "delete": "Удалить",
+  "moveToTrash": "Переместить в корзину",
   "itemSelected": "выбран элемент",
   "itemsSelected": "выбрано {{count}} элементов",
   "cancel": "Отменить",

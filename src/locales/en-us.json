@@ -9,6 +9,7 @@
   "rename": "Rename",
   "download": "Download",
   "delete": "Delete",
+  "moveToTrash": "Move to trash",
   "itemSelected": "item selected",
   "itemsSelected": "items selected",
   "cancel": "Cancel",

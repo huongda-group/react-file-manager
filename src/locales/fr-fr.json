@@ -9,6 +9,7 @@
   "rename": "Renommer",
   "download": "Télécharger",
   "delete": "Supprimer",
+  "moveToTrash": "Déplacer vers la corbeille",
   "itemSelected": "élément sélectionné",
   "itemsSelected": "éléments sélectionnés",
   "cancel": "Annuler",

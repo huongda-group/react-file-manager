@@ -21,7 +21,7 @@ export interface IUploadFileData {
 }
 
 interface UploadFileActionProps {
-  onUpload?: (file: File) => Promise<any>;
+  onUpload?: (file: File, onProgress?: (progress: number) => void) => Promise<any>;
   maxFileSize?: number;
   acceptedFileTypes?: string;
   onFileUploading: (file: File, parent: IFile | null) => any;

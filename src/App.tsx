@@ -95,7 +95,8 @@ function App() {
   };
 
   // Delete File/Folder
-  const handleDelete = async (filesToDelete: IFile[]) => {
+  const handleDelete = async (filesToDelete: IFile[], trash: boolean) => {
+    console.log(`Deleting ${filesToDelete.length} items. Trash: ${trash}`);
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 300));
 

@@ -9,6 +9,7 @@
   "rename": "Renombrar",
   "download": "Descargar",
   "delete": "Eliminar",
+  "moveToTrash": "Mover a la papelera",
   "itemSelected": "elemento seleccionado",
   "itemsSelected": "elementos seleccionados",
   "cancel": "Cancelar",

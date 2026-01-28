@@ -41,7 +41,7 @@ const RenameAction: React.FC<RenameActionProps> = ({
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
   const [errorXPlacement, setErrorXPlacement] = useState("right");
   const [errorYPlacement, setErrorYPlacement] = useState("bottom");
-  const { currentPathFiles, setCurrentPathFiles } = useFileNavigation();
+  const { currentPathFiles, setEditingFileId } = useFileNavigation();
   const { activeLayout } = useLayout();
   const t = useTranslation();
 
@@ -57,6 +57,11 @@ const RenameAction: React.FC<RenameActionProps> = ({
     }
   });
 
+  const handleCancelEdit = () => {
+    setEditingFileId(null);
+    triggerAction.close();
+  };
+
   const handleValidateFolderRename = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     e.stopPropagation();
     if (e.key === "Enter") {
@@ -67,15 +72,7 @@ const RenameAction: React.FC<RenameActionProps> = ({
 
     if (e.key === "Escape") {
       e.preventDefault();
-      setCurrentPathFiles((prev) =>
-        prev.map((f) => {
-          if (f.key === file.key) {
-            f.isEditing = false;
-          }
-          return f;
-        })
-      );
-      triggerAction.close();
+      handleCancelEdit();
       return;
     }
 
@@ -104,17 +101,9 @@ const RenameAction: React.FC<RenameActionProps> = ({
 
   async function handleFileRenaming(isConfirmed: boolean) {
     if (renameFile === "" || renameFile === file.name) {
-      setCurrentPathFiles((prev) =>
-        prev.map((f) => {
-          if (f.key === file.key) {
-            f.isEditing = false;
-          }
-          return f;
-        })
-      );
-      triggerAction.close();
+      handleCancelEdit();
       return;
-    } else if (currentPathFiles.some((file) => file.name === renameFile)) {
+    } else if (currentPathFiles.some((f) => f.name === renameFile && f._id !== file._id)) {
       setFileRenameError(true);
       setRenameErrorMessage(t("folderExists", { renameFile }));
       outsideClick.setIsClicked(false);
@@ -131,7 +120,7 @@ const RenameAction: React.FC<RenameActionProps> = ({
 
     try {
       await validateApiCallback(onRename, "onRename", file, renameFile);
-      setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key)); // Todo: Should only filter on success API call
+      setEditingFileId(null);
       triggerAction.close();
     } catch (error) {
       console.error("Error renaming file:", error);
@@ -226,18 +215,7 @@ const RenameAction: React.FC<RenameActionProps> = ({
           <div className="fm-rename-folder-action">
             <Button
               type="secondary"
-              onClick={() => {
-                setCurrentPathFiles((prev) =>
-                  prev.map((f) => {
-                    if (f.key === file.key) {
-                      f.isEditing = false;
-                    }
-                    return f;
-                  })
-                );
-                setRenameFileWarning(false);
-                triggerAction.close();
-              }}
+              onClick={handleCancelEdit}
             >
               {t("no")}
             </Button>

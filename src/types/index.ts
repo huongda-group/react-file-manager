@@ -5,6 +5,7 @@ export interface IFile {
   path: string;
   updatedAt: string;
   size?: number;
+  trash?: boolean;
   [key: string]: any; // Allow for other properties likely present but not strictly validated yet
 }
 

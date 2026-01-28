@@ -26,8 +26,9 @@ export const FilesProvider = ({
   filesData,
   onError,
 }: FilesProviderProps) => {
-  const [files, setFiles] = useState<IFile[]>([]);
+  const [files, setFiles] = useState<IFile[]>(filesData);
 
+  // Sync files with filesData whenever prop changes
   useEffect(() => {
     setFiles(filesData);
   }, [filesData]);

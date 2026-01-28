@@ -65,8 +65,9 @@ const useFileList = (
     currentPath,
     setCurrentPath,
     currentPathFiles,
-    setCurrentPathFiles,
     onFolderChange,
+    setTempNewFolder,
+    setEditingFileId,
   } = useFileNavigation();
   const { activeLayout, setActiveLayout } = useLayout();
   const t = useTranslation();
@@ -255,6 +256,10 @@ const useFileList = (
     {
       title: t("delete"),
       icon: <AnimatedIcon icon={Trash2} size={19} animation="shake" />,
+      onClick: () => {
+        triggerAction.show("delete");
+        setVisible(false);
+      },
       hidden: !permissions.delete,
     },
     {
@@ -282,45 +287,32 @@ const useFileList = (
   ];
 
   const handleFolderCreating = () => {
-    setCurrentPathFiles((prev) => {
-      // Create a temporary file object for editing
-      const newFile: IFile = {
-        _id: "temp-id-" + Date.now(),
-        name: duplicateNameHandler("New Folder", true, prev),
-        isDirectory: true,
-        path: currentPath,
-        size: 0,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        isEditing: true,
-        key: new Date().valueOf().toString(), // Helper property
-      };
-
-      return [...prev, newFile];
-    });
+    // Create a temporary file object for editing
+    const newFile: IFile = {
+      _id: "temp-id-" + Date.now(),
+      name: duplicateNameHandler("New Folder", true, currentPathFiles),
+      isDirectory: true,
+      path: currentPath,
+      size: 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      isEditing: true,
+      key: "temp-" + new Date().valueOf().toString(), // Helper property - prefix with temp- for identification
+    };
+    setTempNewFolder(newFile);
   };
 
   const handleItemRenaming = () => {
-    setCurrentPathFiles((prev) => {
-      const lastFileIndex = selectedFileIndexes[selectedFileIndexes.length - 1];
+    const lastFileIndex = selectedFileIndexes[selectedFileIndexes.length - 1];
+    const fileToEdit = currentPathFiles[lastFileIndex];
 
-      if (lastFileIndex === undefined || !prev[lastFileIndex]) {
-        triggerAction.close();
-        return prev;
-      }
+    if (lastFileIndex === undefined || !fileToEdit) {
+      triggerAction.close();
+      return;
+    }
 
-      return prev.map((file, index) => {
-        if (index === lastFileIndex) {
-          return {
-            ...file,
-            isEditing: true,
-          };
-        }
-
-        return file;
-      });
-    });
-
+    // Set the editing file ID - the file will show as editing via useMemo in context
+    setEditingFileId(fileToEdit._id);
     setSelectedFileIndexes([]);
     setSelectedFiles([]);
   };

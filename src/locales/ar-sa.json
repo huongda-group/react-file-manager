@@ -9,6 +9,7 @@
   "rename": "إعادة تسمية",
   "download": "تنزيل",
   "delete": "حذف",
+  "moveToTrash": "نقل إلى سلة المهملات",
   "itemSelected": "تم تحديد العنصر",
   "itemsSelected": "تم تحديد {{count}} عناصر",
   "cancel": "إلغاء",

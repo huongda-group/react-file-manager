@@ -8,7 +8,7 @@ import "./delete.css";
 
 interface DeleteActionProps {
   triggerAction: IUseTriggerActionReturn;
-  onDelete: (files: IFile[]) => void;
+  onDelete: (files: IFile[], trash: boolean) => void;
 }
 
 const DeleteAction: React.FC<DeleteActionProps> = ({
@@ -30,8 +30,8 @@ const DeleteAction: React.FC<DeleteActionProps> = ({
     });
   }, [t, selectedFiles]);
 
-  const handleDeleting = () => {
-    onDelete(selectedFiles);
+  const handleDeleting = (trash: boolean) => {
+    onDelete(selectedFiles, trash);
     setSelectedFiles([]);
     triggerAction.close();
   };
@@ -40,11 +40,14 @@ const DeleteAction: React.FC<DeleteActionProps> = ({
     <div className="file-delete-confirm">
       <p className="file-delete-confirm-text">{deleteMsg}</p>
       <div className="file-delete-confirm-actions">
+        <Button type="primary" onClick={() => handleDeleting(true)}>
+          {t("moveToTrash")}
+        </Button>
+        <Button type="danger" onClick={() => handleDeleting(false)}>
+          {t("delete")}
+        </Button>
         <Button type="secondary" onClick={() => triggerAction.close()}>
           {t("cancel")}
-        </Button>
-        <Button type="danger" onClick={handleDeleting}>
-          {t("delete")}
         </Button>
       </div>
     </div>

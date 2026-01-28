@@ -9,6 +9,7 @@
   "rename": "重命名",
   "download": "下载",
   "delete": "删除",
+  "moveToTrash": "移至回收站",
   "itemSelected": "已选择项",
   "itemsSelected": "已选择{{count}}项",
   "cancel": "取消",

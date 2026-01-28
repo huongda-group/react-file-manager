@@ -9,6 +9,7 @@
   "rename": "이름 바꾸기",
   "download": "다운로드",
   "delete": "삭제",
+  "moveToTrash": "휴지통으로 이동",
   "itemSelected": "항목 선택됨",
   "itemsSelected": "개 항목 선택됨",
   "cancel": "취소",

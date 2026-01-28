@@ -14,7 +14,7 @@ interface UploadItemProps {
   fileData: IUploadFileData;
   setFiles: React.Dispatch<React.SetStateAction<IUploadFileData[]>>;
   setIsUploading: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
-  onUpload?: (file: File) => Promise<any>;
+  onUpload?: (file: File, onProgress?: (progress: number) => void) => Promise<any>;
   onFileUploaded: (response: any) => void;
   handleFileRemove: (id: string) => void;
 }
@@ -77,7 +77,9 @@ const UploadItem: React.FC<UploadItemProps> = memo(({
       if (!onUpload) {
         throw new Error("Upload handler not provided");
       }
-      const response = await onUpload(data.file);
+      const response = await onUpload(data.file, (progress) => {
+        setUploadProgress(progress);
+      });
       updateUploadStatus(false);
       setUploadProgress(100);
       setIsUploaded(true);

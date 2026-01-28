@@ -1,7 +1,8 @@
-import {
+import React, {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
   PropsWithChildren,
@@ -19,12 +20,16 @@ export interface IFileNavigationContext {
   currentPath: string;
   setCurrentPath: React.Dispatch<React.SetStateAction<string>>;
   currentFolder: IFile | null;
-  setCurrentFolder: React.Dispatch<React.SetStateAction<IFile | null>>;
   currentPathFiles: IFile[];
-  setCurrentPathFiles: React.Dispatch<React.SetStateAction<IFile[]>>;
   sortConfig: ISortConfig;
   setSortConfig: React.Dispatch<React.SetStateAction<ISortConfig>>;
   onFolderChange?: (path: string) => void;
+  // Editing state
+  editingFileId: string | null;
+  setEditingFileId: React.Dispatch<React.SetStateAction<string | null>>;
+  // Temp new folder for creation
+  tempNewFolder: IFile | null;
+  setTempNewFolder: React.Dispatch<React.SetStateAction<IFile | null>>;
 }
 
 const FileNavigationContext = createContext<IFileNavigationContext | undefined>(
@@ -44,35 +49,48 @@ export const FileNavigationProvider = ({
   const { files } = useFiles();
   const isMountRef = useRef(false);
   const [currentPath, setCurrentPath] = useState("");
-  const [currentFolder, setCurrentFolder] = useState<IFile | null>(null);
-  const [currentPathFiles, setCurrentPathFiles] = useState<IFile[]>([]);
   const [sortConfig, setSortConfig] = useState<ISortConfig>({
     key: "name",
     direction: "asc",
   });
 
-  useEffect(() => {
-    if (Array.isArray(files) && files.length > 0) {
-      setCurrentPathFiles(() => {
-        const currPathFiles = files.filter(
-          (file) => file.path === `${currentPath}/${file.name}`
-        );
-        return sortFiles(
-          currPathFiles,
-          sortConfig.key,
-          sortConfig.direction
-        );
-      });
+  // Local UI state for editing and temp folder
+  const [editingFileId, setEditingFileId] = useState<string | null>(null);
+  const [tempNewFolder, setTempNewFolder] = useState<IFile | null>(null);
 
-      setCurrentFolder(() => {
-        return files.find((file) => file.path === currentPath) ?? null;
-      });
-    } else {
-      setCurrentPathFiles([]);
-      setCurrentFolder(null);
+  // Pure derived state - currentPathFiles is always computed from files
+  const currentPathFiles = useMemo(() => {
+    if (!Array.isArray(files)) return [];
+
+    // Filter files for current path
+    const filtered = files.filter(
+      (file) => file.path === `${currentPath}/${file.name}`
+    );
+
+    // Sort files
+    const sorted = sortFiles(filtered, sortConfig.key, sortConfig.direction);
+
+    // Add isEditing flag based on editingFileId
+    const withEditingFlag = sorted.map((file) => ({
+      ...file,
+      isEditing: file._id === editingFileId,
+    }));
+
+    // Prepend temp new folder if exists
+    if (tempNewFolder) {
+      return [{ ...tempNewFolder, isEditing: true }, ...withEditingFlag];
     }
-  }, [files, currentPath, sortConfig]);
 
+    return withEditingFlag;
+  }, [files, currentPath, sortConfig, editingFileId, tempNewFolder]);
+
+  // Compute current folder
+  const currentFolder = useMemo(() => {
+    if (!Array.isArray(files)) return null;
+    return files.find((file) => file.path === currentPath) ?? null;
+  }, [files, currentPath]);
+
+  // Set initial path on first mount when files are available
   useEffect(() => {
     if (!isMountRef.current && Array.isArray(files) && files.length > 0) {
       const activePath = files.some(
@@ -83,7 +101,13 @@ export const FileNavigationProvider = ({
       setCurrentPath(activePath);
       isMountRef.current = true;
     }
-  }, [files]);
+  }, [files, initialPath]);
+
+  // Clear editing state when path changes
+  useEffect(() => {
+    setEditingFileId(null);
+    setTempNewFolder(null);
+  }, [currentPath]);
 
   return (
     <FileNavigationContext.Provider
@@ -91,12 +115,14 @@ export const FileNavigationProvider = ({
         currentPath,
         setCurrentPath,
         currentFolder,
-        setCurrentFolder,
         currentPathFiles,
-        setCurrentPathFiles,
         sortConfig,
         setSortConfig,
         onFolderChange,
+        editingFileId,
+        setEditingFileId,
+        tempNewFolder,
+        setTempNewFolder,
       }}
     >
       {children}

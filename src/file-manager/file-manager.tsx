@@ -52,7 +52,7 @@ interface FileManagerProps {
   ) => void;
   onRename?: (file: IFile, newName: string) => void;
   onDownload?: (files: IFile[]) => void;
-  onDelete?: (files: IFile[]) => void;
+  onDelete?: (files: IFile[], trash: boolean) => void;
   onCompress?: (files: IFile[], callback: (result: ICallbackResult) => void) => void;
   onDecompress?: (files: IFile[], callback: (result: ICallbackResult) => void) => void;
   onChmod?: (files: IFile[], permissions: string) => void;

@@ -34,10 +34,15 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
     e.preventDefault();
     e.stopPropagation();
   });
-  const { currentFolder, currentPathFiles, setCurrentPathFiles } =
+  const { currentFolder, currentPathFiles, setTempNewFolder } =
     useFileNavigation();
   const { activeLayout } = useLayout();
   const t = useTranslation();
+
+  const handleCancelCreate = () => {
+    setTempNewFolder(null);
+    triggerAction.close();
+  };
 
   // Folder name change handler function
   const handleFolderNameChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -57,8 +62,7 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
 
     if (e.key === "Escape") {
       e.preventDefault();
-      triggerAction.close();
-      setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
+      handleCancelCreate();
       return;
     }
 
@@ -88,11 +92,11 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
 
   async function handleFolderCreating() {
     let newFolderName = folderName.trim();
-    const syncedCurrPathFiles = currentPathFiles.filter(
-      (f) => !(!!f.key && f.key === file.key)
+    const existingFiles = currentPathFiles.filter(
+      (f) => !f.key?.startsWith("temp-")
     );
 
-    const alreadyExists = syncedCurrPathFiles.find((f) => {
+    const alreadyExists = existingFiles.find((f) => {
       return f.name.toLowerCase() === newFolderName.toLowerCase();
     });
 
@@ -110,7 +114,7 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
       newFolderName = duplicateNameHandler(
         "New Folder",
         true,
-        syncedCurrPathFiles
+        existingFiles
       );
     }
 
@@ -121,7 +125,7 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
         newFolderName,
         currentFolder
       );
-      setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
+      setTempNewFolder(null);
       triggerAction.close();
     } catch (error) {
       console.error("Error creating folder:", error);

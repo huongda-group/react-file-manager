@@ -27,7 +27,7 @@ interface ActionsProps {
   onUpload?: (file: File) => Promise<any>;
   onFileUploading: (file: File, parent: IFile | null) => any;
   onFileUploaded: (response: any) => void;
-  onDelete: (files: IFile[]) => void;
+  onDelete: (files: IFile[], trash: boolean) => void;
   onChmod?: (files: IFile[], permissions: string) => void;
   onRefresh: () => void;
   maxFileSize?: number;

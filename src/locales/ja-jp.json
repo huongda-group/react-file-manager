@@ -9,6 +9,7 @@
   "rename": "名前変更",
   "download": "ダウンロード",
   "delete": "削除",
+  "moveToTrash": "ゴミ箱に移動",
   "itemSelected": "アイテムが選択されました",
   "itemsSelected": "{{count}} アイテムが選択されました",
   "cancel": "キャンセル",
