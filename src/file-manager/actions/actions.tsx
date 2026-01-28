@@ -40,6 +40,7 @@ interface ActionsProps {
   acceptedFileTypes?: string;
   triggerAction: IUseTriggerActionReturn;
   permissions: IPermissions;
+  trash?: boolean;
 }
 
 interface IActionType {
@@ -63,6 +64,7 @@ const Actions: React.FC<ActionsProps> = ({
   acceptedFileTypes,
   triggerAction,
   permissions,
+  trash,
 }) => {
   const [activeAction, setActiveAction] = useState<IActionType | null>(null);
   const { selectedFiles } = useSelection();
@@ -88,7 +90,11 @@ const Actions: React.FC<ActionsProps> = ({
     delete: {
       title: t("delete"),
       component: (
-        <DeleteAction triggerAction={triggerAction} onDelete={onDelete} />
+        <DeleteAction
+          triggerAction={triggerAction}
+          onDelete={onDelete}
+          trash={trash}
+        />
       ),
       width: "25%",
     },

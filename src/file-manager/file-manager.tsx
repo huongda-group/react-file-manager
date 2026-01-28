@@ -60,7 +60,6 @@ interface FileManagerProps {
   onRefresh?: () => void;
   onFileOpen?: (file: IFile) => void;
   onFolderChange?: (path: string) => void;
-
   onSelectionChange?: (files: IFile[]) => void;
   onError?: (error: any) => void;
   layout?: "grid" | "list";
@@ -82,6 +81,7 @@ interface FileManagerProps {
   style?: CSSProperties;
   formatDate?: (date: string | number | Date) => string;
   theme?: "light" | "dark";
+  trash?: boolean;
 }
 
 const defaultPermissions: IPermissions = {
@@ -139,6 +139,7 @@ const FileManager: React.FC<FileManagerProps> = ({
   style = {},
   formatDate = defaultFormatDate,
   theme = "dark",
+  trash = false,
 }) => {
   const [isNavigationPaneOpen, setNavigationPaneOpen] =
     useState(defaultNavExpanded);
@@ -322,6 +323,7 @@ const FileManager: React.FC<FileManagerProps> = ({
                       acceptedFileTypes={acceptedFileTypes}
                       triggerAction={triggerAction}
                       permissions={permissionsObj}
+                      trash={trash}
                     />
                   </LayoutProvider>
                 </ClipBoardProvider>

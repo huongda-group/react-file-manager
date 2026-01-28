@@ -9,11 +9,13 @@ import "./delete.css";
 interface DeleteActionProps {
   triggerAction: IUseTriggerActionReturn;
   onDelete: (files: IFile[], trash: boolean) => void;
+  trash?: boolean;
 }
 
 const DeleteAction: React.FC<DeleteActionProps> = ({
   triggerAction,
   onDelete,
+  trash,
 }) => {
   const [deleteMsg, setDeleteMsg] = useState("");
   const { selectedFiles, setSelectedFiles } = useSelection();
@@ -40,9 +42,11 @@ const DeleteAction: React.FC<DeleteActionProps> = ({
     <div className="file-delete-confirm">
       <p className="file-delete-confirm-text">{deleteMsg}</p>
       <div className="file-delete-confirm-actions">
-        <Button type="primary" onClick={() => handleDeleting(true)}>
-          {t("moveToTrash")}
-        </Button>
+        {trash && (
+          <Button type="primary" onClick={() => handleDeleting(true)}>
+            {t("moveToTrash")}
+          </Button>
+        )}
         <Button type="danger" onClick={() => handleDeleting(false)}>
           {t("delete")}
         </Button>
