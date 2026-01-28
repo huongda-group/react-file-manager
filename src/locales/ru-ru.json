@@ -61,6 +61,8 @@
   "group": "Группа",
   "others": "Другие",
   "permission": "Право доступа",
+  "permissions": "Права доступа",
+  "apply": "Применить",
   "compress": "Сжать",
   "decompress": "Распаковать",
   "destinationPath": "Путь назначения"

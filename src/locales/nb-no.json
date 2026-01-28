@@ -61,6 +61,8 @@
   "group": "Gruppe",
   "others": "Andre",
   "permission": "Tillatelse",
+  "permissions": "Tillatelser",
+  "apply": "Bruk",
   "compress": "Komprimer",
   "decompress": "Dekomprimer",
   "destinationPath": "Destinasjonssti"

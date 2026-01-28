@@ -61,6 +61,8 @@
   "group": "Grupo",
   "others": "Outros",
   "permission": "Permissão",
+  "permissions": "Permissões",
+  "apply": "Aplicar",
   "compress": "Comprimir",
   "decompress": "Descomprimir",
   "destinationPath": "Caminho de destino"

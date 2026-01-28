@@ -61,8 +61,9 @@
   "group": "समूह",
   "others": "अन्य",
   "permission": "अनुमति",
+  "permissions": "अनुमतियाँ",
   "apply": "लागू करें",
-  "compress": "Sankuchit Karein",
-  "decompress": "Vistarit Karein",
+  "compress": "संकुचित करें",
+  "decompress": "विस्तारित करें",
   "destinationPath": "गंतव्य पथ"
 }

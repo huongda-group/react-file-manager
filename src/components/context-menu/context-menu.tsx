@@ -18,7 +18,6 @@ interface ContextMenuProps {
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = ({
-  filesViewRef,
   contextMenuRef,
   menuItems,
   visible,

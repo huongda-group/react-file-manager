@@ -61,6 +61,8 @@
   "group": "Grupa",
   "others": "Inni",
   "permission": "Uprawnienie",
+  "permissions": "Uprawnienia",
+  "apply": "Zastosuj",
   "compress": "Kompresuj",
   "decompress": "Dekompresuj",
   "destinationPath": "Ścieżka docelowa"
