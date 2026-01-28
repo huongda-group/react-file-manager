@@ -9,7 +9,7 @@
     align-items: center;
     gap: 0.5rem;
     border-bottom: 1px solid var(--fm-border-color);
-    padding: 6px 0 6px 15px;
+    padding: 0 0 0 15px;
     overflow-x: hidden;
 
     &::-webkit-scrollbar {

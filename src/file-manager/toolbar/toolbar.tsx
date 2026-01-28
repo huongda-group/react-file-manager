@@ -133,7 +133,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
         <AnimatedIcon icon={Maximize} size={18} animation="scale" />
       ),
       title: isFullScreen ? t("exitFullScreen") : t("enterFullScreen"),
-      text: isFullScreen ? t("minimize") : t("maximize"),
+      text: isFullScreen ? t("exitFullScreen") : t("enterFullScreen"),
       onClick: onFullScreenToggle,
     },
   ];

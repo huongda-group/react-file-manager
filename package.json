@@ -24,6 +24,7 @@
     "lucide-react": "^0.563.0"
   },
   "devDependencies": {
+    "@emotion/is-prop-valid": "^1.4.0",
     "@types/node": "^25.0.10",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",

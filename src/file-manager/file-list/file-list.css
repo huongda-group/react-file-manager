@@ -6,7 +6,8 @@
   column-gap: 0.5em;
   row-gap: 5px;
   /* height: calc(100% - 41px); <-- Removed */
-  /* overflow-y: auto !important; <-- Removed */
+  overflow-x: auto !important;
+  overflow-y: auto !important;
   padding: 8px;
   padding-right: 4px;
   font-size: var(--fm-font-size);
@@ -184,10 +185,10 @@
 
 
     .file-name {
-      /* width: calc(65% - 35px); <-- remove */
-      /* padding-left: 35px; <-- remove */
+      /* flex: 1; */
       cursor: pointer;
       user-select: none;
+      padding-left: 10px;
 
       &:hover {
         background-color: rgba(0, 0, 0, 0.05);
@@ -201,7 +202,25 @@
 
     .file-date {
       text-align: center;
-      width: 20%;
+      width: 150px;
+      min-width: 150px;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        background-color: transparent !important;
+        color: var(--fm-primary-color) !important;
+      }
+    }
+
+    .file-permissions {
+      text-align: center;
+      width: 120px;
+      min-width: 120px;
       cursor: pointer;
       user-select: none;
 
@@ -217,7 +236,8 @@
 
     .file-size {
       text-align: center;
-      width: 10%;
+      width: 100px;
+      min-width: 100px;
       cursor: pointer;
       user-select: none;
 

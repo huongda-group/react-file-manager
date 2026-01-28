@@ -34,7 +34,8 @@ svg {
   font-family: var(--fm-font-family);
   border: 1px solid var(--fm-border-color);
   border-radius: 8px;
-  /* overflow: hidden; <-- Removed to fix top clipping */
+  overflow: hidden;
+  isolation: isolate;
 
 
   button {
@@ -56,10 +57,10 @@ svg {
     /* Toolbar total height = baseHeight: 60px + 1px border. */
 
     .navigation-pane {
-      z-index: 1;
+      z-index: 10;
       padding-top: 8px;
       background-color: var(--fm-bg-color);
-
+      min-width: 0;
       position: relative;
 
       .sidebar-resize {
@@ -91,10 +92,14 @@ svg {
     }
 
     .folders-preview {
-      z-index: 2;
+      z-index: 1;
       background-color: var(--fm-bg-color);
       padding-right: 0px;
       padding-left: 0px;
+      min-width: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
   }
 }

@@ -37,14 +37,13 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 
   const contextMenuPosition = () => {
     const { clickX, clickY } = clickPosition;
-
-    const container = filesViewRef.current;
     const contextContainer = contextMenuRef.current;
 
-    if (!container || !contextContainer) return;
+    if (!contextContainer) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const scrollBarWidth = container.offsetWidth - container.clientWidth;
+    // Viewport dimensions
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
 
     // Context menu size
     const contextMenuContainerRect = contextContainer.getBoundingClientRect();
@@ -52,28 +51,23 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
     const menuHeight = contextMenuContainerRect.height;
 
     // Check if there is enough space at the right for the context menu
-    const leftToCursor = clickX - containerRect.left;
-    const hasSpaceRight =
-      containerRect.width - (leftToCursor + scrollBarWidth) > menuWidth;
-    const hasSpaceLeft = !hasSpaceRight;
-
-    const topToCursor = clickY - containerRect.top;
-    const hasSpaceTop = containerRect.height - topToCursor > menuHeight;
-    const hasSpaceBottom = !hasSpaceTop;
+    const hasSpaceRight = windowWidth - clickX > menuWidth;
+    const hasSpaceBottom = windowHeight - clickY > menuHeight;
 
     if (hasSpaceRight) {
-      setLeft(`${leftToCursor}px`);
+      setLeft(`${clickX}px`);
       setSubMenuPosition("right");
-    } else if (hasSpaceLeft) {
-      // Location: -width of the context menu from cursor's position i.e. left side
-      setLeft(`${leftToCursor - menuWidth}px`);
+    } else {
+      // Show on the left side of the cursor
+      setLeft(`${clickX - menuWidth}px`);
       setSubMenuPosition("left");
     }
 
-    if (hasSpaceTop) {
-      setTop(`${topToCursor + container.scrollTop}px`);
-    } else if (hasSpaceBottom) {
-      setTop(`${topToCursor + container.scrollTop - menuHeight}px`);
+    if (hasSpaceBottom) {
+      setTop(`${clickY}px`);
+    } else {
+      // Show above the cursor
+      setTop(`${clickY - menuHeight}px`);
     }
   };
 
