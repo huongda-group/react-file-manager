@@ -1,0 +1,464 @@
+.files {
+  position: relative;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  column-gap: 0.5em;
+  row-gap: 5px;
+  /* height: calc(100% - 41px); <-- Removed */
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  padding: 8px;
+  padding-right: 4px;
+  font-size: var(--fm-font-size);
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    padding-top: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--fm-primary-color) !important;
+    border-radius: 8px;
+  }
+
+  .drag-move-tooltip {
+    background-color: var(--fm-popover-bg-color);
+    font-size: .78em;
+    position: fixed;
+    text-wrap: nowrap;
+    border: 1px dashed black;
+    padding: 1px 5px 2px 24px;
+    border-radius: 3px;
+    font-weight: bold;
+    color: var(--fm-primary-color);
+    z-index: 2;
+
+    .drop-zone-file-name {
+      color: rgb(48, 48, 48);
+    }
+  }
+
+  .file-item-container {
+    border-radius: 5px;
+    margin: 5px 0;
+
+    .drag-icon {
+      position: absolute !important;
+      top: -1000px;
+      left: -1000px;
+      z-Index: -1;
+      border-radius: 4px;
+      position: relative;
+      color: white;
+      background-color: var(--fm-primary-color);
+      padding: 3px 8px;
+    }
+  }
+
+  .file-item-container.file-drop-zone {
+    background-color: rgb(0, 0, 0, 0.08) !important;
+  }
+
+  .file-item {
+    position: relative;
+    height: 110px;
+    width: 138px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 13px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    color: var(--fm-text-color);
+
+    &:hover {
+      background-color: var(--fm-item-hover-bg-color);
+      color: var(--fm-item-hover-color);
+    }
+
+    .text-truncate {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      width: 100%;
+      text-align: center;
+      line-height: 1.5;
+      padding-bottom: 2px;
+    }
+
+    .selection-checkbox {
+      position: absolute;
+      left: 5px;
+      top: 8px;
+    }
+
+    .hidden {
+      visibility: hidden;
+    }
+
+    .visible {
+      visibility: visible;
+    }
+
+    .rename-file-container {
+      position: absolute;
+      top: 65px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .rename-file-container.list {
+      position: relative;
+      top: unset;
+      left: 7px;
+      text-align: left;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      height: 100%;
+
+      .rename-file {
+        min-width: 15%;
+        text-align: left;
+        border-radius: 3px;
+        border: none;
+        white-space: nowrap;
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      .folder-name-error.right {
+        left: 0px;
+        bottom: -72px;
+      }
+    }
+
+    .file-name {
+      max-width: 115px;
+    }
+  }
+
+  .file-selected {
+    background-color: var(--fm-primary-color);
+    color: white;
+
+    &:hover {
+      background-color: var(--fm-primary-color);
+    }
+  }
+
+  .file-moving {
+    opacity: 0.5;
+  }
+}
+
+.files.list {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  padding-left: 0px;
+  padding-top: 0px;
+
+  .files-header {
+    font-size: 0.83em;
+    font-weight: 600;
+    display: flex;
+    /* gap: 5px; <-- Removed */
+    border-bottom: 1px solid var(--fm-border-color);
+    padding: 4px 0 4px 5px;
+    position: sticky;
+    top: 0;
+    background-color: var(--fm-secondary-bg-color);
+    z-index: 1;
+
+    .file-select-all {
+      /* width handled by global style */
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+
+    .file-name {
+      /* flex: 1; */
+      cursor: pointer;
+      user-select: none;
+      padding-left: 10px;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        background-color: transparent !important;
+        color: var(--fm-primary-color) !important;
+      }
+    }
+
+    .file-date {
+      text-align: center;
+      width: 150px;
+      min-width: 150px;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        background-color: transparent !important;
+        color: var(--fm-primary-color) !important;
+      }
+    }
+
+    .file-permissions {
+      text-align: center;
+      width: 120px;
+      min-width: 120px;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        background-color: transparent !important;
+        color: var(--fm-primary-color) !important;
+      }
+    }
+
+    .file-size {
+      text-align: center;
+      width: 100px;
+      min-width: 100px;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        background-color: transparent !important;
+        color: var(--fm-primary-color) !important;
+      }
+    }
+
+    .sort-indicator {
+      font-size: 0.8em;
+      margin-left: 4px;
+    }
+  }
+
+  .file-item-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    min-height: 38px;
+
+    &:hover {
+      background-color: var(--fm-item-hover-bg-color);
+      color: var(--fm-item-hover-color);
+    }
+  }
+
+  .file-item-container.file-selected {
+    &:hover {
+      background-color: var(--fm-primary-color) !important;
+    }
+  }
+
+  .file-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    height: auto !important;
+    gap: 8px !important;
+    padding: 10px 15px !important;
+    margin: 0 !important;
+
+    .text-truncate {
+      text-align: left !important;
+    }
+
+    &:hover {
+      background-color: unset;
+    }
+
+    .selection-checkbox {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+      margin: 0 14px 0 0 !important;
+      display: block !important;
+      height: 18px !important;
+      width: 18px !important;
+      flex-shrink: 0 !important;
+
+      .fm-checkbox-checkmark {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin: 0 !important;
+      }
+    }
+
+    .file-name {
+      max-width: 285px;
+    }
+  }
+
+  .modified-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    height: 100%;
+  }
+
+  .size {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    height: 100%;
+  }
+}
+
+
+/* Column Separator and Resizing Styles */
+
+/* Standardized padding and alignment rules specifically for the list layout */
+.files.list {
+  padding: 0 !important;
+  /* Remove container padding to ensure edge alignment */
+  flex-direction: column;
+}
+
+.files.list .file-select,
+.files.list .file-item,
+.files.list .modified-date,
+.files.list .file-permissions,
+.files.list .size,
+.files.list .files-header>div {
+  padding: 8px !important;
+  box-sizing: border-box;
+  display: flex !important;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-right: none !important;
+  /* Removed vertical borders */
+  flex-shrink: 0 !important;
+  position: relative;
+  /* REQUIRED for absolute resize handles */
+  height: 100%;
+  gap: 8px;
+  /* Added gap for icons and text */
+}
+
+/* Specific grid view isolation to prevent leakage */
+.files.grid .file-item {
+  position: relative;
+  height: 110px;
+  width: 138px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 5px 5px 5px !important;
+  border-radius: 5px;
+  border-right: none !important;
+  /* Grid doesn't need column borders */
+}
+
+/* specific list view file-item overrides */
+.files.list .file-item {
+  height: auto;
+  width: auto;
+  border-radius: 0;
+}
+
+/* Remove border from the last column */
+.files.list .size,
+.files.list .files-header>div:last-child {
+  border-right: none !important;
+}
+
+/* Specific Select Column (Checkbox) */
+.files.list .file-select,
+.files.list .files-header .file-select-all {
+  width: 40px !important;
+  min-width: 40px;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+/* Row Container */
+.files.list .file-item-container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: 100%;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  min-height: 40px;
+  border-bottom: none !important;
+  /* Removed horizontal borders between rows */
+}
+
+.files.list .files-header {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--fm-border-color);
+  /* Keep header divider */
+  background-color: var(--fm-secondary-bg-color);
+  font-weight: 600;
+  user-select: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 40px;
+  width: 100%;
+}
+
+.files.list .resize-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: col-resize;
+  z-index: 20;
+}
+
+.files.list .resize-handle:hover {
+  background-color: var(--fm-primary-color);
+}
+
+/* Permissions and Size columns specifically right-aligned as requested */
+.files.list .file-permissions,
+.files.list .size,
+.files.list .files-header .file-permissions,
+.files.list .files-header .file-size {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Align header text for name and date */
+.files.list .files-header .file-name,
+.files.list .files-header .file-date {
+  justify-content: flex-start;
+}

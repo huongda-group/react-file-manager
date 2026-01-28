@@ -1,0 +1,22 @@
+export interface IFile {
+  _id: string;
+  name: string;
+  isDirectory: boolean;
+  path: string;
+  updatedAt: string;
+  size?: number;
+  permissions?: string;
+  trash?: boolean;
+  [key: string]: any; // Allow for other properties likely present but not strictly validated yet
+}
+
+export interface IFolder extends IFile {
+  isDirectory: true;
+}
+
+export interface IApiResponse<T = any> {
+  status: number;
+  data?: T;
+  message?: string;
+  [key: string]: any;
+}

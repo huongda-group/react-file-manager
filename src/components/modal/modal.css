@@ -1,0 +1,42 @@
+.fm-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--fm-border-color);
+  padding: 0.3rem 1rem;
+  font-size: var(--fm-font-size);
+
+  .fm-modal-heading {
+    margin: 0;
+    font-weight: bold;
+    color: var(--fm-text-color);
+  }
+}
+
+.dialog[open] {
+  animation: expand 0.4s forwards;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--fm-bg-color);
+  color: var(--fm-text-color);
+  border: 1px solid var(--fm-border-color);
+  border-radius: 6px;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes expand {
+  from {
+    transform: scale(0.4);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}

@@ -1,9 +1,10 @@
 {
   "name": "@huongda-group/react-file-manager",
   "private": false,
-  "version": "1.0.1",
+  "version": "2.0.0",
   "type": "module",
   "module": "dist/react-file-manager.es.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/",
     "README.md",
@@ -14,34 +15,25 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "upgrade": "npm install -g npm-check-updates && ncu -u && npm install",
-    "semantic-release": "semantic-release"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "i18next": "^25.2.1",
-    "react-collapsed": "^4.2.0",
-    "react-icons": "^5.5.0"
+    "framer-motion": "^12.29.2",
+    "i18next": "^25.8.0",
+    "lucide-react": "^0.563.0"
   },
   "devDependencies": {
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@typescript-eslint/eslint-plugin": "^8.35.0",
-    "@typescript-eslint/parser": "^8.35.0",
-    "@vitejs/plugin-react-swc": "^3.10.2",
-    "axios": "^1.10.0",
-    "eslint": "^9.29.0",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "sass": "^1.89.2",
-    "semantic-release": "^24.2.5",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.0"
+    "@emotion/is-prop-valid": "^1.4.0",
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -67,7 +59,7 @@
     "component",
     "react-file explorer"
   ],
-  "author": "HuongDa Group",
+  "author": "Saifullah Zubair",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/huongda-group/react-file-manager/issues"

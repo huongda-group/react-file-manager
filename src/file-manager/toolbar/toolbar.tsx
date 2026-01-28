@@ -1,0 +1,288 @@
+import {
+  FolderPlus,
+  Upload,
+  ClipboardPaste,
+  Grid,
+  List,
+  RefreshCw,
+  Maximize,
+  Minimize,
+  Scissors,
+  CopyPlus,
+  FilePenLine,
+  Download,
+  Trash2,
+  X,
+  Archive,
+  ArchiveRestore,
+} from "lucide-react";
+import { AnimatedIcon } from "../../components/ui/animated-icon";
+import { useFileNavigation } from "../../contexts/file-navigation";
+import { useSelection } from "../../contexts/selection";
+import { useClipBoard } from "../../contexts/clipboard";
+import { useLayout, LayoutType } from "../../contexts/layout";
+import { validateApiCallback } from "@/utils/validate-api-callback.ts";
+import { useTranslation } from "../../contexts/translation";
+import "../../file-manager/toolbar/toolbar.css";
+import { IUseTriggerActionReturn } from "@/hooks/use-trigger-action.ts";
+import { IFile } from "@/types";
+import React from "react";
+
+interface IPermissions {
+  create?: boolean;
+  upload?: boolean;
+  move?: boolean;
+  copy?: boolean;
+  rename?: boolean;
+  download?: boolean;
+  delete?: boolean;
+  compress?: boolean;
+  decompress?: boolean;
+}
+
+interface ToolbarProps {
+  onLayoutChange: (layout: LayoutType) => void;
+  onRefresh: () => void;
+  triggerAction: IUseTriggerActionReturn;
+  permissions: IPermissions;
+  isFullScreen: boolean;
+  onFullScreenToggle: () => void;
+  onCompress?: (files: IFile[], name: string) => void;
+  onDecompress?: (files: IFile[], destinationPath: string) => void;
+}
+
+const Toolbar: React.FC<ToolbarProps> = ({
+  onLayoutChange,
+  onRefresh,
+  triggerAction,
+  permissions,
+  isFullScreen,
+  onFullScreenToggle,
+  onCompress,
+  onDecompress,
+}) => {
+  const { currentFolder } = useFileNavigation();
+  const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
+  const { clipBoard, setClipBoard, handleCutCopy, handlePasting } =
+    useClipBoard();
+  const { activeLayout, setActiveLayout } = useLayout();
+  const t = useTranslation();
+
+  function handleFilePasting() {
+    handlePasting(currentFolder);
+  }
+
+  // Toolbar Items
+  const toolbarLeftItems = [
+    {
+      icon: (
+        <AnimatedIcon
+          icon={FolderPlus}
+          size={18}
+          animation="bounce"
+        />
+      ),
+      text: t("newFolder"),
+      permission: permissions.create,
+      onClick: () => triggerAction.show("createFolder"),
+    },
+    {
+      icon: <AnimatedIcon icon={Upload} size={18} animation="bounce" />,
+      text: t("upload"),
+      permission: permissions.upload,
+      onClick: () => triggerAction.show("uploadFile"),
+    },
+    {
+      icon: <AnimatedIcon icon={ClipboardPaste} size={18} animation="scale" />,
+      text: t("paste"),
+      permission: !!clipBoard,
+      onClick: handleFilePasting,
+    },
+  ];
+
+  const toolbarRightItems = [
+    {
+      icon:
+        activeLayout === "grid" ? (
+          <AnimatedIcon icon={List} size={18} />
+        ) : (
+          <AnimatedIcon icon={Grid} size={18} />
+        ),
+      title: t("changeView"),
+      text: t("view"),
+      onClick: () => {
+        const newLayout = activeLayout === "grid" ? "list" : "grid";
+        setActiveLayout(newLayout);
+        onLayoutChange(newLayout);
+      },
+    },
+    {
+      icon: <AnimatedIcon icon={RefreshCw} size={18} animation="spin" />,
+      title: t("refresh"),
+      text: t("refresh"),
+      onClick: () => {
+        validateApiCallback(onRefresh, "onRefresh");
+        setClipBoard(null);
+        setSelectedFiles([]);
+      },
+    },
+    {
+      icon: isFullScreen ? (
+        <AnimatedIcon icon={Minimize} size={18} animation="scale" />
+      ) : (
+        <AnimatedIcon icon={Maximize} size={18} animation="scale" />
+      ),
+      title: isFullScreen ? t("exitFullScreen") : t("enterFullScreen"),
+      text: isFullScreen ? t("exitFullScreen") : t("enterFullScreen"),
+      onClick: onFullScreenToggle,
+    },
+  ];
+
+  const handleDownloadItems = () => {
+    handleDownload();
+    setSelectedFiles([]);
+  };
+
+  return (
+    <div className={`toolbar ${selectedFiles.length > 0 ? "file-selected" : ""}`}>
+      <div className="fm-toolbar">
+        {selectedFiles.length > 0 ? (
+          <div className="file-action-container">
+            <div>
+              {permissions.move && (
+                <button
+                  className="item-action file-action"
+                  onClick={() => handleCutCopy(true)}
+                >
+                  <AnimatedIcon icon={Scissors} size={18} animation="scale" />
+                  <span>{t("cut")}</span>
+                </button>
+              )}
+              {permissions.copy && (
+                <button
+                  className="item-action file-action"
+                  onClick={() => handleCutCopy(false)}
+                >
+                  <AnimatedIcon
+                    icon={CopyPlus}
+                    size={18}
+                    animation="scale"
+                  />
+                  <span>{t("copy")}</span>
+                </button>
+              )}
+              {clipBoard?.files && clipBoard.files.length > 0 && (
+                <button
+                  className="item-action file-action"
+                  onClick={handleFilePasting}
+                >
+                  <AnimatedIcon
+                    icon={ClipboardPaste}
+                    size={18}
+                    animation="scale"
+                  />
+                  <span>{t("paste")}</span>
+                </button>
+              )}
+              {selectedFiles.length === 1 && permissions.rename && (
+                <button
+                  className="item-action file-action"
+                  onClick={() => triggerAction.show("rename")}
+                >
+                  <AnimatedIcon
+                    icon={FilePenLine}
+                    size={18}
+                    animation="wiggle"
+                  />
+                  <span>{t("rename")}</span>
+                </button>
+              )}
+              {permissions.download && (
+                <button
+                  className="item-action file-action"
+                  onClick={handleDownloadItems}
+                >
+                  <AnimatedIcon icon={Download} size={18} animation="bounce" />
+                  <span>{t("download")}</span>
+                </button>
+              )}
+              {permissions.compress && onCompress && (
+                <button
+                  className="item-action file-action"
+                  onClick={() => triggerAction.show("compress")}
+                >
+                  <AnimatedIcon icon={Archive} size={18} animation="bounce" />
+                  <span>{t("compress")}</span>
+                </button>
+              )}
+              {permissions.decompress &&
+                selectedFiles.length === 1 &&
+                !selectedFiles[0].isDirectory &&
+                onDecompress && (
+                  <button
+                    className="item-action file-action"
+                    onClick={() => triggerAction.show("decompress")}
+                  >
+                    <AnimatedIcon
+                      icon={ArchiveRestore}
+                      size={18}
+                      animation="bounce"
+                    />
+                    <span>{t("decompress")}</span>
+                  </button>
+                )}
+              {permissions.delete && (
+                <button
+                  className="item-action file-action"
+                  onClick={() => triggerAction.show("delete")}
+                >
+                  <AnimatedIcon icon={Trash2} size={18} animation="shake" />
+                  <span>{t("delete")}</span>
+                </button>
+              )}
+            </div>
+            <button
+              className="item-action file-action"
+              title={t("clearSelection")}
+              onClick={() => setSelectedFiles([])}
+            >
+              <span>
+                {selectedFiles.length}{" "}
+                {t(selectedFiles.length > 1 ? "itemsSelected" : "itemSelected")}
+              </span>
+              <AnimatedIcon icon={X} size={18} animation="rotate" />
+            </button>
+          </div>
+        ) : (
+          <div>
+            {toolbarLeftItems
+              .filter((item) => item.permission)
+              .map((item, index) => (
+                <button
+                  className="item-action"
+                  key={index}
+                  onClick={item.onClick}
+                >
+                  {item.icon}
+                  <span>{item.text}</span>
+                </button>
+              ))}
+          </div>
+        )}
+
+        <div className="toolbar-right-container">
+          {toolbarRightItems.map((item, index) => (
+            <button className="item-action" onClick={item.onClick} key={index} title={item.title}>
+              {item.icon}
+              <span>{item.text || item.title}</span>
+            </button>
+          ))}
+
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Toolbar;
