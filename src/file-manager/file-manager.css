@@ -29,12 +29,13 @@ svg {
 
 .file-explorer {
   min-height: 400px;
-  height: 100%;
+  /* height: 100%; <-- Removed to allow auto height */
   width: 100%;
   font-family: var(--fm-font-family);
   border: 1px solid var(--fm-border-color);
   border-radius: 8px;
-  overflow: hidden;
+  /* overflow: hidden; <-- Removed to fix top clipping */
+
 
   button {
     font-family: var(--fm-font-family);
@@ -51,7 +52,7 @@ svg {
 
   .files-container {
     display: flex;
-    height: calc(100% - 61px);
+    /* height: calc(100% - 61px); <-- Removed */
     /* Toolbar total height = baseHeight: 60px + 1px border. */
 
     .navigation-pane {

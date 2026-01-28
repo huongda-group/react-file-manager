@@ -3,17 +3,22 @@ import Checkbox from "../../components/checkbox/checkbox";
 import { useFileNavigation } from "../../contexts/file-navigation";
 import { useSelection } from "../../contexts/selection";
 import { useTranslation } from "../../contexts/translation";
+import { ColumnId, ColumnWidths } from "../../hooks/use-table-resize";
 
 interface FilesHeaderProps {
   unselectFiles: () => void;
   onSort?: (key: string) => void;
   sortConfig?: { key: string; direction: "asc" | "desc" };
+  columnWidths: ColumnWidths;
+  onResizeStart: (e: React.MouseEvent, colId: ColumnId) => void;
 }
 
 const FilesHeader: React.FC<FilesHeaderProps> = ({
   unselectFiles,
   onSort,
   sortConfig,
+  columnWidths,
+  onResizeStart,
 }) => {
   const t = useTranslation();
 
@@ -64,6 +69,7 @@ const FilesHeader: React.FC<FilesHeaderProps> = ({
       <div
         className={`file-name ${sortConfig?.key === "name" ? "active" : ""}`}
         onClick={() => handleSort("name")}
+        style={{ width: columnWidths.name }}
       >
         {t("name")}
         {sortConfig?.key === "name" && (
@@ -71,10 +77,16 @@ const FilesHeader: React.FC<FilesHeaderProps> = ({
             {sortConfig.direction === "asc" ? " ▲" : " ▼"}
           </span>
         )}
+        <div
+          className="resize-handle"
+          onMouseDown={(e) => onResizeStart(e, "name")}
+          onClick={(e) => e.stopPropagation()}
+        />
       </div>
       <div
         className={`file-date ${sortConfig?.key === "modified" ? "active" : ""}`}
         onClick={() => handleSort("modified")}
+        style={{ width: columnWidths.modified }}
       >
         {t("modified")}
         {sortConfig?.key === "modified" && (
@@ -82,10 +94,36 @@ const FilesHeader: React.FC<FilesHeaderProps> = ({
             {sortConfig.direction === "asc" ? " ▲" : " ▼"}
           </span>
         )}
+        <div
+          className="resize-handle"
+          onMouseDown={(e) => onResizeStart(e, "modified")}
+          onClick={(e) => e.stopPropagation()}
+        />
       </div>
+
+      <div
+        className={`file-permissions ${sortConfig?.key === "permissions" ? "active" : ""
+          }`}
+        onClick={() => handleSort("permissions")}
+        style={{ width: columnWidths.permissions }}
+      >
+        {t("permissions")}
+        {sortConfig?.key === "permissions" && (
+          <span className="sort-indicator">
+            {sortConfig.direction === "asc" ? " ▲" : " ▼"}
+          </span>
+        )}
+        <div
+          className="resize-handle"
+          onMouseDown={(e) => onResizeStart(e, "permissions")}
+          onClick={(e) => e.stopPropagation()}
+        />
+      </div>
+
       <div
         className={`file-size ${sortConfig?.key === "size" ? "active" : ""}`}
         onClick={() => handleSort("size")}
+        style={{ width: columnWidths.size }}
       >
         {t("size")}
         {sortConfig?.key === "size" && (
@@ -93,6 +131,11 @@ const FilesHeader: React.FC<FilesHeaderProps> = ({
             {sortConfig.direction === "asc" ? " ▲" : " ▼"}
           </span>
         )}
+        <div
+          className="resize-handle"
+          onMouseDown={(e) => onResizeStart(e, "size")}
+          onClick={(e) => e.stopPropagation()}
+        />
       </div>
     </div>
   );

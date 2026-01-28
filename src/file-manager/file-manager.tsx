@@ -50,7 +50,7 @@ interface FileManagerProps {
     destination: IFile | null,
     operation: "move" | "copy"
   ) => void;
-  onRename?: (file: IFile, newName: string) => void;
+  onRename?: (file: IFile, newName: string, parentPath?: string) => void;
   onDownload?: (files: IFile[]) => void;
   onDelete?: (files: IFile[], trash: boolean) => void;
   onCompress?: (files: IFile[], name: string, callback: (result: ICallbackResult) => void) => void;

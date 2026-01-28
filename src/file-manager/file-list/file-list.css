@@ -5,8 +5,8 @@
   flex-wrap: wrap;
   column-gap: 0.5em;
   row-gap: 5px;
-  height: calc(100% - 41px);
-  overflow-y: auto !important;
+  /* height: calc(100% - 41px); <-- Removed */
+  /* overflow-y: auto !important; <-- Removed */
   padding: 8px;
   padding-right: 4px;
   font-size: var(--fm-font-size);
@@ -167,7 +167,7 @@
     font-size: 0.83em;
     font-weight: 600;
     display: flex;
-    gap: 5px;
+    /* gap: 5px; <-- Removed */
     border-bottom: 1px solid var(--fm-border-color);
     padding: 4px 0 4px 5px;
     position: sticky;
@@ -176,15 +176,16 @@
     z-index: 1;
 
     .file-select-all {
-      width: 5%;
+      /* width handled by global style */
       height: 100%;
       display: flex;
       align-items: center;
     }
 
+
     .file-name {
-      width: calc(65% - 35px);
-      padding-left: 35px;
+      /* width: calc(65% - 35px); <-- remove */
+      /* padding-left: 35px; <-- remove */
       cursor: pointer;
       user-select: none;
 
@@ -262,7 +263,6 @@
     align-items: center !important;
     justify-content: flex-start !important;
     height: auto !important;
-    width: 70% !important;
     gap: 8px !important;
     padding: 10px 15px !important;
     margin: 0 !important;
@@ -303,7 +303,6 @@
     align-items: center;
     justify-content: center;
     font-size: 0.8em;
-    width: calc(20%);
     height: 100%;
   }
 
@@ -312,15 +311,134 @@
     align-items: center;
     justify-content: center;
     font-size: 0.8em;
-    width: calc(10%);
     height: 100%;
   }
 }
 
-.empty-folder {
-  display: flex;
-  justify-content: center;
+
+/* Column Separator and Resizing Styles */
+
+/* Standardized padding and alignment rules specifically for the list layout */
+.files.list {
+  padding: 0 !important;
+  /* Remove container padding to ensure edge alignment */
+  flex-direction: column;
+}
+
+.files.list .file-select,
+.files.list .file-item,
+.files.list .modified-date,
+.files.list .file-permissions,
+.files.list .size,
+.files.list .files-header>div {
+  padding: 8px !important;
+  box-sizing: border-box;
+  display: flex !important;
   align-items: center;
-  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-right: none !important;
+  /* Removed vertical borders */
+  flex-shrink: 0 !important;
+  position: relative;
+  /* REQUIRED for absolute resize handles */
   height: 100%;
+  gap: 8px;
+  /* Added gap for icons and text */
+}
+
+/* Specific grid view isolation to prevent leakage */
+.files.grid .file-item {
+  position: relative;
+  height: 110px;
+  width: 138px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 5px 5px 5px !important;
+  border-radius: 5px;
+  border-right: none !important;
+  /* Grid doesn't need column borders */
+}
+
+/* specific list view file-item overrides */
+.files.list .file-item {
+  height: auto;
+  width: auto;
+  border-radius: 0;
+}
+
+/* Remove border from the last column */
+.files.list .size,
+.files.list .files-header>div:last-child {
+  border-right: none !important;
+}
+
+/* Specific Select Column (Checkbox) */
+.files.list .file-select,
+.files.list .files-header .file-select-all {
+  width: 40px !important;
+  min-width: 40px;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+/* Row Container */
+.files.list .file-item-container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: 100%;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  min-height: 40px;
+  border-bottom: none !important;
+  /* Removed horizontal borders between rows */
+}
+
+.files.list .files-header {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--fm-border-color);
+  /* Keep header divider */
+  background-color: var(--fm-secondary-bg-color);
+  font-weight: 600;
+  user-select: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 40px;
+  width: 100%;
+}
+
+.files.list .resize-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: col-resize;
+  z-index: 20;
+}
+
+.files.list .resize-handle:hover {
+  background-color: var(--fm-primary-color);
+}
+
+/* Permissions and Size columns specifically right-aligned as requested */
+.files.list .file-permissions,
+.files.list .size,
+.files.list .files-header .file-permissions,
+.files.list .files-header .file-size {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Align header text for name and date */
+.files.list .files-header .file-name,
+.files.list .files-header .file-date {
+  justify-content: flex-start;
 }

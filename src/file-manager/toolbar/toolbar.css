@@ -89,7 +89,10 @@
     font-size: 14px;
     width: fit-content;
     border: 1px solid var(--fm-border-color);
-    border-radius: 4px;
+    border-top: none;
+    /* User requested removal */
+    border-radius: 0 0 4px 4px;
+    /* Adjust radius since top is gone */
 
     &:hover {
       cursor: pointer;

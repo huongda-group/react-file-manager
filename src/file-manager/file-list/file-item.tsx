@@ -12,6 +12,7 @@ import { useLayout } from "../../contexts/layout";
 import Checkbox from "../../components/checkbox/checkbox";
 import { IFile } from "../../types";
 import { IUseTriggerActionReturn } from "../../hooks/use-trigger-action";
+import { ColumnWidths } from "../../hooks/use-table-resize";
 
 const dragIconSize = 50;
 
@@ -19,7 +20,7 @@ interface FileItemProps {
   index: number;
   file: IFile;
   onCreateFolder?: (name: string, parent: IFile | null) => void;
-  onRename?: (file: IFile, newName: string) => void;
+  onRename?: (file: IFile, newName: string, parentPath?: string) => void;
   enableFilePreview?: boolean;
   onFileOpen: (file: IFile) => void;
   filesViewRef: RefObject<HTMLElement | null>;
@@ -29,6 +30,7 @@ interface FileItemProps {
   setLastSelectedFile: (file: IFile | null) => void;
   draggable?: boolean;
   formatDate: (date: string | number | Date) => string;
+  columnWidths: ColumnWidths;
 }
 
 const FileItem: React.FC<FileItemProps> = ({
@@ -45,6 +47,7 @@ const FileItem: React.FC<FileItemProps> = ({
   setLastSelectedFile,
   draggable,
   formatDate,
+  columnWidths,
 }) => {
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
@@ -243,8 +246,20 @@ const FileItem: React.FC<FileItemProps> = ({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <div className="file-item">
-        {!file.isEditing && (
+      {activeLayout === "list" && (
+        <div className="file-select" onClick={(e) => e.stopPropagation()}>
+          <Checkbox
+            name={file.name}
+            id={file.name}
+            checked={fileSelected}
+            className={`selection-checkbox ${checkboxClassName}`}
+            onChange={handleCheckboxChange}
+          />
+        </div>
+      )}
+
+      <div className="file-item" style={activeLayout === 'list' ? { width: columnWidths.name } : undefined}>
+        {activeLayout !== "list" && !file.isEditing && (
           <div onClick={(e) => e.stopPropagation()}>
             <Checkbox
               name={file.name}
@@ -290,8 +305,22 @@ const FileItem: React.FC<FileItemProps> = ({
 
       {activeLayout === "list" && (
         <>
-          <div className="modified-date">{formatDate(file.updatedAt)}</div>
-          <div className="size">
+          <div
+            className="modified-date"
+            style={{ width: columnWidths.modified }}
+          >
+            {formatDate(file.updatedAt)}
+          </div>
+          <div
+            className="file-permissions"
+            style={{ width: columnWidths.permissions }}
+          >
+            {file.permissions || "-"}
+          </div>
+          <div
+            className="size"
+            style={{ width: columnWidths.size }}
+          >
             {file?.size && file.size > 0 ? getDataSize(file?.size) : ""}
           </div>
         </>

@@ -61,6 +61,7 @@
   "group": "Group",
   "others": "Others",
   "permission": "Permission",
+  "permissions": "Permissions",
   "apply": "Apply",
   "compress": "Compress",
   "decompress": "Decompress",

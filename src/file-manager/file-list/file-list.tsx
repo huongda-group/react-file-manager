@@ -1,4 +1,5 @@
 import { useRef, MouseEvent } from "react";
+import { useTableResize } from "../../hooks/use-table-resize";
 import FileItem from "../../file-manager/file-list/file-item";
 import { useFileNavigation } from "../../contexts/file-navigation";
 import { useLayout } from "../../contexts/layout";
@@ -77,6 +78,13 @@ const FileList: React.FC<FileListProps> = ({
 
   const contextMenuRef = useDetectOutsideClick(() => setVisible(false));
 
+  const { columnWidths, handleMouseDown } = useTableResize({
+    name: 300,
+    modified: 150,
+    size: 100,
+    permissions: 100,
+  });
+
   const handleSort = (key: string) => {
     let direction: "asc" | "desc" = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
@@ -97,6 +105,8 @@ const FileList: React.FC<FileListProps> = ({
           unselectFiles={unselectFiles}
           onSort={handleSort}
           sortConfig={sortConfig}
+          columnWidths={columnWidths}
+          onResizeStart={handleMouseDown}
         />
       )}
 
@@ -118,6 +128,7 @@ const FileList: React.FC<FileListProps> = ({
               setLastSelectedFile={setLastSelectedFile}
               draggable={permissions.move}
               formatDate={formatDate}
+              columnWidths={columnWidths}
             />
           ))}
         </>

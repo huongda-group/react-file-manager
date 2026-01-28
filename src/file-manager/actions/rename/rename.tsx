@@ -25,7 +25,7 @@ const maxNameLength = 220;
 interface RenameActionProps {
   filesViewRef: RefObject<HTMLElement | null>;
   file: IFile;
-  onRename?: (file: IFile, newName: string) => void;
+  onRename?: (file: IFile, newName: string, parentPath?: string) => void;
   triggerAction: IUseTriggerActionReturn;
 }
 
@@ -41,7 +41,7 @@ const RenameAction: React.FC<RenameActionProps> = ({
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
   const [errorXPlacement, setErrorXPlacement] = useState("right");
   const [errorYPlacement, setErrorYPlacement] = useState("bottom");
-  const { currentPathFiles, setEditingFileId } = useFileNavigation();
+  const { currentPath, currentPathFiles, setEditingFileId } = useFileNavigation();
   const { activeLayout } = useLayout();
   const t = useTranslation();
 
@@ -119,7 +119,7 @@ const RenameAction: React.FC<RenameActionProps> = ({
     setFileRenameError(false);
 
     try {
-      await validateApiCallback(onRename, "onRename", file, renameFile);
+      await validateApiCallback(onRename, "onRename", file, renameFile, currentPath);
       setEditingFileId(null);
       triggerAction.close();
     } catch (error) {

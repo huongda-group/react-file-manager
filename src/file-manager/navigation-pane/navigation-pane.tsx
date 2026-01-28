@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FolderTree, { IFolderTreeItem } from "../../file-manager/navigation-pane/folder-tree";
 import { getParentPath } from "../../utils/get-parent-path";
 import { useFiles } from "../../contexts/files";
+
 import { useTranslation } from "../../contexts/translation";
 import { IFile } from "../../types";
 import "../../file-manager/navigation-pane/navigation-pane.css";
@@ -13,7 +14,13 @@ interface NavigationPaneProps {
 const NavigationPane: React.FC<NavigationPaneProps> = ({ onFileOpen }) => {
   const [foldersTree, setFoldersTree] = useState<IFolderTreeItem[]>([]);
   const { files } = useFiles();
+  // const { sortConfig } = useFileNavigation(); // Removed sortConfig dependency
   const t = useTranslation();
+
+  // Sort helper function
+  const sortFolders = (list: IFolderTreeItem[]): IFolderTreeItem[] => {
+    return [...list].sort((a, b) => a.name.localeCompare(b.name));
+  };
 
   const createChildRecursive = (
     path: string,
@@ -21,12 +28,14 @@ const NavigationPane: React.FC<NavigationPaneProps> = ({ onFileOpen }) => {
   ): IFolderTreeItem[] => {
     if (!foldersStruct[path]) return []; // No children for this path
 
-    return foldersStruct[path]?.map((folder) => {
+    const children = foldersStruct[path]?.map((folder) => {
       return {
         ...folder,
         subDirectories: createChildRecursive(folder.path, foldersStruct),
       };
     });
+
+    return sortFolders(children); // Sort children before returning
   };
 
   useEffect(() => {
@@ -45,7 +54,7 @@ const NavigationPane: React.FC<NavigationPaneProps> = ({ onFileOpen }) => {
         return createChildRecursive(rootPath, foldersStruct);
       });
     }
-  }, [files]);
+  }, [files]); // Re-run when files changes
 
   return (
     <div className="sb-folders-list">
