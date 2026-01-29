@@ -5,6 +5,7 @@ import "./app.css";
 import FileManager from "./file-manager/file-manager";
 import { IFile } from "./types";
 import { LayoutType } from "./contexts/layout";
+import hdgLogo from "./assets/hdg.svg";
 
 function App() {
 
@@ -236,7 +237,10 @@ function App() {
   return (
     <div className={`app ${theme}`}>
       <div className="header">
-        <h1>React File Manager</h1>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+          <img src={hdgLogo} alt="HDG Logo" style={{ height: 60 }} />
+          <h1>React File Manager</h1>
+        </div>
         <div className="header-actions">
           <select
             className="lang-select"

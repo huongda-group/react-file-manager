@@ -47,9 +47,10 @@ body {
   .header {
     width: 67%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
+    position: relative;
 
     h1 {
       margin: 0;
@@ -61,6 +62,8 @@ body {
       display: flex;
       align-items: center;
       gap: 12px;
+      position: absolute;
+      right: 0;
     }
 
     .lang-select {
