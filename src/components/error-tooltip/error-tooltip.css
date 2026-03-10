@@ -1,4 +1,4 @@
-.error-tooltip {
+.hdgrfm-error-tooltip {
   position: absolute;
   z-index: 1;
   bottom: -68px;
@@ -21,7 +21,7 @@
   }
 }
 
-.error-tooltip.right {
+.hdgrfm-error-tooltip.hdgrfm-right {
   left: 16px;
 
   &::before {
@@ -29,7 +29,7 @@
   }
 }
 
-.error-tooltip.left {
+.hdgrfm-error-tooltip.hdgrfm-left {
   left: -180px;
 
   &::before {
@@ -38,7 +38,7 @@
   }
 }
 
-.error-tooltip.top {
+.hdgrfm-error-tooltip.hdgrfm-top {
   bottom: unset !important;
   top: -68px;
 
@@ -57,7 +57,7 @@
   }
 }
 
-.error-tooltip.top.left {
+.hdgrfm-error-tooltip.hdgrfm-top.hdgrfm-left {
   &::after {
     left: 76%;
     transform: rotate(90deg) scaleX(-1);

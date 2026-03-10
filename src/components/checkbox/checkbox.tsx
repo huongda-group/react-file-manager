@@ -23,7 +23,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   disabled = false,
 }) => {
   return (
-    <label className={`fm-checkbox-wrapper ${className}`} title={title}>
+    <label className={`hdgrfm-fm-checkbox-wrapper ${className}`} title={title}>
       <input
         type="checkbox"
         name={name}
@@ -33,7 +33,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         onChange={onChange}
         disabled={disabled}
       />
-      <span className="fm-checkbox-checkmark"></span>
+      <span className="hdgrfm-fm-checkbox-checkmark"></span>
     </label>
   );
 };

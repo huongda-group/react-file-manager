@@ -127,30 +127,30 @@ const UploadItem: React.FC<UploadItemProps> = memo(({
 
   return (
     <li>
-      <div className="file-icon">
+      <div className="hdgrfm-file-icon">
         {fileIcons[getFileExtension(fileData.file?.name)] ?? (
           <AnimatedIcon icon={File} size={33} />
         )}
       </div>
-      <div className="file">
-        <div className="file-details">
-          <div className="file-info">
-            <span className="file-name text-truncate" title={fileData.file?.name}>
+      <div className="hdgrfm-file">
+        <div className="hdgrfm-file-details">
+          <div className="hdgrfm-file-info">
+            <span className="hdgrfm-file-name hdgrfm-text-truncate" title={fileData.file?.name}>
               {fileData.file?.name}
             </span>
-            <span className="file-size">{getDataSize(fileData.file?.size)}</span>
+            <span className="hdgrfm-file-size">{getDataSize(fileData.file?.size)}</span>
           </div>
           {isUploaded ? (
-            <div title={t("uploaded")} className="upload-success">
+            <div title={t("uploaded")} className="hdgrfm-upload-success">
               <AnimatedIcon icon={CheckCircle} />
             </div>
           ) : isCanceled || uploadFailed ? (
-            <div className="retry-upload" title="Retry" onClick={handleRetry}>
+            <div className="hdgrfm-retry-upload" title="Retry" onClick={handleRetry}>
               <AnimatedIcon icon={RotateCw} />
             </div>
           ) : (
             <div
-              className="rm-file"
+              className="hdgrfm-rm-file"
               title={fileData.error ? t("remove") : t("abortUpload")}
               onClick={fileData.error ? () => handleFileRemove(id) : handleAbortUpload}
             >

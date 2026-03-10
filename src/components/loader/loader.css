@@ -1,4 +1,4 @@
-.loader-container {
+.hdgrfm-loader-container {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -9,7 +9,7 @@
   z-index: 1000;
 }
 
-.spinner {
+.hdgrfm-spinner {
   font-size: 3rem;
   color: white;
   animation: spin 1s linear infinite;
@@ -25,13 +25,13 @@
   }
 }
 
-.upload-loading {
+.hdgrfm-upload-loading {
   position: relative;
   display: block;
   background-color: transparent;
   z-index: 0;
 
-  .spinner {
+  .hdgrfm-spinner {
     font-size: .9rem;
     color: black;
   }

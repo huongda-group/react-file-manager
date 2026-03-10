@@ -1,4 +1,4 @@
-.fm-modal-header {
+.hdgrfm-fm-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,7 +6,7 @@
   padding: 0.3rem 1rem;
   font-size: var(--fm-font-size);
 
-  .fm-modal-heading {
+  .hdgrfm-fm-modal-heading {
     margin: 0;
     font-weight: bold;
     color: var(--fm-text-color);
@@ -25,6 +25,10 @@
   color: var(--fm-text-color);
   border: 1px solid var(--fm-border-color);
   border-radius: 6px;
+  width: fit-content;
+  overflow-x: hidden;
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.253);
 
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);

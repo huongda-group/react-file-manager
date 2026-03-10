@@ -85,8 +85,8 @@ const ChmodAction: React.FC<ChmodActionProps> = ({ triggerAction, onChmod }) => 
   const perms: ("read" | "write" | "execute")[] = ["read", "write", "execute"];
 
   return (
-    <div className="fm-chmod-container">
-      <table className="fm-chmod-table">
+    <div className="hdgrfm-fm-chmod-container">
+      <table className="hdgrfm-fm-chmod-table">
         <thead>
           <tr>
             <th></th>
@@ -103,7 +103,7 @@ const ChmodAction: React.FC<ChmodActionProps> = ({ triggerAction, onChmod }) => 
                 <td key={perm}>
                   <input
                     type="checkbox"
-                    className="fm-chmod-checkbox"
+                    className="hdgrfm-fm-chmod-checkbox"
                     checked={permissions[role][perm]}
                     onChange={() => handleChange(role, perm)}
                   />
@@ -114,11 +114,11 @@ const ChmodAction: React.FC<ChmodActionProps> = ({ triggerAction, onChmod }) => 
         </tbody>
       </table>
 
-      <div className="fm-chmod-preview">
-        <span className="fm-chmod-preview-label">{t("permission")}</span>
+      <div className="hdgrfm-fm-chmod-preview">
+        <span className="hdgrfm-fm-chmod-preview-label">{t("permission")}</span>
         <input
           type="text"
-          className="fm-chmod-input"
+          className="hdgrfm-fm-chmod-input"
           value={octalValue}
           onChange={handleInputChange}
           maxLength={3}
@@ -126,7 +126,7 @@ const ChmodAction: React.FC<ChmodActionProps> = ({ triggerAction, onChmod }) => 
         />
       </div>
 
-      <div className="fm-chmod-action">
+      <div className="hdgrfm-fm-chmod-action">
         <Button type="secondary" onClick={triggerAction.close}>
           {t("cancel")}
         </Button>

@@ -54,7 +54,7 @@ const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
   return (
     <>
       <div
-        className={`sb-folders-list-item ${isActive ? "active-list-item" : ""
+        className={`hdgrfm-sb-folders-list-item ${isActive ? "hdgrfm-active-list-item" : ""
           }`}
         onClick={handleFolderSwitch}
       >
@@ -63,27 +63,27 @@ const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
             <AnimatedIcon
               icon={ChevronRight}
               size={20}
-              className={`folder-icon-default ${isOpen ? "folder-rotate-down" : ""
+              className={`hdgrfm-folder-icon-default ${isOpen ? "hdgrfm-folder-rotate-down" : ""
                 }`}
             />
           ) : (
-            <span className="non-expanable"></span>
+            <span className="hdgrfm-non-expanable"></span>
           )}
         </span>
-        <div className="sb-folder-details">
+        <div className="hdgrfm-sb-folder-details">
           {isOpen || isActive ? (
-            <AnimatedIcon icon={FolderOpen} size={20} className="folder-open-icon" />
+            <AnimatedIcon icon={FolderOpen} size={20} className="hdgrfm-folder-open-icon" />
           ) : (
-            <AnimatedIcon icon={Folder} size={17} className="folder-close-icon" />
+            <AnimatedIcon icon={Folder} size={17} className="hdgrfm-folder-close-icon" />
           )}
-          <span className="sb-folder-name" title={folder.name}>
+          <span className="hdgrfm-sb-folder-name" title={folder.name}>
             {folder.name}
           </span>
         </div>
       </div>
       {hasSubDirs && (
         <Collapse open={isOpen}>
-          <div className="folder-collapsible">
+          <div className="hdgrfm-folder-collapsible">
             {folder.subDirectories.map((item, index) => (
               <FolderTree key={index} folder={item} onFileOpen={onFileOpen} />
             ))}

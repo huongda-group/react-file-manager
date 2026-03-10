@@ -232,7 +232,7 @@ const FileManager: React.FC<FileManagerProps> = ({
     <main
       ref={mainRef}
       data-theme={theme}
-      className={`file-explorer ${className}`}
+      className={`hdgrfm-file-explorer ${className}`}
       onContextMenu={(e) => e.preventDefault()}
       style={{ ...customStyles, ...style }}
     >
@@ -264,10 +264,10 @@ const FileManager: React.FC<FileManagerProps> = ({
                       ref={containerRef as RefObject<HTMLDivElement>}
                       onMouseMove={handleMouseMove}
                       onMouseUp={handleMouseUp}
-                      className="files-container"
+                      className="hdgrfm-files-container"
                     >
                       <div
-                        className={`navigation-pane ${isNavigationPaneOpen ? "open" : "closed"
+                        className={`hdgrfm-navigation-pane ${isNavigationPaneOpen ? "hdgrfm-open" : "hdgrfm-closed"
                           }`}
                         style={{
                           width: colSizes.col1 + "%",
@@ -275,14 +275,14 @@ const FileManager: React.FC<FileManagerProps> = ({
                       >
                         <NavigationPane onFileOpen={onFileOpen} />
                         <div
-                          className={`sidebar-resize ${isDragging ? "sidebar-dragging" : ""
+                          className={`hdgrfm-sidebar-resize ${isDragging ? "hdgrfm-sidebar-dragging" : ""
                             }`}
                           onMouseDown={handleMouseDown}
                         />
                       </div>
 
                       <div
-                        className="folders-preview"
+                        className="hdgrfm-folders-preview"
                         style={{
                           width: (isNavigationPaneOpen ? colSizes.col2 : 100) + "%",
                         }}

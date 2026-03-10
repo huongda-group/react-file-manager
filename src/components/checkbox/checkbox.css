@@ -1,4 +1,4 @@
-.fm-checkbox-wrapper {
+.hdgrfm-fm-checkbox-wrapper {
   display: inline-block;
   position: relative;
   width: 18px;
@@ -7,16 +7,16 @@
   user-select: none;
   vertical-align: middle;
 
-  &.hidden {
+  &.hdgrfm-hidden {
     visibility: hidden;
   }
 
-  &.visible {
+  &.hdgrfm-visible {
     visibility: visible;
   }
 }
 
-.fm-checkbox-wrapper input {
+.hdgrfm-fm-checkbox-wrapper input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -24,7 +24,7 @@
   width: 0;
 }
 
-.fm-checkbox-checkmark {
+.hdgrfm-fm-checkbox-checkmark {
   position: absolute;
   top: 0;
   left: 0;
@@ -36,28 +36,28 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.fm-checkbox-wrapper:hover input~.fm-checkbox-checkmark {
+.hdgrfm-fm-checkbox-wrapper:hover input~.hdgrfm-fm-checkbox-checkmark {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.fm-checkbox-wrapper input:checked~.fm-checkbox-checkmark {
+.hdgrfm-fm-checkbox-wrapper input:checked~.hdgrfm-fm-checkbox-checkmark {
   background-color: #fff;
   border-color: var(--fm-primary-color);
   transform: scale(1.1);
   animation: fm-checkbox-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.fm-checkbox-checkmark:after {
+.hdgrfm-fm-checkbox-checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-.fm-checkbox-wrapper input:checked~.fm-checkbox-checkmark:after {
+.hdgrfm-fm-checkbox-wrapper input:checked~.hdgrfm-fm-checkbox-checkmark:after {
   display: block;
 }
 
-.fm-checkbox-wrapper .fm-checkbox-checkmark:after {
+.hdgrfm-fm-checkbox-wrapper .hdgrfm-fm-checkbox-checkmark:after {
   left: 5px;
   top: 1px;
   width: 5px;
@@ -68,11 +68,11 @@
   transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.fm-checkbox-wrapper input:checked~.fm-checkbox-checkmark:after {
+.hdgrfm-fm-checkbox-wrapper input:checked~.hdgrfm-fm-checkbox-checkmark:after {
   transform: rotate(45deg) scale(1.1);
 }
 
-.fm-checkbox-wrapper input:disabled~.fm-checkbox-checkmark {
+.hdgrfm-fm-checkbox-wrapper input:disabled~.hdgrfm-fm-checkbox-checkmark {
   border-color: #ccc;
   background-color: #f5f5f5;
   cursor: not-allowed;

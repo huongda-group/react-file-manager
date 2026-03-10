@@ -64,6 +64,5 @@ export const useTableResize = (initialWidths: ColumnWidths) => {
     return {
         columnWidths,
         handleMouseDown,
-        isResizing
     };
 };

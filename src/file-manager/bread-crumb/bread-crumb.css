@@ -1,9 +1,9 @@
-.bread-crumb-container {
+.hdgrfm-bread-crumb-container {
   position: relative;
   font-size: var(--fm-font-size);
   background-color: var(--fm-bg-color);
 
-  .breadcrumb {
+  .hdgrfm-breadcrumb {
     height: 40px;
     display: flex;
     align-items: center;
@@ -20,17 +20,17 @@
       background: var(--fm-primary-color) !important;
     }
 
-    .nav-toggler {
+    .hdgrfm-nav-toggler {
       display: flex;
       align-items: center;
     }
 
-    .divider {
+    .hdgrfm-divider {
       width: 1px;
       background-color: var(--fm-border-color);
     }
 
-    .folder-name {
+    .hdgrfm-folder-name {
       display: flex;
       align-items: center;
       gap: 0.25rem;
@@ -43,11 +43,11 @@
       }
     }
 
-    .hidden-folders {
+    .hdgrfm-hidden-folders {
       padding: 0 4px;
     }
 
-    .folder-name-btn {
+    .hdgrfm-folder-name-btn {
       background-color: transparent;
       border: none;
       padding: 0;
@@ -64,7 +64,7 @@
   }
 }
 
-.hidden-folders-container {
+.hdgrfm-hidden-folders-container {
   position: absolute;
   margin: 0;
   z-index: 2;

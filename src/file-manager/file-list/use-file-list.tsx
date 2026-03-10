@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useClipBoard } from "../../contexts/clipboard";
-import { useEffect, useState, MouseEvent } from "react";
+import { useCallback, useEffect, useState, MouseEvent } from "react";
 import { useSelection } from "../../contexts/selection";
 import { useLayout } from "../../contexts/layout";
 import { useFileNavigation } from "../../contexts/file-navigation";
@@ -229,7 +229,7 @@ const useFileList = (
       title: t("paste"),
       icon: <AnimatedIcon icon={ClipboardPaste} size={18} />,
       onClick: handleFilePasting,
-      className: `${clipBoard ? "" : "disable-paste"}`,
+      className: `${clipBoard ? "" : "hdgrfm-disable-paste"}`,
       hidden:
         !lastSelectedFile?.isDirectory ||
         (!permissions.move && !permissions.copy),
@@ -286,8 +286,7 @@ const useFileList = (
     },
   ];
 
-  const handleFolderCreating = () => {
-    // Create a temporary file object for editing
+  const handleFolderCreating = useCallback(() => {
     const newFile: IFile = {
       _id: "temp-id-" + Date.now(),
       name: duplicateNameHandler("New Folder", true, currentPathFiles),
@@ -297,12 +296,12 @@ const useFileList = (
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       isEditing: true,
-      key: "temp-" + new Date().valueOf().toString(), // Helper property - prefix with temp- for identification
+      key: "temp-" + new Date().valueOf().toString(),
     };
     setTempNewFolder(newFile);
-  };
+  }, [currentPathFiles, currentPath, setTempNewFolder]);
 
-  const handleItemRenaming = () => {
+  const handleItemRenaming = useCallback(() => {
     const lastFileIndex = selectedFileIndexes[selectedFileIndexes.length - 1];
     const fileToEdit = currentPathFiles[lastFileIndex];
 
@@ -315,7 +314,7 @@ const useFileList = (
     setEditingFileId(fileToEdit._id);
     setSelectedFileIndexes([]);
     setSelectedFiles([]);
-  };
+  }, [selectedFileIndexes, currentPathFiles, triggerAction.close, setEditingFileId, setSelectedFiles]);
 
   const unselectFiles = () => {
     setSelectedFileIndexes([]);
@@ -341,7 +340,7 @@ const useFileList = (
           break;
       }
     }
-  }, [triggerAction.isActive]);
+  }, [triggerAction.isActive, triggerAction.actionType, handleFolderCreating, handleItemRenaming]);
 
   useEffect(() => {
     setSelectedFileIndexes([]);

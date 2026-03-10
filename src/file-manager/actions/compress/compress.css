@@ -1,4 +1,4 @@
-.fm-compress-container {
+.hdgrfm-fm-compress-container {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -6,25 +6,25 @@
     color: var(--fm-text-color);
 }
 
-.fm-compress-input-group {
+.hdgrfm-fm-compress-input-group {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
 }
 
-.fm-compress-input-group label {
+.hdgrfm-fm-compress-input-group label {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--fm-text-secondary-color);
 }
 
-.fm-compress-input-wrapper {
+.hdgrfm-fm-compress-input-wrapper {
     display: flex;
     align-items: stretch;
     position: relative;
 }
 
-.fm-compress-input {
+.hdgrfm-fm-compress-input {
     flex: 1;
     padding: 0.75rem 1rem;
     border: 1.5px solid var(--fm-border-color, #eaeaea);
@@ -37,17 +37,17 @@
     border-right: none;
 }
 
-.fm-compress-input:hover,
-.fm-compress-input:focus {
+.hdgrfm-fm-compress-input:hover,
+.hdgrfm-fm-compress-input:focus {
     border-color: var(--fm-primary-color);
 }
 
-.fm-compress-input:focus {
+.hdgrfm-fm-compress-input:focus {
     box-shadow: 0 0 0 3px rgba(var(--fm-primary-color-rgb), 0.2);
     z-index: 1;
 }
 
-.fm-compress-extension {
+.hdgrfm-fm-compress-extension {
     display: flex;
     align-items: center;
     padding: 0 1rem;
@@ -60,7 +60,7 @@
     font-weight: 600;
 }
 
-.fm-compress-actions {
+.hdgrfm-fm-compress-actions {
     display: flex;
     justify-content: flex-end;
     gap: 0.75rem;

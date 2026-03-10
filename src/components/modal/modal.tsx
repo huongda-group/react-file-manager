@@ -44,18 +44,18 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <dialog
       ref={modalRef}
-      className={`fm-modal dialog ${contentClassName}`}
+      className={`hdgrfm-fm-modal dialog ${contentClassName}`}
       style={{ width: dialogWidth }}
       onKeyDown={handleKeyDown}
       data-theme={theme}
     >
-      <div className="fm-modal-header">
-        <span className="fm-modal-heading">{heading}</span>
+      <div className="hdgrfm-fm-modal-header">
+        <span className="hdgrfm-fm-modal-heading">{heading}</span>
         {closeButton && (
           <AnimatedIcon
             icon={X}
             size={18}
-            className="close-icon"
+            className="hdgrfm-close-icon"
             onClick={() => setShow(false)}
             title={t("close")}
             animation="rotate"

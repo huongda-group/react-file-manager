@@ -17,21 +17,21 @@ const Progress: React.FC<ProgressProps> = ({
   const t = useTranslation();
 
   return (
-    <div role="progressbar" className="fm-progress">
+    <div role="progressbar" className="hdgrfm-fm-progress">
       {!error && (
-        <div className="fm-progress-bar">
+        <div className="hdgrfm-fm-progress-bar">
           <div
-            className="fm-progress-bar-fill"
+            className="hdgrfm-fm-progress-bar-fill"
             style={{ width: `${percent}%` }}
           ></div>
         </div>
       )}
       {isCanceled ? (
-        <span className="fm-upload-canceled">{t("canceled")}</span>
+        <span className="hdgrfm-fm-upload-canceled">{t("canceled")}</span>
       ) : error ? (
-        <span className="fm-upload-canceled">{error}</span>
+        <span className="hdgrfm-fm-upload-canceled">{error}</span>
       ) : (
-        <div className="fm-progress-status">
+        <div className="hdgrfm-fm-progress-status">
           <span>
             {isCompleted ? t("completed") : t("percentDone", { percent })}
           </span>

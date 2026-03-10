@@ -47,23 +47,23 @@ const CompressAction: React.FC<CompressActionProps> = ({
     };
 
     return (
-        <div className="fm-compress-container">
-            <div className="fm-compress-input-group">
+        <div className="hdgrfm-fm-compress-container">
+            <div className="hdgrfm-fm-compress-input-group">
                 <label>{t("name")}</label>
-                <div className="fm-compress-input-wrapper">
+                <div className="hdgrfm-fm-compress-input-wrapper">
                     <input
                         type="text"
-                        className="fm-compress-input"
+                        className="hdgrfm-fm-compress-input"
                         value={fileName}
                         onChange={(e) => setFileName(e.target.value)}
                         onKeyDown={handleKeyDown}
                         autoFocus
                     />
-                    <span className="fm-compress-extension">.zip</span>
+                    <span className="hdgrfm-fm-compress-extension">.zip</span>
                 </div>
             </div>
 
-            <div className="fm-compress-actions">
+            <div className="hdgrfm-fm-compress-actions">
                 <Button type="secondary" onClick={triggerAction.close}>
                     {t("cancel")}
                 </Button>

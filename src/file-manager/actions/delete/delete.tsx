@@ -39,9 +39,9 @@ const DeleteAction: React.FC<DeleteActionProps> = ({
   };
 
   return (
-    <div className="file-delete-confirm">
-      <p className="file-delete-confirm-text">{deleteMsg}</p>
-      <div className="file-delete-confirm-actions">
+    <div className="hdgrfm-file-delete-confirm">
+      <p className="hdgrfm-file-delete-confirm-text">{deleteMsg}</p>
+      <div className="hdgrfm-file-delete-confirm-actions">
         {trash && (
           <Button type="primary" onClick={() => handleDeleting(true)}>
             {t("moveToTrash")}

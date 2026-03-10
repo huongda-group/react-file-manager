@@ -11,26 +11,25 @@ export const useDetectOutsideClick = (
 ): IUseDetectOutsideClickReturn => {
   const [isClicked, setIsClicked] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  const handleClick = (event: MouseEvent) => {
-    if (
-      ref.current &&
-      event.target instanceof Node &&
-      !ref.current.contains(event.target)
-    ) {
-      setIsClicked(true);
-      handleOutsideClick(event, ref);
-    } else {
-      setIsClicked(false);
-    }
-  };
+  const handleOutsideClickRef = useRef(handleOutsideClick);
+  handleOutsideClickRef.current = handleOutsideClick;
 
   useEffect(() => {
-    // Cast to any because EventListener expects Event, but we use strict MouseEvent
-    document.addEventListener("click", handleClick as EventListener, true);
+    const handleClick = (event: MouseEvent) => {
+      if (
+        ref.current &&
+        event.target instanceof Node &&
+        !ref.current.contains(event.target)
+      ) {
+        setIsClicked(true);
+        handleOutsideClickRef.current(event, ref);
+      } else {
+        setIsClicked(false);
+      }
+    };
+
     document.addEventListener("mousedown", handleClick as EventListener, true);
     return () => {
-      document.removeEventListener("click", handleClick as EventListener, true);
       document.removeEventListener("mousedown", handleClick as EventListener, true);
     };
   }, []);

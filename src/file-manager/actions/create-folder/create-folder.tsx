@@ -28,8 +28,8 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
-  const [errorXPlacement, setErrorXPlacement] = useState("right");
-  const [errorYPlacement, setErrorYPlacement] = useState("bottom");
+  const [errorXPlacement, setErrorXPlacement] = useState("hdgrfm-right");
+  const [errorYPlacement, setErrorYPlacement] = useState("hdgrfm-bottom");
   const outsideClick = useDetectOutsideClick((e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -152,15 +152,15 @@ const CreateFolderAction: React.FC<CreateFolderActionProps> = ({
       const rightAvailableSpace =
         filesContainerRect.right - nameInputContainerRect.left;
       rightAvailableSpace > errorMessageWidth
-        ? setErrorXPlacement("right")
-        : setErrorXPlacement("left");
+        ? setErrorXPlacement("hdgrfm-right")
+        : setErrorXPlacement("hdgrfm-left");
 
       const bottomAvailableSpace =
         filesContainerRect.bottom -
         (nameInputContainerRect.top + nameInputContainer.clientHeight);
       bottomAvailableSpace > errorMessageHeight
-        ? setErrorYPlacement("bottom")
-        : setErrorYPlacement("top");
+        ? setErrorYPlacement("hdgrfm-bottom")
+        : setErrorYPlacement("hdgrfm-top");
     }
   }, []);
   //

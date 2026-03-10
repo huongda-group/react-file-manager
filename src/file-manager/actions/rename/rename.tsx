@@ -39,8 +39,8 @@ const RenameAction: React.FC<RenameActionProps> = ({
   const [renameFileWarning, setRenameFileWarning] = useState(false);
   const [fileRenameError, setFileRenameError] = useState(false);
   const [renameErrorMessage, setRenameErrorMessage] = useState("");
-  const [errorXPlacement, setErrorXPlacement] = useState("right");
-  const [errorYPlacement, setErrorYPlacement] = useState("bottom");
+  const [errorXPlacement, setErrorXPlacement] = useState("hdgrfm-right");
+  const [errorYPlacement, setErrorYPlacement] = useState("hdgrfm-bottom");
   const { currentPath, currentPathFiles, setEditingFileId } = useFileNavigation();
   const { activeLayout } = useLayout();
   const t = useTranslation();
@@ -156,15 +156,15 @@ const RenameAction: React.FC<RenameActionProps> = ({
       const rightAvailableSpace =
         filesContainerRect.right - renameInputContainerRect.left;
       rightAvailableSpace > errorMessageWidth
-        ? setErrorXPlacement("right")
-        : setErrorXPlacement("left");
+        ? setErrorXPlacement("hdgrfm-right")
+        : setErrorXPlacement("hdgrfm-left");
 
       const bottomAvailableSpace =
         filesContainerRect.bottom -
         (renameInputContainerRect.top + renameInputContainer.clientHeight);
       bottomAvailableSpace > errorMessageHeight
-        ? setErrorYPlacement("bottom")
-        : setErrorYPlacement("top");
+        ? setErrorYPlacement("hdgrfm-bottom")
+        : setErrorYPlacement("hdgrfm-top");
     }
   }, []);
 
@@ -205,14 +205,14 @@ const RenameAction: React.FC<RenameActionProps> = ({
         dialogWidth={"25vw"}
         closeButton={false}
       >
-        <div className="fm-rename-folder-container" ref={warningModalRef}>
-          <div className="fm-rename-folder-input">
-            <div className="fm-rename-warning">
+        <div className="hdgrfm-fm-rename-folder-container" ref={warningModalRef}>
+          <div className="hdgrfm-fm-rename-folder-input">
+            <div className="hdgrfm-fm-rename-warning">
               <AnimatedIcon icon={AlertTriangle} size={70} color="orange" />
               <div>{t("fileNameChangeWarning")}</div>
             </div>
           </div>
-          <div className="fm-rename-folder-action">
+          <div className="hdgrfm-fm-rename-folder-action">
             <Button
               type="secondary"
               onClick={handleCancelEdit}

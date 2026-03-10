@@ -31,7 +31,7 @@ const NameInput: React.FC<NameInputProps> = ({
     <textarea
       ref={nameInputRef}
       id={id}
-      className="rename-file"
+      className="hdgrfm-rename-file"
       maxLength={maxLength}
       value={value}
       onChange={onChange}

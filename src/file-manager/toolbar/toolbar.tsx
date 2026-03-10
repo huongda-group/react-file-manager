@@ -144,14 +144,14 @@ const Toolbar: React.FC<ToolbarProps> = ({
   };
 
   return (
-    <div className={`toolbar ${selectedFiles.length > 0 ? "file-selected" : ""}`}>
-      <div className="fm-toolbar">
+    <div className={`hdgrfm-toolbar ${selectedFiles.length > 0 ? "hdgrfm-file-selected" : ""}`}>
+      <div className="hdgrfm-fm-toolbar">
         {selectedFiles.length > 0 ? (
-          <div className="file-action-container">
+          <div className="hdgrfm-file-action-container">
             <div>
               {permissions.move && (
                 <button
-                  className="item-action file-action"
+                  className="hdgrfm-item-action hdgrfm-file-action"
                   onClick={() => handleCutCopy(true)}
                 >
                   <AnimatedIcon icon={Scissors} size={18} animation="scale" />
@@ -160,7 +160,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               )}
               {permissions.copy && (
                 <button
-                  className="item-action file-action"
+                  className="hdgrfm-item-action hdgrfm-file-action"
                   onClick={() => handleCutCopy(false)}
                 >
                   <AnimatedIcon
@@ -173,7 +173,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               )}
               {clipBoard?.files && clipBoard.files.length > 0 && (
                 <button
-                  className="item-action file-action"
+                  className="hdgrfm-item-action hdgrfm-file-action"
                   onClick={handleFilePasting}
                 >
                   <AnimatedIcon
@@ -186,7 +186,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               )}
               {selectedFiles.length === 1 && permissions.rename && (
                 <button
-                  className="item-action file-action"
+                  className="hdgrfm-item-action hdgrfm-file-action"
                   onClick={() => triggerAction.show("rename")}
                 >
                   <AnimatedIcon
@@ -199,7 +199,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               )}
               {permissions.download && (
                 <button
-                  className="item-action file-action"
+                  className="hdgrfm-item-action hdgrfm-file-action"
                   onClick={handleDownloadItems}
                 >
                   <AnimatedIcon icon={Download} size={18} animation="bounce" />
@@ -208,7 +208,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               )}
               {permissions.compress && onCompress && (
                 <button
-                  className="item-action file-action"
+                  className="hdgrfm-item-action hdgrfm-file-action"
                   onClick={() => triggerAction.show("compress")}
                 >
                   <AnimatedIcon icon={Archive} size={18} animation="bounce" />
@@ -220,7 +220,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 !selectedFiles[0].isDirectory &&
                 onDecompress && (
                   <button
-                    className="item-action file-action"
+                    className="hdgrfm-item-action hdgrfm-file-action"
                     onClick={() => triggerAction.show("decompress")}
                   >
                     <AnimatedIcon
@@ -233,7 +233,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
                 )}
               {permissions.delete && (
                 <button
-                  className="item-action file-action"
+                  className="hdgrfm-item-action hdgrfm-file-action"
                   onClick={() => triggerAction.show("delete")}
                 >
                   <AnimatedIcon icon={Trash2} size={18} animation="shake" />
@@ -242,7 +242,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               )}
             </div>
             <button
-              className="item-action file-action"
+              className="hdgrfm-item-action hdgrfm-file-action"
               title={t("clearSelection")}
               onClick={() => setSelectedFiles([])}
             >
@@ -259,7 +259,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
               .filter((item) => item.permission)
               .map((item, index) => (
                 <button
-                  className="item-action"
+                  className="hdgrfm-item-action"
                   key={index}
                   onClick={item.onClick}
                 >
@@ -270,9 +270,9 @@ const Toolbar: React.FC<ToolbarProps> = ({
           </div>
         )}
 
-        <div className="toolbar-right-container">
+        <div className="hdgrfm-toolbar-right-container">
           {toolbarRightItems.map((item, index) => (
-            <button className="item-action" onClick={item.onClick} key={index} title={item.title}>
+            <button className="hdgrfm-item-action" onClick={item.onClick} key={index} title={item.title}>
               {item.icon}
               <span>{item.text || item.title}</span>
             </button>

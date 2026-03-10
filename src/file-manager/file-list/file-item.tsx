@@ -51,7 +51,7 @@ const FileItem: React.FC<FileItemProps> = ({
 }) => {
   const [fileSelected, setFileSelected] = useState(false);
   const [lastClickTime, setLastClickTime] = useState(0);
-  const [checkboxClassName, setCheckboxClassName] = useState("hidden");
+  const [checkboxClassName, setCheckboxClassName] = useState("hdgrfm-hidden");
   const [dropZoneClass, setDropZoneClass] = useState("");
   const [tooltipPosition, setTooltipPosition] = useState<{
     x: number;
@@ -152,11 +152,11 @@ const FileItem: React.FC<FileItemProps> = ({
 
   // Selection Checkbox Functions
   const handleMouseOver = () => {
-    setCheckboxClassName("visible");
+    setCheckboxClassName("hdgrfm-visible");
   };
 
   const handleMouseLeave = () => {
-    !fileSelected && setCheckboxClassName("hidden");
+    !fileSelected && setCheckboxClassName("hdgrfm-hidden");
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,7 +189,7 @@ const FileItem: React.FC<FileItemProps> = ({
     } else {
       setTooltipPosition({ x: e.clientX, y: e.clientY + 12 });
       e.dataTransfer.dropEffect = "copy";
-      setDropZoneClass("file-drop-zone");
+      setDropZoneClass("hdgrfm-file-drop-zone");
     }
   };
 
@@ -223,14 +223,14 @@ const FileItem: React.FC<FileItemProps> = ({
   useEffect(() => {
     setFileSelected(selectedFileIndexes.includes(index));
     setCheckboxClassName(
-      selectedFileIndexes.includes(index) ? "visible" : "hidden"
+      selectedFileIndexes.includes(index) ? "hdgrfm-visible" : "hdgrfm-hidden"
     );
   }, [selectedFileIndexes]);
 
   return (
     <div
-      className={`file-item-container ${dropZoneClass} ${fileSelected || !!file.isEditing ? "file-selected" : ""
-        } ${isFileMoving ? "file-moving" : ""}`}
+      className={`hdgrfm-file-item-container ${dropZoneClass} ${fileSelected || !!file.isEditing ? "hdgrfm-file-selected" : ""
+        } ${isFileMoving ? "hdgrfm-file-moving" : ""}`}
       tabIndex={0}
       title={file.name}
       onClick={handleFileSelection}
@@ -247,25 +247,25 @@ const FileItem: React.FC<FileItemProps> = ({
       onDrop={handleDrop}
     >
       {activeLayout === "list" && (
-        <div className="file-select" onClick={(e) => e.stopPropagation()}>
+        <div className="hdgrfm-file-select" onClick={(e) => e.stopPropagation()}>
           <Checkbox
             name={file.name}
             id={file.name}
             checked={fileSelected}
-            className={`selection-checkbox ${checkboxClassName}`}
+            className={`hdgrfm-selection-checkbox ${checkboxClassName}`}
             onChange={handleCheckboxChange}
           />
         </div>
       )}
 
-      <div className="file-item" style={activeLayout === 'list' ? { width: columnWidths.name } : undefined}>
+      <div className="hdgrfm-file-item" style={activeLayout === 'list' ? { width: columnWidths.name } : undefined}>
         {activeLayout !== "list" && !file.isEditing && (
           <div onClick={(e) => e.stopPropagation()}>
             <Checkbox
               name={file.name}
               id={file.name}
               checked={fileSelected}
-              className={`selection-checkbox ${checkboxClassName}`}
+              className={`hdgrfm-selection-checkbox ${checkboxClassName}`}
               onChange={handleCheckboxChange}
             />
           </div>
@@ -281,7 +281,7 @@ const FileItem: React.FC<FileItemProps> = ({
         )}
 
         {file.isEditing ? (
-          <div className={`rename-file-container ${activeLayout}`}>
+          <div className={`hdgrfm-rename-file-container hdgrfm-${activeLayout}`}>
             {triggerAction.actionType === "createFolder" ? (
               <CreateFolderAction
                 filesViewRef={filesViewRef}
@@ -299,26 +299,26 @@ const FileItem: React.FC<FileItemProps> = ({
             )}
           </div>
         ) : (
-          <span className="text-truncate file-name">{file.name}</span>
+          <span className="hdgrfm-text-truncate hdgrfm-file-name">{file.name}</span>
         )}
       </div>
 
       {activeLayout === "list" && (
         <>
           <div
-            className="modified-date"
+            className="hdgrfm-modified-date"
             style={{ width: columnWidths.modified }}
           >
             {formatDate(file.updatedAt)}
           </div>
           <div
-            className="file-permissions"
+            className="hdgrfm-file-permissions"
             style={{ width: columnWidths.permissions }}
           >
             {file.permissions || "-"}
           </div>
           <div
-            className="size"
+            className="hdgrfm-size"
             style={{ width: columnWidths.size }}
           >
             {file?.size && file.size > 0 ? getDataSize(file?.size) : ""}
@@ -333,13 +333,13 @@ const FileItem: React.FC<FileItemProps> = ({
             top: `${tooltipPosition.y}px`,
             left: `${tooltipPosition.x}px`,
           }}
-          className="drag-move-tooltip"
+          className="hdgrfm-drag-move-tooltip"
         >
-          Move to <span className="drop-zone-file-name">{file.name}</span>
+          Move to <span className="hdgrfm-drop-zone-file-name">{file.name}</span>
         </div>
       )}
 
-      <div ref={dragIconRef} className="drag-icon">
+      <div ref={dragIconRef} className="hdgrfm-drag-icon">
         {file.isDirectory ? (
           <AnimatedIcon icon={FolderOpen} size={dragIconSize} />
         ) : (

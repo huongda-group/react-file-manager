@@ -1,11 +1,11 @@
-.toolbar {
+.hdgrfm-toolbar {
   height: 60px;
   min-height: 44px;
   border-bottom: 1px solid var(--fm-border-color);
   padding: 0 10px;
   background-color: var(--fm-bg-color);
 
-  .file-action-container {
+  .hdgrfm-file-action-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,8 +16,8 @@
       gap: 8px;
     }
 
-    .file-action {
-      /* Inherits basic styling from .item-action */
+    .hdgrfm-file-action {
+      /* Inherits basic styling from .hdgrfm-item-action */
 
       &:hover:disabled {
         cursor: default;
@@ -28,7 +28,7 @@
     }
   }
 
-  .fm-toolbar {
+  .hdgrfm-fm-toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,46 +40,9 @@
       gap: 8px;
     }
 
-    .toggle-view {
-      position: absolute;
-      z-index: 3;
-      top: 105%;
-      right: 22%;
-      background-color: var(--fm-popover-bg-color);
-      margin: 0;
-      border: 1px solid var(--fm-popover-border-color);
-      border-radius: 5px;
-      font-size: var(--fm-font-size);
-
-      ul {
-        list-style: none;
-        padding-left: 0;
-        margin: 0.4em 0;
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
-
-        li {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 5px 20px 5px 10px;
-
-          &:hover {
-            cursor: pointer;
-            background-color: var(--fm-item-hover-bg-color);
-            color: var(--fm-item-hover-color);
-          }
-
-          span:nth-child(1) {
-            width: 13px;
-          }
-        }
-      }
-    }
   }
 
-  .item-action {
+  .hdgrfm-item-action {
     background-color: var(--fm-bg-color);
     color: var(--fm-text-color);
     display: flex;
@@ -97,7 +60,7 @@
       color: var(--fm-item-hover-color);
     }
 
-    .toggle-view-icon {
+    .hdgrfm-toggle-view-icon {
       background-color: transparent;
       border: none;
 
@@ -107,12 +70,4 @@
     }
   }
 
-  .icon-only {
-    padding: 7px !important;
-
-    &:focus {
-      background-color: rgba(0, 0, 0, 0.12);
-      border-radius: 3px;
-    }
-  }
 }

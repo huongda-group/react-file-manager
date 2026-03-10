@@ -57,7 +57,7 @@ const NavigationPane: React.FC<NavigationPaneProps> = ({ onFileOpen }) => {
   }, [files]); // Re-run when files changes
 
   return (
-    <div className="sb-folders-list">
+    <div className="hdgrfm-sb-folders-list">
       {foldersTree?.length > 0 ? (
         <>
           {foldersTree?.map((folder, index) => {
@@ -67,7 +67,7 @@ const NavigationPane: React.FC<NavigationPaneProps> = ({ onFileOpen }) => {
           })}
         </>
       ) : (
-        <div className="empty-nav-pane">{t("nothingHereYet")}</div>
+        <div className="hdgrfm-empty-nav-pane">{t("nothingHereYet")}</div>
       )}
     </div>
   );

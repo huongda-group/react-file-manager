@@ -38,12 +38,12 @@ const DecompressAction: React.FC<DecompressActionProps> = ({
     };
 
     return (
-        <div className="fm-decompress-container">
-            <div className="fm-decompress-input-group">
+        <div className="hdgrfm-fm-decompress-container">
+            <div className="hdgrfm-fm-decompress-input-group">
                 <label>{t("destinationPath")}</label>
                 <input
                     type="text"
-                    className="fm-decompress-input"
+                    className="hdgrfm-fm-decompress-input"
                     value={destinationPath}
                     onChange={(e) => setDestinationPath(e.target.value)}
                     onKeyDown={handleKeyDown}
@@ -51,7 +51,7 @@ const DecompressAction: React.FC<DecompressActionProps> = ({
                 />
             </div>
 
-            <div className="fm-decompress-actions">
+            <div className="hdgrfm-fm-decompress-actions">
                 <Button type="secondary" onClick={triggerAction.close}>
                     {t("cancel")}
                 </Button>

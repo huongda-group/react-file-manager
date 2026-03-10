@@ -96,7 +96,7 @@ const FileList: React.FC<FileListProps> = ({
   return (
     <div
       ref={filesViewRef}
-      className={`files ${activeLayout}`}
+      className={`hdgrfm-files hdgrfm-${activeLayout}`}
       onContextMenu={(e) => handleContextMenu(e as unknown as MouseEvent, false)}
       onClick={unselectFiles}
     >
@@ -133,11 +133,10 @@ const FileList: React.FC<FileListProps> = ({
           ))}
         </>
       ) : (
-        <div className="empty-folder">{t("folderEmpty")}</div>
+        <div className="hdgrfm-empty-folder">{t("folderEmpty")}</div>
       )}
 
       <ContextMenu
-        filesViewRef={filesViewRef}
         contextMenuRef={contextMenuRef.ref}
         menuItems={isSelectionCtx ? selecCtxItems : emptySelecCtxItems}
         visible={visible}

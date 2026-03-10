@@ -1,13 +1,13 @@
-.fm-upload-file {
+.hdgrfm-fm-upload-file {
   padding: 18px 15px;
   display: flex;
   gap: 18px;
   font-size: var(--fm-font-size);
 
-  .select-files {
+  .hdgrfm-select-files {
     width: 100%;
 
-    .draggable-file-input {
+    .hdgrfm-draggable-file-input {
       color: var(--fm-text-muted-color);
       background-color: var(--fm-tertiary-bg-color);
       margin-bottom: 18px;
@@ -18,7 +18,7 @@
       justify-content: center;
       align-items: center;
 
-      .input-text {
+      .hdgrfm-input-text {
         pointer-events: none;
         display: flex;
         flex-direction: column;
@@ -30,11 +30,11 @@
       }
     }
 
-    .draggable-file-input.dragging {
+    .hdgrfm-draggable-file-input.hdgrfm-dragging {
       border-color: var(--fm-primary-color);
     }
 
-    .btn-choose-file {
+    .hdgrfm-btn-choose-file {
       display: flex;
       justify-content: center;
 
@@ -47,16 +47,16 @@
         }
       }
 
-      .choose-file-input {
+      .hdgrfm-choose-file-input {
         display: none;
       }
     }
   }
 
-  .files-progress {
+  .hdgrfm-files-progress {
     width: calc(60% - 18px);
 
-    .heading {
+    .hdgrfm-heading {
       display: flex;
       gap: 4px;
     }
@@ -94,36 +94,36 @@
         margin-bottom: 18px;
         padding-bottom: 12px;
 
-        .file-icon {
+        .hdgrfm-file-icon {
           width: 10%;
         }
 
-        .file {
+        .hdgrfm-file {
           width: 86%;
 
-          .file-details {
+          .hdgrfm-file-details {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 5px;
 
-            .file-info {
+            .hdgrfm-file-info {
               width: 90%;
               display: flex;
               align-items: baseline;
 
-              .file-name {
+              .hdgrfm-file-name {
                 display: inline-block;
                 max-width: 66%;
                 margin-right: 8px;
               }
             }
 
-            .file-size {
+            .hdgrfm-file-size {
               font-size: 0.7em;
             }
 
-            .retry-upload {
+            .hdgrfm-retry-upload {
               padding: 3px;
               border-radius: 50%;
 
@@ -134,14 +134,14 @@
               }
             }
 
-            .rm-file {
+            .hdgrfm-rm-file {
               &:hover {
                 cursor: pointer;
                 color: #e74c3c;
               }
             }
 
-            .upload-success {
+            .hdgrfm-upload-success {
               color: var(--fm-primary-color);
             }
           }

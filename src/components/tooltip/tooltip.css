@@ -1,9 +1,9 @@
-.fm-tooltip-container {
+.hdgrfm-fm-tooltip-container {
     position: relative;
     display: inline-flex;
 }
 
-.fm-tooltip {
+.hdgrfm-fm-tooltip {
     position: absolute;
     background-color: #333;
     color: white;
@@ -21,11 +21,11 @@
     margin-bottom: 5px;
 }
 
-.fm-tooltip.visible {
+.hdgrfm-fm-tooltip.hdgrfm-visible {
     opacity: 1;
 }
 
-.fm-tooltip::after {
+.hdgrfm-fm-tooltip::after {
     content: " ";
     position: absolute;
     top: 100%;

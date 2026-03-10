@@ -37,7 +37,6 @@ const FilesHeader: React.FC<FilesHeaderProps> = ({
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setSelectedFiles(currentPathFiles);
-      setShowSelectAll(true);
     } else {
       unselectFiles();
     }
@@ -51,11 +50,11 @@ const FilesHeader: React.FC<FilesHeaderProps> = ({
 
   return (
     <div
-      className="files-header"
+      className="hdgrfm-files-header"
       onMouseOver={() => setShowSelectAll(true)}
       onMouseLeave={() => setShowSelectAll(false)}
     >
-      <div className="file-select-all">
+      <div className="hdgrfm-file-select-all">
         {(showSelectAll || allFilesSelected) && (
           <Checkbox
             id="selectAll"
@@ -67,72 +66,72 @@ const FilesHeader: React.FC<FilesHeaderProps> = ({
         )}
       </div>
       <div
-        className={`file-name ${sortConfig?.key === "name" ? "active" : ""}`}
+        className={`hdgrfm-file-name ${sortConfig?.key === "name" ? "hdgrfm-active" : ""}`}
         onClick={() => handleSort("name")}
         style={{ width: columnWidths.name }}
       >
         {t("name")}
         {sortConfig?.key === "name" && (
-          <span className="sort-indicator">
+          <span className="hdgrfm-sort-indicator">
             {sortConfig.direction === "asc" ? " ▲" : " ▼"}
           </span>
         )}
         <div
-          className="resize-handle"
+          className="hdgrfm-resize-handle"
           onMouseDown={(e) => onResizeStart(e, "name")}
           onClick={(e) => e.stopPropagation()}
         />
       </div>
       <div
-        className={`file-date ${sortConfig?.key === "modified" ? "active" : ""}`}
+        className={`hdgrfm-file-date ${sortConfig?.key === "modified" ? "hdgrfm-active" : ""}`}
         onClick={() => handleSort("modified")}
         style={{ width: columnWidths.modified }}
       >
         {t("modified")}
         {sortConfig?.key === "modified" && (
-          <span className="sort-indicator">
+          <span className="hdgrfm-sort-indicator">
             {sortConfig.direction === "asc" ? " ▲" : " ▼"}
           </span>
         )}
         <div
-          className="resize-handle"
+          className="hdgrfm-resize-handle"
           onMouseDown={(e) => onResizeStart(e, "modified")}
           onClick={(e) => e.stopPropagation()}
         />
       </div>
 
       <div
-        className={`file-permissions ${sortConfig?.key === "permissions" ? "active" : ""
+        className={`hdgrfm-file-permissions ${sortConfig?.key === "permissions" ? "hdgrfm-active" : ""
           }`}
         onClick={() => handleSort("permissions")}
         style={{ width: columnWidths.permissions }}
       >
         {t("permissions")}
         {sortConfig?.key === "permissions" && (
-          <span className="sort-indicator">
+          <span className="hdgrfm-sort-indicator">
             {sortConfig.direction === "asc" ? " ▲" : " ▼"}
           </span>
         )}
         <div
-          className="resize-handle"
+          className="hdgrfm-resize-handle"
           onMouseDown={(e) => onResizeStart(e, "permissions")}
           onClick={(e) => e.stopPropagation()}
         />
       </div>
 
       <div
-        className={`file-size ${sortConfig?.key === "size" ? "active" : ""}`}
+        className={`hdgrfm-file-size ${sortConfig?.key === "size" ? "hdgrfm-active" : ""}`}
         onClick={() => handleSort("size")}
         style={{ width: columnWidths.size }}
       >
         {t("size")}
         {sortConfig?.key === "size" && (
-          <span className="sort-indicator">
+          <span className="hdgrfm-sort-indicator">
             {sortConfig.direction === "asc" ? " ▲" : " ▼"}
           </span>
         )}
         <div
-          className="resize-handle"
+          className="hdgrfm-resize-handle"
           onMouseDown={(e) => onResizeStart(e, "size")}
           onClick={(e) => e.stopPropagation()}
         />

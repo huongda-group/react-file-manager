@@ -66,7 +66,7 @@ const PreviewFileAction: React.FC<PreviewFileActionProps> = ({
 
   return (
     <section
-      className={`file-previewer ${extension === "pdf" ? "pdf-previewer" : ""}`}
+      className={`hdgrfm-file-previewer ${extension === "pdf" ? "hdgrfm-pdf-previewer" : ""}`}
     >
       {hasError ||
         (![
@@ -75,18 +75,18 @@ const PreviewFileAction: React.FC<PreviewFileActionProps> = ({
           ...audioExtensions,
           ...iFrameExtensions,
         ].includes(extension) && (
-            <div className="preview-error">
-              <span className="error-icon">
+            <div className="hdgrfm-preview-error">
+              <span className="hdgrfm-error-icon">
                 {fileIcons[extension] ?? <AnimatedIcon icon={FileText} size={73} />}
               </span>
-              <span className="error-msg">{t("previewUnavailable")}</span>
-              <div className="file-info">
-                <span className="file-name">{selectedFile.name}</span>
+              <span className="hdgrfm-error-msg">{t("previewUnavailable")}</span>
+              <div className="hdgrfm-file-info">
+                <span className="hdgrfm-file-name">{selectedFile.name}</span>
                 {selectedFile.size && <span>-</span>}
-                <span className="file-size">{getDataSize(selectedFile.size ?? 0)}</span>
+                <span className="hdgrfm-file-size">{getDataSize(selectedFile.size ?? 0)}</span>
               </div>
               <Button onClick={handleDownload} padding="0.45rem .9rem">
-                <div className="download-btn">
+                <div className="hdgrfm-download-btn">
                   <AnimatedIcon icon={Download} size={18} />
                   <span>{t("download")}</span>
                 </div>
@@ -99,7 +99,7 @@ const PreviewFileAction: React.FC<PreviewFileActionProps> = ({
           <img
             src={filePath}
             alt="Preview Unavailable"
-            className={`photo-popup-image ${isLoading ? "img-loading" : ""}`}
+            className={`hdgrfm-photo-popup-image ${isLoading ? "hdgrfm-img-loading" : ""}`}
             onLoad={handleImageLoad}
             onError={handleImageError}
             loading="lazy"
@@ -107,10 +107,10 @@ const PreviewFileAction: React.FC<PreviewFileActionProps> = ({
         </>
       )}
       {videoExtensions.includes(extension) && (
-        <video src={filePath} className="video-preview" controls autoPlay />
+        <video src={filePath} className="hdgrfm-video-preview" controls autoPlay />
       )}
       {audioExtensions.includes(extension) && (
-        <audio src={filePath} controls autoPlay className="audio-preview" />
+        <audio src={filePath} controls autoPlay className="hdgrfm-audio-preview" />
       )}
       {iFrameExtensions.includes(extension) && (
         <>
@@ -119,7 +119,7 @@ const PreviewFileAction: React.FC<PreviewFileActionProps> = ({
             onLoad={handleImageLoad}
             onError={handleImageError}
             frameBorder="0"
-            className={`photo-popup-iframe ${isLoading ? "img-loading" : ""}`}
+            className={`hdgrfm-photo-popup-iframe ${isLoading ? "hdgrfm-img-loading" : ""}`}
           ></iframe>
         </>
       )}

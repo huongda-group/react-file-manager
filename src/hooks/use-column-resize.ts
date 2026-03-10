@@ -8,7 +8,6 @@ interface IColSizes {
 interface IUseColumnResizeReturn {
   containerRef: React.RefObject<HTMLDivElement | null>;
   colSizes: IColSizes;
-  setColSizes: React.Dispatch<React.SetStateAction<IColSizes>>;
   isDragging: boolean;
   handleMouseDown: () => void;
   handleMouseUp: () => void;
@@ -56,7 +55,6 @@ export const useColumnResize = (
   return {
     containerRef,
     colSizes,
-    setColSizes,
     isDragging,
     handleMouseDown,
     handleMouseUp,

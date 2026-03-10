@@ -28,13 +28,13 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children, delay = 200 }) => {
 
     return (
         <div
-            className="fm-tooltip-container"
+            className="hdgrfm-fm-tooltip-container"
             onMouseEnter={showTooltip}
             onMouseLeave={hideTooltip}
         >
             {children}
             {isVisible && (
-                <div className={`fm-tooltip ${isVisible ? "visible" : ""}`}>
+                <div className={`hdgrfm-fm-tooltip ${isVisible ? "hdgrfm-visible" : ""}`}>
                     {text}
                 </div>
             )}

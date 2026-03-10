@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export interface IUseTriggerActionReturn {
   isActive: boolean;
@@ -11,15 +11,15 @@ export const useTriggerAction = (): IUseTriggerActionReturn => {
   const [isActive, setIsActive] = useState(false);
   const [actionType, setActionType] = useState<string | null>(null);
 
-  const show = (type: string) => {
+  const show = useCallback((type: string) => {
     setIsActive(true);
     setActionType(type);
-  };
+  }, []);
 
-  const close = () => {
+  const close = useCallback(() => {
     setIsActive(false);
     setActionType(null);
-  };
+  }, []);
 
   return {
     isActive,

@@ -1,4 +1,4 @@
-.fm-button {
+.hdgrfm-fm-button {
   border-radius: 5px;
   font-weight: 600;
   border: none;
@@ -8,7 +8,7 @@
   }
 }
 
-.fm-button-primary {
+.hdgrfm-fm-button-primary {
   background-color: var(--fm-primary-color);
   color: white;
 
@@ -18,7 +18,7 @@
   }
 }
 
-.fm-button-secondary {
+.hdgrfm-fm-button-secondary {
   background-color: var(--fm-tertiary-bg-color);
   color: var(--fm-text-color);
 
@@ -28,7 +28,7 @@
   }
 }
 
-.fm-button-danger {
+.hdgrfm-fm-button-danger {
   background-color: #f44336;
   color: white;
 

@@ -1,8 +1,4 @@
-.text-white {
-  color: white;
-}
-
-.text-truncate {
+.hdgrfm-text-truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -13,30 +9,17 @@ svg {
   vertical-align: middle;
 }
 
-.fm-modal {
-  border: 1px solid #c6c6c6;
-  border-radius: 5px;
-  width: fit-content;
-  overflow-x: hidden;
-  padding: 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.253);
-  margin: auto;
-}
 
-.w-25 {
-  width: 25%;
-}
-
-.file-explorer {
+.hdgrfm-file-explorer {
   min-height: 400px;
-  /* height: 100%; <-- Removed to allow auto height */
   width: 100%;
   font-family: var(--fm-font-family);
   border: 1px solid var(--fm-border-color);
   border-radius: 8px;
   overflow: hidden;
   isolation: isolate;
-
+  display: flex;
+  flex-direction: column;
 
   button {
     font-family: var(--fm-font-family);
@@ -51,19 +34,20 @@ svg {
   -ms-user-select: none;
   user-select: none;
 
-  .files-container {
+  .hdgrfm-files-container {
     display: flex;
-    /* height: calc(100% - 61px); <-- Removed */
-    /* Toolbar total height = baseHeight: 60px + 1px border. */
+    flex: 1;
+    min-height: 0;
 
-    .navigation-pane {
+    .hdgrfm-navigation-pane {
       z-index: 10;
       padding-top: 8px;
       background-color: var(--fm-bg-color);
       min-width: 0;
       position: relative;
+      height: 100%;
 
-      .sidebar-resize {
+      .hdgrfm-sidebar-resize {
         position: absolute;
         right: 0px;
         top: 0px;
@@ -78,20 +62,20 @@ svg {
         }
       }
 
-      .sidebar-dragging {
+      .hdgrfm-sidebar-dragging {
         border-right: 1px solid #1e3a8a;
       }
     }
 
-    .navigation-pane.open {
+    .hdgrfm-navigation-pane.hdgrfm-open {
       display: block;
     }
 
-    .navigation-pane.closed {
+    .hdgrfm-navigation-pane.hdgrfm-closed {
       display: none;
     }
 
-    .folders-preview {
+    .hdgrfm-folders-preview {
       z-index: 1;
       background-color: var(--fm-bg-color);
       padding-right: 0px;
@@ -100,11 +84,12 @@ svg {
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      height: 100%;
     }
   }
 }
 
-.close-icon {
+.hdgrfm-close-icon {
   padding: 5px;
   border-radius: 50%;
 
@@ -114,22 +99,22 @@ svg {
   }
 }
 
-.fm-rename-folder-container {
+.hdgrfm-fm-rename-folder-container {
   padding: 8px 0;
   text-align: left;
 
-  .fm-rename-folder-input {
+  .hdgrfm-fm-rename-folder-input {
     border-bottom: 1px solid #c6c6c6;
     padding: 8px 12px 12px;
 
-    .fm-rename-warning {
+    .hdgrfm-fm-rename-warning {
       display: flex;
       align-items: center;
       gap: 10px;
     }
   }
 
-  .fm-rename-folder-action {
+  .hdgrfm-fm-rename-folder-action {
     display: flex;
     gap: 8px;
     justify-content: flex-end;
@@ -137,8 +122,3 @@ svg {
   }
 }
 
-.file-selcted {
-  .select-files {
-    width: 40%;
-  }
-}

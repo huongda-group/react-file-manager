@@ -13,30 +13,28 @@ function App() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [language, setLanguage] = useState("vi-vn");
   const [files, setFiles] = useState<IFile[]>([
-    {
-      _id: "root-1",
-      name: "Documents",
-      isDirectory: true,
-      path: "/Documents",
-      updatedAt: new Date().toISOString(),
-      size: 0,
-    },
-    {
-      _id: "root-2",
-      name: "Images",
-      isDirectory: true,
-      path: "/Images",
-      updatedAt: new Date().toISOString(),
-      size: 0,
-    },
-    {
-      _id: "img-1",
-      name: "profile.jpg",
-      isDirectory: false,
-      path: "/Images/profile.jpg",
-      updatedAt: new Date().toISOString(),
-      size: 1024 * 50,
-    }
+    { _id: "root-1", name: "Documents", isDirectory: true, path: "/Documents", updatedAt: new Date().toISOString(), size: 0 },
+    { _id: "root-2", name: "Images", isDirectory: true, path: "/Images", updatedAt: new Date().toISOString(), size: 0 },
+    { _id: "root-3", name: "Videos", isDirectory: true, path: "/Videos", updatedAt: new Date().toISOString(), size: 0 },
+    { _id: "root-4", name: "Music", isDirectory: true, path: "/Music", updatedAt: new Date().toISOString(), size: 0 },
+    { _id: "root-5", name: "Downloads", isDirectory: true, path: "/Downloads", updatedAt: new Date().toISOString(), size: 0 },
+    { _id: "root-6", name: "Projects", isDirectory: true, path: "/Projects", updatedAt: new Date().toISOString(), size: 0 },
+    { _id: "f-1", name: "readme.txt", isDirectory: false, path: "/readme.txt", updatedAt: new Date().toISOString(), size: 1024 * 2, permissions: "rw-r--r--" },
+    { _id: "f-2", name: "report.pdf", isDirectory: false, path: "/report.pdf", updatedAt: new Date().toISOString(), size: 1024 * 512, permissions: "rw-r--r--" },
+    { _id: "f-3", name: "budget.xlsx", isDirectory: false, path: "/budget.xlsx", updatedAt: new Date().toISOString(), size: 1024 * 80 },
+    { _id: "f-4", name: "notes.docx", isDirectory: false, path: "/notes.docx", updatedAt: new Date().toISOString(), size: 1024 * 35 },
+    { _id: "f-5", name: "backup.zip", isDirectory: false, path: "/backup.zip", updatedAt: new Date().toISOString(), size: 1024 * 1024 * 120 },
+    { _id: "f-6", name: "photo1.jpg", isDirectory: false, path: "/photo1.jpg", updatedAt: new Date().toISOString(), size: 1024 * 200 },
+    { _id: "f-7", name: "photo2.png", isDirectory: false, path: "/photo2.png", updatedAt: new Date().toISOString(), size: 1024 * 340 },
+    { _id: "f-8", name: "presentation.pptx", isDirectory: false, path: "/presentation.pptx", updatedAt: new Date().toISOString(), size: 1024 * 1024 * 5 },
+    { _id: "f-9", name: "data.csv", isDirectory: false, path: "/data.csv", updatedAt: new Date().toISOString(), size: 1024 * 15 },
+    { _id: "f-10", name: "script.sh", isDirectory: false, path: "/script.sh", updatedAt: new Date().toISOString(), size: 1024 * 3, permissions: "rwxr-xr-x" },
+    { _id: "f-11", name: "config.json", isDirectory: false, path: "/config.json", updatedAt: new Date().toISOString(), size: 1024 * 1 },
+    { _id: "f-12", name: "archive.tar.gz", isDirectory: false, path: "/archive.tar.gz", updatedAt: new Date().toISOString(), size: 1024 * 1024 * 45 },
+    { _id: "img-1", name: "profile.jpg", isDirectory: false, path: "/Images/profile.jpg", updatedAt: new Date().toISOString(), size: 1024 * 50 },
+    { _id: "img-2", name: "banner.png", isDirectory: false, path: "/Images/banner.png", updatedAt: new Date().toISOString(), size: 1024 * 420 },
+    { _id: "doc-1", name: "contract.pdf", isDirectory: false, path: "/Documents/contract.pdf", updatedAt: new Date().toISOString(), size: 1024 * 90 },
+    { _id: "doc-2", name: "invoice.docx", isDirectory: false, path: "/Documents/invoice.docx", updatedAt: new Date().toISOString(), size: 1024 * 22 },
   ]);
   const [currentPath, setCurrentPath] = useState("");
 
@@ -235,15 +233,15 @@ function App() {
   };
 
   return (
-    <div className={`app ${theme}`}>
-      <div className="header">
+    <div className={`hdgrfm-app hdgrfm-${theme}`}>
+      <div className="hdgrfm-header">
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
           <img src={hdgLogo} alt="HDG Logo" style={{ height: 60 }} />
           <h1>React File Manager</h1>
         </div>
-        <div className="header-actions">
+        <div className="hdgrfm-header-actions">
           <select
-            className="lang-select"
+            className="hdgrfm-lang-select"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
           >
@@ -257,7 +255,7 @@ function App() {
             <option value="ru-ru">Русский</option>
           </select>
           <button
-            className="theme-toggle"
+            className="hdgrfm-theme-toggle"
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
           >
@@ -265,7 +263,7 @@ function App() {
           </button>
         </div>
       </div>
-      <div className="file-manager-container">
+      <div className="hdgrfm-file-manager-container">
         <FileManager
           files={files}
           theme={theme}
@@ -313,12 +311,12 @@ function App() {
           onFolderChange={setCurrentPath}
         />
       </div>
-      <div className="footer">
+      <div className="hdgrfm-footer">
         <a
           href="https://github.com/huongda-group/react-file-manager"
           target="_blank"
           rel="noopener noreferrer"
-          className="github-link"
+          className="hdgrfm-github-link"
         >
           <Github size={18} />
           <span>View on GitHub</span>

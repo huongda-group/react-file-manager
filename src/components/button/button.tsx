@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       onKeyDown={onKeyDown}
-      className={`fm-button fm-button-${type}`}
+      className={`hdgrfm-fm-button hdgrfm-fm-button-${type}`}
       style={{ padding: padding }}
     >
       {children}

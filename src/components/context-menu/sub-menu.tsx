@@ -25,10 +25,10 @@ const SubMenu: React.FC<SubMenuProps> = ({
   position = "right",
 }) => {
   return (
-    <ul ref={subMenuRef} className={`sub-menu ${position}`}>
+    <ul ref={subMenuRef} className={`hdgrfm-sub-menu hdgrfm-${position}`}>
       {list?.map((item) => (
         <li key={item.title} onClick={item.onClick}>
-          <span className="item-selected">
+          <span className="hdgrfm-item-selected">
             {item.selected && <AnimatedIcon icon={Check} size={13} />}
           </span>
           {item.icon}

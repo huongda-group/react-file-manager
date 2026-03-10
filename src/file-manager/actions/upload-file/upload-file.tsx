@@ -134,28 +134,28 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
   const isAnyUploading = Object.values(isUploading).some(Boolean);
 
   return (
-    <div className={`fm-upload-file ${files.length > 0 ? "file-selcted" : ""}`}>
-      <div className="select-files">
+    <div className={`hdgrfm-fm-upload-file ${files.length > 0 ? "hdgrfm-file-selcted" : ""}`}>
+      <div className="hdgrfm-select-files">
         <div
-          className={`draggable-file-input ${isDragging ? "dragging" : ""}`}
+          className={`hdgrfm-draggable-file-input ${isDragging ? "hdgrfm-dragging" : ""}`}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
         >
-          <div className="input-text">
+          <div className="hdgrfm-input-text">
             <AnimatedIcon icon={CloudUpload} size={30} animation="bounce" />
             <span>{t("dragFileToUpload")}</span>
           </div>
         </div>
-        <div className="btn-choose-file">
+        <div className="hdgrfm-btn-choose-file">
           <Button padding="0" onKeyDown={handleChooseFileKeyDown}>
             <label htmlFor="chooseFile">{t("chooseFile")}</label>
             <input
               ref={fileInputRef}
               type="file"
               id="chooseFile"
-              className="choose-file-input"
+              className="hdgrfm-choose-file-input"
               onChange={handleChooseFile}
               multiple
               accept={acceptedFileTypes}
@@ -164,12 +164,12 @@ const UploadFileAction: React.FC<UploadFileActionProps> = ({
         </div>
       </div>
       {files.length > 0 && (
-        <div className="files-progress">
-          <div className="heading">
+        <div className="hdgrfm-files-progress">
+          <div className="hdgrfm-heading">
             {isAnyUploading ? (
               <>
                 <h2>{t("uploading")}</h2>
-                <Loader loading={true} className="upload-loading" />
+                <Loader loading={true} className="hdgrfm-upload-loading" />
               </>
             ) : (
               <h2>{t("completed")}</h2>

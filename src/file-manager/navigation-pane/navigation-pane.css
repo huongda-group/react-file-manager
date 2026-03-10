@@ -1,4 +1,4 @@
-.sb-folders-list {
+.hdgrfm-sb-folders-list {
   list-style: none;
   margin: 0px 4px;
   height: 100%;
@@ -16,11 +16,11 @@
     border-radius: 8px;
   }
 
-  .folder-collapsible {
+  .hdgrfm-folder-collapsible {
     margin-left: 10px;
   }
 
-  .sb-folders-list-item {
+  .hdgrfm-sb-folders-list-item {
     display: flex;
     align-items: center;
     margin-bottom: 4px;
@@ -33,38 +33,38 @@
       color: var(--fm-item-hover-color);
     }
 
-    .non-expanable {
+    .hdgrfm-non-expanable {
       min-width: 20px;
     }
 
-    .sb-folder-details {
+    .hdgrfm-sb-folder-details {
       display: flex;
       align-items: center;
 
-      .folder-open-icon {
+      .hdgrfm-folder-open-icon {
         margin: 0 7px;
       }
 
-      .folder-close-icon {
+      .hdgrfm-folder-close-icon {
         margin: 1px 9px 0px 8px;
       }
 
-      .sb-folder-name {
+      .hdgrfm-sb-folder-name {
         width: max-content;
       }
     }
 
-    .folder-icon-default {
+    .hdgrfm-folder-icon-default {
       transform: rotate(0deg);
       transition: transform 0.5s ease-in-out;
 
-      &.folder-rotate-down {
+      &.hdgrfm-folder-rotate-down {
         transform: rotate(90deg);
       }
     }
   }
 
-  .active-list-item {
+  .hdgrfm-active-list-item {
     background-color: var(--fm-primary-color);
     color: white;
 
@@ -74,7 +74,7 @@
     }
   }
 
-  .empty-nav-pane {
+  .hdgrfm-empty-nav-pane {
     display: flex;
     justify-content: center;
     align-items: center;

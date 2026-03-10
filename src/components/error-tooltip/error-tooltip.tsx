@@ -12,7 +12,7 @@ const ErrorTooltip: React.FC<ErrorTooltipProps> = ({
   yPlacement = "",
 }) => {
   return (
-    <p className={`error-tooltip ${xPlacement} ${yPlacement}`}>{message}</p>
+    <p className={`hdgrfm-error-tooltip ${xPlacement} ${yPlacement}`}>{message}</p>
   );
 };
 

@@ -153,20 +153,20 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
   }, [folders, hiddenFolders, hiddenFoldersWidth]); // Added dependencies
 
   return (
-    <div className="bread-crumb-container">
-      <div className="breadcrumb" ref={breadCrumbRef}>
+    <div className="hdgrfm-bread-crumb-container">
+      <div className="hdgrfm-breadcrumb" ref={breadCrumbRef}>
         {collapsibleNav && (
           <>
             <div
               ref={navTogglerRef}
-              className="nav-toggler"
+              className="hdgrfm-nav-toggler"
               title={`${isNavigationPaneOpen
                 ? t("collapseNavigationPane")
                 : t("expandNavigationPane")
                 }`}
             >
               <span
-                className="folder-name folder-name-btn"
+                className="hdgrfm-folder-name hdgrfm-folder-name-btn"
                 onClick={() => setNavigationPaneOpen((prev) => !prev)}
               >
                 {isNavigationPaneOpen ? (
@@ -176,13 +176,13 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
                 )}
               </span>
             </div>
-            <div className="divider" />
+            <div className="hdgrfm-divider" />
           </>
         )}
         {folders.map((folder, index) => (
           <div key={index} style={{ display: "contents" }}>
             <span
-              className="folder-name"
+              className="hdgrfm-folder-name"
               onClick={() => switchPath(folder.path)}
               ref={(el) => {
                 foldersRef.current[index] = el;
@@ -193,12 +193,12 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
             </span>
             {hiddenFolders?.length > 0 && index === 0 && (
               <button
-                className="folder-name folder-name-btn"
+                className="hdgrfm-folder-name hdgrfm-folder-name-btn"
                 onClick={() => setShowHiddenFolders(true)}
                 ref={moreBtnRef}
                 title={t("showMoreFolder")}
               >
-                <AnimatedIcon icon={MoreHorizontal} size={22} className="hidden-folders" />
+                <AnimatedIcon icon={MoreHorizontal} size={22} className="hdgrfm-hidden-folders" />
               </button>
             )}
           </div>
@@ -206,7 +206,7 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({
       </div>
 
       {showHiddenFolders && (
-        <ul ref={popover.ref} className="hidden-folders-container">
+        <ul ref={popover.ref} className="hdgrfm-hidden-folders-container">
           {hiddenFolders.map((folder, index) => (
             <li
               key={index}

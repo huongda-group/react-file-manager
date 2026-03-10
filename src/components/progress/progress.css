@@ -1,15 +1,15 @@
-.fm-progress {
+.hdgrfm-fm-progress {
   display: flex;
   flex-direction: column;
   gap: 5px;
 
-  .fm-progress-bar {
+  .hdgrfm-fm-progress-bar {
     width: 100%;
     border-radius: 5px;
     background-color: #c6c6c6;
     height: 5px;
 
-    .fm-progress-bar-fill {
+    .hdgrfm-fm-progress-bar-fill {
       height: 100%;
       background-color: var(--fm-primary-color);
       border-radius: 5px;
@@ -17,14 +17,14 @@
     }
   }
 
-  .fm-progress-status {
+  .hdgrfm-fm-progress-status {
     font-size: 0.75em;
     font-weight: 600;
     display: flex;
     justify-content: space-between;
   }
 
-  .fm-upload-canceled {
+  .hdgrfm-fm-upload-canceled {
     font-size: 0.75em;
     font-weight: 600;
     color: red;

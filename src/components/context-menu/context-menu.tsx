@@ -10,7 +10,6 @@ interface IClickPosition {
 }
 
 interface ContextMenuProps {
-  filesViewRef: RefObject<HTMLElement | null>;
   contextMenuRef: RefObject<HTMLDivElement | null>;
   menuItems: IMenuItem[];
   visible: boolean;
@@ -96,13 +95,13 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
       ref={contextMenuRef}
       onContextMenu={handleContextMenu}
       onClick={(e) => e.stopPropagation()}
-      className={`fm-context-menu ${top ? "visible" : "hidden"}`}
+      className={`hdgrfm-fm-context-menu ${top ? "hdgrfm-visible" : "hdgrfm-hidden"}`}
       style={{
         top: top,
         left: left,
       }}
     >
-      <div className="file-context-menu-list">
+      <div className="hdgrfm-file-context-menu-list">
         <ul>
           {menuItems
             .filter((item) => !item.hidden)
@@ -113,7 +112,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
                 <div key={item.title}>
                   <li
                     onClick={item.onClick}
-                    className={`${item.className ?? ""} ${activeSubMenu ? "active" : ""
+                    className={`${item.className ?? ""} ${activeSubMenu ? "hdgrfm-active" : ""
                       }`}
                     onMouseOver={() => handleMouseOver(index)}
                   >
@@ -124,7 +123,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
                         <AnimatedIcon
                           icon={ChevronRight}
                           size={14}
-                          className="list-expand-icon"
+                          className="hdgrfm-list-expand-icon"
                         />
                         {activeSubMenu && (
                           <SubMenu
@@ -139,7 +138,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
                   {item.divider &&
                     index !==
                     menuItems.filter((item) => !item.hidden).length - 1 && (
-                      <div className="divider"></div>
+                      <div className="hdgrfm-divider"></div>
                     )}
                 </div>
               );
