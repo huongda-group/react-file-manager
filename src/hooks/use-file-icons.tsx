@@ -9,16 +9,19 @@ import {
   FilePieChart,
   File,
 } from "lucide-react";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import { AnimatedIcon } from "../components/ui/animated-icon";
 
 export const useFileIcons = (size?: number): Record<string, ReactElement> => {
-  const renderIcon = (Icon: any, color?: string) => (
-    <AnimatedIcon icon={Icon} size={size} color={color} />
-  );
+  // ⚡ Bolt: Wrap fileIcons in useMemo to prevent recreating the large dictionary of React elements on every render
+  // This reduces unnecessary re-renders in FileItem components
+  const fileIcons = useMemo(() => {
+    const renderIcon = (Icon: any, color?: string) => (
+      <AnimatedIcon icon={Icon} size={size} color={color} />
+    );
 
-  const fileIcons: Record<string, ReactElement> = {
-    pdf: renderIcon(FileText, "#ef4444"), // Red for PDF
+    return {
+      pdf: renderIcon(FileText, "#ef4444"), // Red for PDF
     jpg: renderIcon(FileImage, "#3b82f6"),
     jpeg: renderIcon(FileImage, "#3b82f6"),
     png: renderIcon(FileImage, "#3b82f6"),
@@ -52,7 +55,8 @@ export const useFileIcons = (size?: number): Record<string, ReactElement> => {
     csv: renderIcon(FileSpreadsheet, "#10b981"),
     md: renderIcon(FileText, "#fff"),
     svg: renderIcon(FileCode, "#f59e0b"),
-  };
+    };
+  }, [size]);
 
   return fileIcons;
 };
