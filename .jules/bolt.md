@@ -1,0 +1,3 @@
+## 2024-05-24 - O(n²) behavior when selecting files in useFileList.tsx
+**Learning:** Found a performance bottleneck in `useFileList.tsx` where a `selectedFiles.map` loop nested with a `currentPathFiles.findIndex` was used to calculate selected indexes. This leads to `O(n²)` time complexity which can significantly slow down operations, especially when selecting many/all files in a large directory.
+**Action:** Replaced the `O(n²)` behavior with an `O(n)` hash map lookup approach (building a map of `currentPathFiles` and performing direct lookups when iterating over `selectedFiles`). This pattern should be consistently applied when computing derived selection/state mapping across arrays.
