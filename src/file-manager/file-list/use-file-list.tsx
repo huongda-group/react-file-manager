@@ -349,11 +349,17 @@ const useFileList = (
 
   useEffect(() => {
     if (selectedFiles.length > 0) {
+      // ⚡ Bolt Optimization: Replace O(n²) array search with O(n) hash map lookup
+      // Reduces time complexity significantly when selecting many files in large directories
+      const pathToIndexMap = new Map<string, number>();
+      for (let i = 0; i < currentPathFiles.length; i++) {
+        pathToIndexMap.set(currentPathFiles[i].path, i);
+      }
+
       setSelectedFileIndexes(() => {
         return selectedFiles.map((selectedFile) => {
-          return currentPathFiles.findIndex(
-            (f) => f.path === selectedFile.path
-          );
+          const index = pathToIndexMap.get(selectedFile.path);
+          return index !== undefined ? index : -1;
         });
       });
     } else {
