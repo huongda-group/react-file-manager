@@ -9,16 +9,21 @@ import {
   FilePieChart,
   File,
 } from "lucide-react";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import { AnimatedIcon } from "../components/ui/animated-icon";
 
 export const useFileIcons = (size?: number): Record<string, ReactElement> => {
-  const renderIcon = (Icon: any, color?: string) => (
-    <AnimatedIcon icon={Icon} size={size} color={color} />
-  );
+  // ⚡ Bolt: Memoize the file icons mapping to avoid recreating the object
+  // and all its React elements on every render.
+  // This reduces unnecessary memory allocation and re-renders, especially
+  // since this hook is called for every FileItem in the FileList.
+  return useMemo(() => {
+    const renderIcon = (Icon: any, color?: string) => (
+      <AnimatedIcon icon={Icon} size={size} color={color} />
+    );
 
-  const fileIcons: Record<string, ReactElement> = {
-    pdf: renderIcon(FileText, "#ef4444"), // Red for PDF
+    return {
+      pdf: renderIcon(FileText, "#ef4444"), // Red for PDF
     jpg: renderIcon(FileImage, "#3b82f6"),
     jpeg: renderIcon(FileImage, "#3b82f6"),
     png: renderIcon(FileImage, "#3b82f6"),
@@ -50,10 +55,9 @@ export const useFileIcons = (size?: number): Record<string, ReactElement> => {
     xml: renderIcon(FileCode, "#f59e0b"),
     sql: renderIcon(FileCode, "#3b82f6"),
     csv: renderIcon(FileSpreadsheet, "#10b981"),
-    md: renderIcon(FileText, "#fff"),
-    svg: renderIcon(FileCode, "#f59e0b"),
-  };
-
-  return fileIcons;
+      md: renderIcon(FileText, "#fff"),
+      svg: renderIcon(FileCode, "#f59e0b"),
+    };
+  }, [size]);
 };
 
