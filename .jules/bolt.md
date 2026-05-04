@@ -1,0 +1,3 @@
+## 2024-05-04 - React Element Allocation in Custom Hooks
+**Learning:** Returning an object/array containing React elements (e.g. `<AnimatedIcon />`) directly from a custom hook without memoization causes exponential element creation. In list components (like `FileItem`), calling this hook multiple times (e.g. for main icon and drag icon) results in recreating *all* map items per list item, creating massive GC pressure and slowing down list renders significantly.
+**Action:** Always wrap objects or arrays containing React elements returned by custom hooks in `useMemo`, depending only on variables that actually change the elements (like `size`).
