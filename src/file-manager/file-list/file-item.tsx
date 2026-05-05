@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, DragEvent, MouseEvent, KeyboardEvent, RefObject } from "react";
+import { useRef, useState, DragEvent, MouseEvent, KeyboardEvent, RefObject } from "react";
 import { File, FolderOpen } from "lucide-react";
 import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useFileIcons } from "../../hooks/use-file-icons";
@@ -49,9 +49,15 @@ const FileItem: React.FC<FileItemProps> = ({
   formatDate,
   columnWidths,
 }) => {
-  const [fileSelected, setFileSelected] = useState(false);
+  // ⚡ Bolt: Derived state instead of useState + useEffect eliminates an unnecessary
+  // double-rendering cascade across all FileItem components whenever selection changes
+  const fileSelected = selectedFileIndexes.includes(index);
+
+  // ⚡ Bolt: Removed localized string state and replaced it with boolean state
+  const [isHovered, setIsHovered] = useState(false);
+  const checkboxClassName = fileSelected || isHovered ? "hdgrfm-visible" : "hdgrfm-hidden";
+
   const [lastClickTime, setLastClickTime] = useState(0);
-  const [checkboxClassName, setCheckboxClassName] = useState("hdgrfm-hidden");
   const [dropZoneClass, setDropZoneClass] = useState("");
   const [tooltipPosition, setTooltipPosition] = useState<{
     x: number;
@@ -152,11 +158,11 @@ const FileItem: React.FC<FileItemProps> = ({
 
   // Selection Checkbox Functions
   const handleMouseOver = () => {
-    setCheckboxClassName("hdgrfm-visible");
+    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
-    !fileSelected && setCheckboxClassName("hdgrfm-hidden");
+    setIsHovered(false);
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,8 +173,6 @@ const FileItem: React.FC<FileItemProps> = ({
         prev.filter((f) => f.name !== file.name && f.path !== file.path)
       );
     }
-
-    setFileSelected(e.target.checked);
   };
   //
 
@@ -219,13 +223,6 @@ const FileItem: React.FC<FileItemProps> = ({
     setDropZoneClass((prev) => (prev ? "" : prev));
     setTooltipPosition(null);
   };
-
-  useEffect(() => {
-    setFileSelected(selectedFileIndexes.includes(index));
-    setCheckboxClassName(
-      selectedFileIndexes.includes(index) ? "hdgrfm-visible" : "hdgrfm-hidden"
-    );
-  }, [selectedFileIndexes]);
 
   return (
     <div
