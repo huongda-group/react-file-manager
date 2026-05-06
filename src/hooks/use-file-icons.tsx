@@ -9,10 +9,18 @@ import {
   FilePieChart,
   File,
 } from "lucide-react";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import { AnimatedIcon } from "../components/ui/animated-icon";
 
+// Global cache for icons by size to prevent recreating 34 React elements
+// per FileItem per render, which causes massive memory allocation in large lists.
+const iconCache = new Map<number | undefined, Record<string, ReactElement>>();
+
 export const useFileIcons = (size?: number): Record<string, ReactElement> => {
+  return useMemo(() => {
+    if (iconCache.has(size)) {
+      return iconCache.get(size)!;
+    }
   const renderIcon = (Icon: any, color?: string) => (
     <AnimatedIcon icon={Icon} size={size} color={color} />
   );
@@ -54,6 +62,8 @@ export const useFileIcons = (size?: number): Record<string, ReactElement> => {
     svg: renderIcon(FileCode, "#f59e0b"),
   };
 
-  return fileIcons;
+    iconCache.set(size, fileIcons);
+    return fileIcons;
+  }, [size]);
 };
 
