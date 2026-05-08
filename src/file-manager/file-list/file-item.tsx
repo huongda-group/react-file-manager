@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, DragEvent, MouseEvent, KeyboardEvent, RefObject } from "react";
+import { useEffect, useRef, useState, DragEvent, MouseEvent, KeyboardEvent, RefObject, memo } from "react";
 import { File, FolderOpen } from "lucide-react";
 import { AnimatedIcon } from "../../components/ui/animated-icon";
 import { useFileIcons } from "../../hooks/use-file-icons";
@@ -355,4 +355,4 @@ const FileItem: React.FC<FileItemProps> = ({
   );
 };
 
-export default FileItem;
+export default memo(FileItem);

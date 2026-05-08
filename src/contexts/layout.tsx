@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, PropsWithChildren } from "react";
+import { createContext, useContext, useState, PropsWithChildren, useMemo } from "react";
 
 export type LayoutType = "grid" | "list";
 
@@ -25,8 +25,10 @@ export const LayoutProvider = ({ children, layout }: LayoutProviderProps) => {
       : "grid";
   }
 
+  const contextValue = useMemo(() => ({ activeLayout, setActiveLayout }), [activeLayout, setActiveLayout]);
+
   return (
-    <LayoutContext.Provider value={{ activeLayout, setActiveLayout }}>
+    <LayoutContext.Provider value={contextValue}>
       {children}
     </LayoutContext.Provider>
   );

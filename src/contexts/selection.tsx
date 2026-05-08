@@ -1,4 +1,6 @@
 import {
+  useCallback,
+  useMemo,
   createContext,
   useContext,
   useEffect,
@@ -35,13 +37,15 @@ export const SelectionProvider = ({
     onSelectionChange?.(selectedFiles);
   }, [selectedFiles]);
 
-  const handleDownload = () => {
+  const handleDownload = useCallback(() => {
     validateApiCallback(onDownload, "onDownload", selectedFiles);
-  };
+  }, [onDownload, selectedFiles]);
+
+  const contextValue = useMemo(() => ({ selectedFiles, setSelectedFiles, handleDownload }), [selectedFiles, setSelectedFiles, handleDownload]);
 
   return (
     <SelectionContext.Provider
-      value={{ selectedFiles, setSelectedFiles, handleDownload }}
+      value={contextValue}
     >
       {children}
     </SelectionContext.Provider>
