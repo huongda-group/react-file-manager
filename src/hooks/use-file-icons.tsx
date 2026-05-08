@@ -12,7 +12,10 @@ import {
 import { ReactElement } from "react";
 import { AnimatedIcon } from "../components/ui/animated-icon";
 
+import { useMemo } from "react";
+
 export const useFileIcons = (size?: number): Record<string, ReactElement> => {
+  return useMemo(() => {
   const renderIcon = (Icon: any, color?: string) => (
     <AnimatedIcon icon={Icon} size={size} color={color} />
   );
@@ -54,6 +57,7 @@ export const useFileIcons = (size?: number): Record<string, ReactElement> => {
     svg: renderIcon(FileCode, "#f59e0b"),
   };
 
-  return fileIcons;
+    return fileIcons;
+  }, [size]);
 };
 

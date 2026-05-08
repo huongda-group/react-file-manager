@@ -1,0 +1,3 @@
+## 2024-05-08 - Context Provider Inline Objects Cause Widespread Re-renders
+**Learning:** The application uses an extensive Context-based architecture (`FilesContext`, `SelectionContext`, `FileNavigationContext`, etc.). Passing unmemoized, inline objects as the `value` prop to these Context Providers causes all consuming components to re-render whenever the Provider's parent renders, even if the actual state values haven't changed.
+**Action:** Always wrap Context Provider `value` objects in `useMemo` and ensure nested functions are wrapped in `useCallback` to maintain referential equality and prevent re-render cascades in React Context architectures.
