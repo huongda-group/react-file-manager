@@ -1,29 +1,29 @@
-import { useEffect, useRef, useState, DragEvent, MouseEvent, KeyboardEvent, RefObject } from "react";
-import { File, FolderOpen } from "lucide-react";
-import { AnimatedIcon } from "../../components/ui/animated-icon";
-import { useFileIcons } from "../../hooks/use-file-icons";
+import React, { useState, MouseEvent, KeyboardEvent, DragEvent, useRef, useEffect, memo } from "react";
 import CreateFolderAction from "../../file-manager/actions/create-folder/create-folder";
 import RenameAction from "../../file-manager/actions/rename/rename";
-import { getDataSize } from "../../utils/get-data-size";
+import { FolderOpen, File } from "lucide-react";
+import { AnimatedIcon } from "../../components/ui/animated-icon";
+import { useFileIcons } from "../../hooks/use-file-icons";
+import { useLayout } from "../../contexts/layout";
 import { useFileNavigation } from "../../contexts/file-navigation";
 import { useSelection } from "../../contexts/selection";
-import { useClipBoard } from "../../contexts/clipboard";
-import { useLayout } from "../../contexts/layout";
+import { getDataSize } from "../../utils/get-data-size";
 import Checkbox from "../../components/checkbox/checkbox";
+import { useClipBoard } from "../../contexts/clipboard";
 import { IFile } from "../../types";
 import { IUseTriggerActionReturn } from "../../hooks/use-trigger-action";
 import { ColumnWidths } from "../../hooks/use-table-resize";
 
-const dragIconSize = 50;
+const dragIconSize = 25;
 
 interface FileItemProps {
   index: number;
   file: IFile;
   onCreateFolder?: (name: string, parent: IFile | null) => void;
-  onRename?: (file: IFile, newName: string, parentPath?: string) => void;
+  onRename?: (file: IFile, newName: string) => void;
   enableFilePreview?: boolean;
   onFileOpen: (file: IFile) => void;
-  filesViewRef: RefObject<HTMLElement | null>;
+  filesViewRef: React.RefObject<HTMLDivElement | null>;
   selectedFileIndexes: number[];
   triggerAction: IUseTriggerActionReturn;
   handleContextMenu: (e: MouseEvent, isSelection?: boolean) => void;
@@ -33,7 +33,7 @@ interface FileItemProps {
   columnWidths: ColumnWidths;
 }
 
-const FileItem: React.FC<FileItemProps> = ({
+const FileItem: React.FC<FileItemProps> = memo(({
   index,
   file,
   onCreateFolder,
@@ -353,6 +353,6 @@ const FileItem: React.FC<FileItemProps> = ({
       {/* Drag Icon & Tooltip Setup */}
     </div>
   );
-};
+});
 
 export default FileItem;
