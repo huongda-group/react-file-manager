@@ -1,0 +1,3 @@
+## 2024-05-10 - Prevent unnecessary re-renders in File Explorer
+**Learning:** The file explorer's NavigationPane was building the folder tree state inside a `useEffect` on every `files` update, causing an extra render cycle. Furthermore, `FolderTree` and `FileItem` components were unnecessarily re-rendering in deep structures and large lists when their props hadn't changed.
+**Action:** Replace state-setting `useEffect` hooks with `useMemo` for derived data (like building tree structures from flat arrays) to compute values during the render phase. Wrap frequently rendered list/tree items with `React.memo` to skip re-renders when props are stable.

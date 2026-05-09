@@ -1,4 +1,4 @@
-import React, { useEffect, useState, MouseEvent } from "react";
+import React, { useEffect, useState, MouseEvent, memo } from "react";
 import Collapse from "../../components/collapse/collapse";
 import { Folder, FolderOpen, ChevronRight } from "lucide-react";
 import { AnimatedIcon } from "../../components/ui/animated-icon";
@@ -15,7 +15,7 @@ interface FolderTreeProps {
   onFileOpen: (file: IFile) => void;
 }
 
-const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
+const FolderTree: React.FC<FolderTreeProps> = memo(({ folder, onFileOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const { currentPath, setCurrentPath, onFolderChange } = useFileNavigation();
@@ -92,6 +92,6 @@ const FolderTree: React.FC<FolderTreeProps> = ({ folder, onFileOpen }) => {
       )}
     </>
   );
-};
+});
 
 export default FolderTree;

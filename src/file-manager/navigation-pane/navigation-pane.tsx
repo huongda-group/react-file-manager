@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import FolderTree, { IFolderTreeItem } from "../../file-manager/navigation-pane/folder-tree";
 import { getParentPath } from "../../utils/get-parent-path";
 import { useFiles } from "../../contexts/files";
@@ -12,49 +12,43 @@ interface NavigationPaneProps {
 }
 
 const NavigationPane: React.FC<NavigationPaneProps> = ({ onFileOpen }) => {
-  const [foldersTree, setFoldersTree] = useState<IFolderTreeItem[]>([]);
   const { files } = useFiles();
-  // const { sortConfig } = useFileNavigation(); // Removed sortConfig dependency
   const t = useTranslation();
 
-  // Sort helper function
-  const sortFolders = (list: IFolderTreeItem[]): IFolderTreeItem[] => {
-    return [...list].sort((a, b) => a.name.localeCompare(b.name));
-  };
+  const foldersTree = useMemo(() => {
+    if (!Array.isArray(files)) return [];
 
-  const createChildRecursive = (
-    path: string,
-    foldersStruct: Record<string, IFile[]>
-  ): IFolderTreeItem[] => {
-    if (!foldersStruct[path]) return []; // No children for this path
+    const sortFolders = (list: IFolderTreeItem[]): IFolderTreeItem[] => {
+      return [...list].sort((a, b) => a.name.localeCompare(b.name));
+    };
 
-    const children = foldersStruct[path]?.map((folder) => {
-      return {
-        ...folder,
-        subDirectories: createChildRecursive(folder.path, foldersStruct),
-      };
-    });
+    const createChildRecursive = (
+      path: string,
+      foldersStruct: Record<string, IFile[]>
+    ): IFolderTreeItem[] => {
+      if (!foldersStruct[path]) return []; // No children for this path
 
-    return sortFolders(children); // Sort children before returning
-  };
-
-  useEffect(() => {
-    if (Array.isArray(files)) {
-      const folders = files.filter((file) => file.isDirectory);
-      // Replace Object.groupBy with reduce for compatibility
-      const foldersStruct = folders.reduce((acc, folder) => {
-        const parentPath = getParentPath(folder.path);
-        if (!acc[parentPath]) acc[parentPath] = [];
-        acc[parentPath].push(folder);
-        return acc;
-      }, {} as Record<string, IFile[]>);
-
-      setFoldersTree(() => {
-        const rootPath = "";
-        return createChildRecursive(rootPath, foldersStruct);
+      const children = foldersStruct[path]?.map((folder) => {
+        return {
+          ...folder,
+          subDirectories: createChildRecursive(folder.path, foldersStruct),
+        };
       });
-    }
-  }, [files]); // Re-run when files changes
+
+      return sortFolders(children); // Sort children before returning
+    };
+
+    const folders = files.filter((file) => file.isDirectory);
+    // Replace Object.groupBy with reduce for compatibility
+    const foldersStruct = folders.reduce((acc, folder) => {
+      const parentPath = getParentPath(folder.path);
+      if (!acc[parentPath]) acc[parentPath] = [];
+      acc[parentPath].push(folder);
+      return acc;
+    }, {} as Record<string, IFile[]>);
+
+    return createChildRecursive("", foldersStruct);
+  }, [files]);
 
   return (
     <div className="hdgrfm-sb-folders-list">
