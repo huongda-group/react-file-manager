@@ -1,0 +1,3 @@
+## 2024-05-18 - Unmemoized Context Values Cause Re-Render Cascades
+**Learning:** In a heavily context-based architecture, passing unmemoized inline objects (`value={{ ... }}`) directly to context providers located near the root of the app causes extensive re-render cascades. Every time a top-level state updates, the inline object reference changes, triggering re-renders in every consumer component across the entire app.
+**Action:** Always wrap context values in `useMemo` when defining Context Providers, especially for those located near the root of the component tree, ensuring that consumer components only re-render when the actual state they care about changes.

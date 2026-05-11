@@ -109,22 +109,36 @@ export const FileNavigationProvider = ({
     setTempNewFolder(null);
   }, [currentPath]);
 
+  // ⚡ Bolt: Memoize the context value to prevent unnecessary re-renders of consumer components
+  // Without this, the inline object passed to value={} would recreate on every render,
+  // causing widespread rendering cascades across the application.
+  const contextValue = useMemo(
+    () => ({
+      currentPath,
+      setCurrentPath,
+      currentFolder,
+      currentPathFiles,
+      sortConfig,
+      setSortConfig,
+      onFolderChange,
+      editingFileId,
+      setEditingFileId,
+      tempNewFolder,
+      setTempNewFolder,
+    }),
+    [
+      currentPath,
+      currentFolder,
+      currentPathFiles,
+      sortConfig,
+      onFolderChange,
+      editingFileId,
+      tempNewFolder,
+    ]
+  );
+
   return (
-    <FileNavigationContext.Provider
-      value={{
-        currentPath,
-        setCurrentPath,
-        currentFolder,
-        currentPathFiles,
-        sortConfig,
-        setSortConfig,
-        onFolderChange,
-        editingFileId,
-        setEditingFileId,
-        tempNewFolder,
-        setTempNewFolder,
-      }}
-    >
+    <FileNavigationContext.Provider value={contextValue}>
       {children}
     </FileNavigationContext.Provider>
   );

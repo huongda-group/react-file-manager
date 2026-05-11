@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, PropsWithChildren } from "react";
+import { createContext, useContext, useState, useMemo, PropsWithChildren } from "react";
 
 export type LayoutType = "grid" | "list";
 
@@ -25,8 +25,16 @@ export const LayoutProvider = ({ children, layout }: LayoutProviderProps) => {
       : "grid";
   }
 
+  // ⚡ Bolt: Memoize the context value to prevent unnecessary re-renders of consumer components
+  // Without this, the inline object passed to value={} would recreate on every render,
+  // causing widespread rendering cascades across the application.
+  const contextValue = useMemo(
+    () => ({ activeLayout, setActiveLayout }),
+    [activeLayout]
+  );
+
   return (
-    <LayoutContext.Provider value={{ activeLayout, setActiveLayout }}>
+    <LayoutContext.Provider value={contextValue}>
       {children}
     </LayoutContext.Provider>
   );
