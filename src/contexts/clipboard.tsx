@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useState,
+  useMemo,
   PropsWithChildren,
 } from "react";
 import { useSelection } from "./selection";
@@ -77,10 +78,16 @@ export const ClipBoardProvider = ({
     }
   };
 
+  // ⚡ Bolt: Memoize the context value to prevent unnecessary re-renders of consumer components
+  // Without this, the inline object passed to value={} would recreate on every render,
+  // causing widespread rendering cascades across the application.
+  const contextValue = useMemo(
+    () => ({ clipBoard, setClipBoard, handleCutCopy, handlePasting }),
+    [clipBoard, handleCutCopy, handlePasting]
+  );
+
   return (
-    <ClipBoardContext.Provider
-      value={{ clipBoard, setClipBoard, handleCutCopy, handlePasting }}
-    >
+    <ClipBoardContext.Provider value={contextValue}>
       {children}
     </ClipBoardContext.Provider>
   );

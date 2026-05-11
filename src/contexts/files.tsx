@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useMemo,
   PropsWithChildren,
 } from "react";
 import { IFile } from "../types";
@@ -33,16 +34,23 @@ export const FilesProvider = ({
     setFiles(filesData);
   }, [filesData]);
 
-  const getChildren = (file: IFile): IFile[] => {
-    if (!file.isDirectory) return [];
+  // ⚡ Bolt: Memoize the context value to prevent unnecessary re-renders of consumer components
+  // Without this, the inline object passed to value={} would recreate on every render,
+  // causing widespread rendering cascades across the application.
+  const contextValue = useMemo(() => {
+    const getChildren = (file: IFile): IFile[] => {
+      if (!file.isDirectory) return [];
 
-    return files.filter(
-      (child) => child.path === `${file.path}/${child.name}`
-    );
-  };
+      return files.filter(
+        (child) => child.path === `${file.path}/${child.name}`
+      );
+    };
+
+    return { files, setFiles, getChildren, onError };
+  }, [files, onError]);
 
   return (
-    <FilesContext.Provider value={{ files, setFiles, getChildren, onError }}>
+    <FilesContext.Provider value={contextValue}>
       {children}
     </FilesContext.Provider>
   );
