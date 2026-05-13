@@ -4,6 +4,8 @@ import {
   useEffect,
   useState,
   PropsWithChildren,
+  useCallback,
+  useMemo,
 } from "react";
 import { validateApiCallback } from "../utils/validate-api-callback";
 import { IFile } from "../types";
@@ -35,14 +37,18 @@ export const SelectionProvider = ({
     onSelectionChange?.(selectedFiles);
   }, [selectedFiles]);
 
-  const handleDownload = () => {
+  const handleDownload = useCallback(() => {
     validateApiCallback(onDownload, "onDownload", selectedFiles);
-  };
+  }, [onDownload, selectedFiles]);
+
+  const contextValue = useMemo(() => ({
+    selectedFiles,
+    setSelectedFiles,
+    handleDownload
+  }), [selectedFiles, handleDownload]);
 
   return (
-    <SelectionContext.Provider
-      value={{ selectedFiles, setSelectedFiles, handleDownload }}
-    >
+    <SelectionContext.Provider value={contextValue}>
       {children}
     </SelectionContext.Provider>
   );
