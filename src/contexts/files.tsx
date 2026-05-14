@@ -3,6 +3,8 @@ import {
   useContext,
   useEffect,
   useState,
+  useMemo,
+  useCallback,
   PropsWithChildren,
 } from "react";
 import { IFile } from "../types";
@@ -33,16 +35,21 @@ export const FilesProvider = ({
     setFiles(filesData);
   }, [filesData]);
 
-  const getChildren = (file: IFile): IFile[] => {
+  const getChildren = useCallback((file: IFile): IFile[] => {
     if (!file.isDirectory) return [];
 
     return files.filter(
       (child) => child.path === `${file.path}/${child.name}`
     );
-  };
+  }, [files]);
+
+  const value = useMemo(
+    () => ({ files, setFiles, getChildren, onError }),
+    [files, getChildren, onError]
+  );
 
   return (
-    <FilesContext.Provider value={{ files, setFiles, getChildren, onError }}>
+    <FilesContext.Provider value={value}>
       {children}
     </FilesContext.Provider>
   );
