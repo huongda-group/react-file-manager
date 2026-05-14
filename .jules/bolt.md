@@ -1,0 +1,3 @@
+## 2026-05-14 - Prevent widespread rendering cascades in React Context based architectures
+**Learning:** The architecture heavily relies on React Contexts (e.g., FilesContext, SelectionContext, FileNavigationContext) for state management. Failing to memoize the context `value` using `useMemo` and inline functions using `useCallback` triggers extensive re-render cascades across all components consuming the context whenever any state in the provider updates.
+**Action:** When defining React Context Providers, always wrap the provider `value` in `useMemo` and use `useCallback` for functions passed in the context value.
