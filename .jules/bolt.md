@@ -1,0 +1,3 @@
+## 2024-05-15 - Memoizing Context Providers in React File Manager
+**Learning:** This codebase heavily relies on React Contexts for state management (Files, Navigation, Selection, Clipboard, Layout). If Context provider `value`s are not properly memoized with `useMemo` and their exposed functions not wrapped in `useCallback`, any re-render in the App component triggers widespread render cascades down to every component that consumes these contexts, regardless of whether the specific context state actually changed.
+**Action:** Always verify that newly created or modified Context Providers wrap their provider values in `useMemo` and function handlers in `useCallback`.
