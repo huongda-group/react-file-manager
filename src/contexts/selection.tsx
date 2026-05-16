@@ -3,6 +3,8 @@ import {
   useContext,
   useEffect,
   useState,
+  useCallback,
+  useMemo,
   PropsWithChildren,
 } from "react";
 import { validateApiCallback } from "../utils/validate-api-callback";
@@ -35,14 +37,19 @@ export const SelectionProvider = ({
     onSelectionChange?.(selectedFiles);
   }, [selectedFiles]);
 
-  const handleDownload = () => {
+  // Memoize handleDownload to prevent unnecessary re-renders of consumers
+  const handleDownload = useCallback(() => {
     validateApiCallback(onDownload, "onDownload", selectedFiles);
-  };
+  }, [onDownload, selectedFiles]);
+
+  // Memoize provider value to prevent widespread rendering cascades
+  const providerValue = useMemo(
+    () => ({ selectedFiles, setSelectedFiles, handleDownload }),
+    [selectedFiles, setSelectedFiles, handleDownload]
+  );
 
   return (
-    <SelectionContext.Provider
-      value={{ selectedFiles, setSelectedFiles, handleDownload }}
-    >
+    <SelectionContext.Provider value={providerValue}>
       {children}
     </SelectionContext.Provider>
   );

@@ -1,0 +1,3 @@
+## 2024-05-16 - React Context Memoization for Provider Values
+**Learning:** In a heavily context-dependent React application (like this file manager component library), failing to memoize context provider values with `useMemo` causes widespread and unnecessary re-render cascades across all consumer components whenever the provider component re-renders (even if the actual state they care about hasn't changed). Similarly, functions passed down through context must be wrapped in `useCallback`.
+**Action:** Always wrap the object passed to a React Context `value` prop in `useMemo` and ensure any callback functions included in that value are wrapped in `useCallback` to maintain referential equality and preserve the performance benefits of downstream `React.memo` usage.
