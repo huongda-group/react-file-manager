@@ -1,0 +1,3 @@
+## 2023-11-20 - Missing React Context Memoization
+**Learning:** React contexts created in this codebase frequently return inline objects without memoization. Because contexts are heavily relied upon (e.g., FilesContext, SelectionContext, FileNavigationContext), missing `useMemo` on the provider `value` object, combined with missing `useCallback` on event handlers within it, causes widespread unnecessary re-render cascades across consumer components every time the parent provider re-renders.
+**Action:** When defining React Context Providers, always wrap the provider value in `useMemo` and use `useCallback` for functions passed in the context value.
