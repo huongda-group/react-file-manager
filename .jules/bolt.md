@@ -1,0 +1,3 @@
+## 2024-05-18 - Missing Context Provider Memoization Leads to Cascading Re-renders
+**Learning:** The architecture heavily relies on React Contexts (e.g., FilesContext, SelectionContext, FileNavigationContext) for state management. Not wrapping provider values in `useMemo` and functions in `useCallback` caused extensive re-render cascades across consumer components whenever a state updated, severely impacting performance.
+**Action:** When setting up React Context Providers, always wrap the provider value in `useMemo` and use `useCallback` for functions passed in the context value to prevent widespread rendering cascades across consumer components.
