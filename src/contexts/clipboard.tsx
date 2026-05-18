@@ -3,6 +3,8 @@ import {
   useContext,
   useState,
   PropsWithChildren,
+  useCallback,
+  useMemo,
 } from "react";
 import { useSelection } from "./selection";
 import { validateApiCallback } from "../utils/validate-api-callback";
@@ -41,7 +43,8 @@ export const ClipBoardProvider = ({
   const [clipBoard, setClipBoard] = useState<ICloneItem | null>(null);
   const { selectedFiles, setSelectedFiles } = useSelection();
 
-  const handleCutCopy = (isMoving: boolean) => {
+  // ⚡ Bolt Performance Optimization: Memoize context function to prevent re-render cascades
+  const handleCutCopy = useCallback((isMoving: boolean) => {
     setClipBoard({
       files: selectedFiles,
       isMoving: isMoving,
@@ -52,10 +55,11 @@ export const ClipBoardProvider = ({
     } else {
       if (onCopy) onCopy(selectedFiles);
     }
-  };
+  }, [selectedFiles, onCut, onCopy]);
 
   // Todo: Show error if destination folder already has file(s) with the same name
-  const handlePasting = (destinationFolder: IFile | null) => {
+  // ⚡ Bolt Performance Optimization: Memoize context function to prevent re-render cascades
+  const handlePasting = useCallback((destinationFolder: IFile | null) => {
     if (destinationFolder && !destinationFolder.isDirectory) return;
 
     if (clipBoard) {
@@ -75,11 +79,17 @@ export const ClipBoardProvider = ({
       }
       setSelectedFiles([]);
     }
-  };
+  }, [clipBoard, onPaste, setSelectedFiles]);
+
+  // ⚡ Bolt Performance Optimization: Memoize context value to prevent re-render cascades
+  const contextValue = useMemo(
+    () => ({ clipBoard, setClipBoard, handleCutCopy, handlePasting }),
+    [clipBoard, setClipBoard, handleCutCopy, handlePasting]
+  );
 
   return (
     <ClipBoardContext.Provider
-      value={{ clipBoard, setClipBoard, handleCutCopy, handlePasting }}
+      value={contextValue}
     >
       {children}
     </ClipBoardContext.Provider>
