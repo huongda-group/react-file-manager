@@ -109,22 +109,34 @@ export const FileNavigationProvider = ({
     setTempNewFolder(null);
   }, [currentPath]);
 
+  // Memoize context value to prevent widespread re-render cascades
+  const providerValue = useMemo(
+    () => ({
+      currentPath,
+      setCurrentPath,
+      currentFolder,
+      currentPathFiles,
+      sortConfig,
+      setSortConfig,
+      onFolderChange,
+      editingFileId,
+      setEditingFileId,
+      tempNewFolder,
+      setTempNewFolder,
+    }),
+    [
+      currentPath,
+      currentFolder,
+      currentPathFiles,
+      sortConfig,
+      onFolderChange,
+      editingFileId,
+      tempNewFolder,
+    ]
+  );
+
   return (
-    <FileNavigationContext.Provider
-      value={{
-        currentPath,
-        setCurrentPath,
-        currentFolder,
-        currentPathFiles,
-        sortConfig,
-        setSortConfig,
-        onFolderChange,
-        editingFileId,
-        setEditingFileId,
-        tempNewFolder,
-        setTempNewFolder,
-      }}
-    >
+    <FileNavigationContext.Provider value={providerValue}>
       {children}
     </FileNavigationContext.Provider>
   );

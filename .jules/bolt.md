@@ -1,0 +1,3 @@
+## 2024-05-19 - React Context Value Memoization
+**Learning:** This codebase relies heavily on React Context for state management across many components (Files, FileNavigation, Selection, etc.). Without memoizing the Context Provider value and functions using `useMemo` and `useCallback`, every state update in the context causes a widespread re-render cascade of all consuming components.
+**Action:** When defining React Context Providers in this architecture, always wrap the provider value in `useMemo` and use `useCallback` for functions passed in the context value. This prevents unnecessary re-renders in deeply nested consumer components.
