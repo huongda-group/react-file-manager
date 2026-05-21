@@ -3,6 +3,8 @@ import {
   useContext,
   useEffect,
   useState,
+  useCallback,
+  useMemo,
   PropsWithChildren,
 } from "react";
 import { validateApiCallback } from "../utils/validate-api-callback";
@@ -35,13 +37,19 @@ export const SelectionProvider = ({
     onSelectionChange?.(selectedFiles);
   }, [selectedFiles]);
 
-  const handleDownload = () => {
+  const handleDownload = useCallback(() => {
     validateApiCallback(onDownload, "onDownload", selectedFiles);
-  };
+  }, [onDownload, selectedFiles]);
+
+  // Memoize context value to prevent unnecessary re-renders of consumer components
+  const contextValue = useMemo(
+    () => ({ selectedFiles, setSelectedFiles, handleDownload }),
+    [selectedFiles, setSelectedFiles, handleDownload]
+  );
 
   return (
     <SelectionContext.Provider
-      value={{ selectedFiles, setSelectedFiles, handleDownload }}
+      value={contextValue}
     >
       {children}
     </SelectionContext.Provider>
