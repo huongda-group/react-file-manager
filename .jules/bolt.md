@@ -1,0 +1,3 @@
+## 2024-05-22 - Missing Context Value Memoization
+**Learning:** In this codebase, React Context Providers are widely used (e.g., FilesContext, SelectionContext, FileNavigationContext). None of the provider `value` objects were memoized. This is a critical performance anti-pattern because any re-render of the Provider component creates a new reference for the context value, forcing all consuming components to re-render, leading to extensive re-render cascades.
+**Action:** Always wrap context provider values in `useMemo` and pass dependencies properly. Use `useCallback` for functions defined within the provider that are passed down through the context.

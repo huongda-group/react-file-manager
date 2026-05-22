@@ -1,6 +1,8 @@
 import {
   createContext,
   useContext,
+  useMemo,
+  useCallback,
   useState,
   PropsWithChildren,
 } from "react";
@@ -41,7 +43,7 @@ export const ClipBoardProvider = ({
   const [clipBoard, setClipBoard] = useState<ICloneItem | null>(null);
   const { selectedFiles, setSelectedFiles } = useSelection();
 
-  const handleCutCopy = (isMoving: boolean) => {
+  const handleCutCopy = useCallback((isMoving: boolean) => {
     setClipBoard({
       files: selectedFiles,
       isMoving: isMoving,
@@ -52,10 +54,10 @@ export const ClipBoardProvider = ({
     } else {
       if (onCopy) onCopy(selectedFiles);
     }
-  };
+  }, [selectedFiles, onCut, onCopy]);
 
   // Todo: Show error if destination folder already has file(s) with the same name
-  const handlePasting = (destinationFolder: IFile | null) => {
+  const handlePasting = useCallback((destinationFolder: IFile | null) => {
     if (destinationFolder && !destinationFolder.isDirectory) return;
 
     if (clipBoard) {
@@ -75,12 +77,15 @@ export const ClipBoardProvider = ({
       }
       setSelectedFiles([]);
     }
-  };
+  }, [clipBoard, onPaste, setSelectedFiles]);
+
+  const value = useMemo(
+    () => ({ clipBoard, setClipBoard, handleCutCopy, handlePasting }),
+    [clipBoard, handleCutCopy, handlePasting]
+  );
 
   return (
-    <ClipBoardContext.Provider
-      value={{ clipBoard, setClipBoard, handleCutCopy, handlePasting }}
-    >
+    <ClipBoardContext.Provider value={value}>
       {children}
     </ClipBoardContext.Provider>
   );
