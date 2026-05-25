@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, PropsWithChildren } from "react";
+import { createContext, useContext, useState, useMemo, PropsWithChildren } from "react";
 
 export type LayoutType = "grid" | "list";
 
@@ -13,20 +13,25 @@ interface LayoutProviderProps extends PropsWithChildren {
   layout: string;
 }
 
+function validateLayout(layout: string): LayoutType {
+  const acceptedValue: LayoutType[] = ["list", "grid"];
+  return acceptedValue.includes(layout as LayoutType)
+    ? (layout as LayoutType)
+    : "grid";
+}
+
 export const LayoutProvider = ({ children, layout }: LayoutProviderProps) => {
   const [activeLayout, setActiveLayout] = useState<LayoutType>(() =>
     validateLayout(layout)
   );
 
-  function validateLayout(layout: string): LayoutType {
-    const acceptedValue: LayoutType[] = ["list", "grid"];
-    return acceptedValue.includes(layout as LayoutType)
-      ? (layout as LayoutType)
-      : "grid";
-  }
+  const contextValue = useMemo(
+    () => ({ activeLayout, setActiveLayout }),
+    [activeLayout]
+  );
 
   return (
-    <LayoutContext.Provider value={{ activeLayout, setActiveLayout }}>
+    <LayoutContext.Provider value={contextValue}>
       {children}
     </LayoutContext.Provider>
   );
