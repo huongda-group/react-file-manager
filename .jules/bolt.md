@@ -1,0 +1,3 @@
+## 2026-05-28 - Missing Context Provider Memoization Causes Excessive Re-renders
+**Learning:** Found that multiple React contexts in this codebase (`FilesContext`, `SelectionContext`, `FileNavigationContext`, etc.) passed non-memoized values to their providers. Since React context triggers a re-render for all consumers whenever the `value` prop changes reference, this caused extensive rendering cascades across the application every time a parent component re-rendered or unassociated state updated.
+**Action:** When defining React Context Providers, always wrap the provider `value` in `useMemo` and use `useCallback` for functions passed in the context value to prevent widespread rendering cascades across consumer components.
