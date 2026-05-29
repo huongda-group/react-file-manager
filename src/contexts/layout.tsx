@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, PropsWithChildren } from "react";
+import { createContext, useContext, useState, useMemo, PropsWithChildren } from "react";
 
 export type LayoutType = "grid" | "list";
 
@@ -25,8 +25,15 @@ export const LayoutProvider = ({ children, layout }: LayoutProviderProps) => {
       : "grid";
   }
 
+  // ⚡ Bolt: Wrap Context Provider value in useMemo to prevent widespread
+  // re-render cascades across consumer components whenever the provider re-renders.
+  const contextValue = useMemo(() => ({
+    activeLayout,
+    setActiveLayout
+  }), [activeLayout, setActiveLayout]);
+
   return (
-    <LayoutContext.Provider value={{ activeLayout, setActiveLayout }}>
+    <LayoutContext.Provider value={contextValue}>
       {children}
     </LayoutContext.Provider>
   );
