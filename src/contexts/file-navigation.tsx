@@ -109,22 +109,36 @@ export const FileNavigationProvider = ({
     setTempNewFolder(null);
   }, [currentPath]);
 
+  // ⚡ Bolt: Wrap Context Provider value in useMemo to prevent widespread
+  // re-render cascades across consumer components whenever the provider re-renders.
+  const contextValue = useMemo(() => ({
+    currentPath,
+    setCurrentPath,
+    currentFolder,
+    currentPathFiles,
+    sortConfig,
+    setSortConfig,
+    onFolderChange,
+    editingFileId,
+    setEditingFileId,
+    tempNewFolder,
+    setTempNewFolder,
+  }), [
+    currentPath,
+    setCurrentPath,
+    currentFolder,
+    currentPathFiles,
+    sortConfig,
+    setSortConfig,
+    onFolderChange,
+    editingFileId,
+    setEditingFileId,
+    tempNewFolder,
+    setTempNewFolder,
+  ]);
+
   return (
-    <FileNavigationContext.Provider
-      value={{
-        currentPath,
-        setCurrentPath,
-        currentFolder,
-        currentPathFiles,
-        sortConfig,
-        setSortConfig,
-        onFolderChange,
-        editingFileId,
-        setEditingFileId,
-        tempNewFolder,
-        setTempNewFolder,
-      }}
-    >
+    <FileNavigationContext.Provider value={contextValue}>
       {children}
     </FileNavigationContext.Provider>
   );

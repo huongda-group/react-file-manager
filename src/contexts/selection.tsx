@@ -3,6 +3,8 @@ import {
   useContext,
   useEffect,
   useState,
+  useCallback,
+  useMemo,
   PropsWithChildren,
 } from "react";
 import { validateApiCallback } from "../utils/validate-api-callback";
@@ -35,14 +37,21 @@ export const SelectionProvider = ({
     onSelectionChange?.(selectedFiles);
   }, [selectedFiles]);
 
-  const handleDownload = () => {
+  // ⚡ Bolt: Memoize context methods to maintain stable references
+  const handleDownload = useCallback(() => {
     validateApiCallback(onDownload, "onDownload", selectedFiles);
-  };
+  }, [onDownload, selectedFiles]);
+
+  // ⚡ Bolt: Wrap Context Provider value in useMemo to prevent widespread
+  // re-render cascades across consumer components whenever the provider re-renders.
+  const contextValue = useMemo(() => ({
+    selectedFiles,
+    setSelectedFiles,
+    handleDownload
+  }), [selectedFiles, setSelectedFiles, handleDownload]);
 
   return (
-    <SelectionContext.Provider
-      value={{ selectedFiles, setSelectedFiles, handleDownload }}
-    >
+    <SelectionContext.Provider value={contextValue}>
       {children}
     </SelectionContext.Provider>
   );
