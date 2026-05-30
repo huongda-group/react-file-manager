@@ -3,6 +3,8 @@ import {
   useContext,
   useEffect,
   useState,
+  useMemo,
+  useCallback,
   PropsWithChildren,
 } from "react";
 import { IFile } from "../types";
@@ -33,16 +35,25 @@ export const FilesProvider = ({
     setFiles(filesData);
   }, [filesData]);
 
-  const getChildren = (file: IFile): IFile[] => {
+  // ⚡ Bolt: Memoized getChildren function to maintain reference equality
+  // between renders unless files array changes
+  const getChildren = useCallback((file: IFile): IFile[] => {
     if (!file.isDirectory) return [];
 
     return files.filter(
       (child) => child.path === `${file.path}/${child.name}`
     );
-  };
+  }, [files]);
+
+  // ⚡ Bolt: Memoized context value to prevent unnecessary re-render cascades
+  // in all child components that consume this context
+  const value = useMemo(
+    () => ({ files, setFiles, getChildren, onError }),
+    [files, setFiles, getChildren, onError]
+  );
 
   return (
-    <FilesContext.Provider value={{ files, setFiles, getChildren, onError }}>
+    <FilesContext.Provider value={value}>
       {children}
     </FilesContext.Provider>
   );
