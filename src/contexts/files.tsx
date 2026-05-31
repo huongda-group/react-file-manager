@@ -4,6 +4,8 @@ import {
   useEffect,
   useState,
   PropsWithChildren,
+  useCallback,
+  useMemo,
 } from "react";
 import { IFile } from "../types";
 
@@ -33,16 +35,22 @@ export const FilesProvider = ({
     setFiles(filesData);
   }, [filesData]);
 
-  const getChildren = (file: IFile): IFile[] => {
+  // Memoize getChildren to prevent unnecessary re-renders of consumers
+  const getChildren = useCallback((file: IFile): IFile[] => {
     if (!file.isDirectory) return [];
 
     return files.filter(
       (child) => child.path === `${file.path}/${child.name}`
     );
-  };
+  }, [files]);
+
+  // Memoize context value to prevent widespread rendering cascades
+  const contextValue = useMemo(() => ({
+    files, setFiles, getChildren, onError
+  }), [files, setFiles, getChildren, onError]);
 
   return (
-    <FilesContext.Provider value={{ files, setFiles, getChildren, onError }}>
+    <FilesContext.Provider value={contextValue}>
       {children}
     </FilesContext.Provider>
   );
